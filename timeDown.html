@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数字拼接倒计时</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+</head>
+<body>
+	<div id=test>
+		
+	</div>
+
+<script type="text/javascript">
+	var y1=20,
+		y2=17,
+		m1=2,
+		m2=1,
+
+		d1=d2=3,
+
+		h1=h2=00,
+
+		f1=f2=00,
+
+		s1=s2=00,
+
+		ms1=ms2=ms3=ms4=0;
+
+	function timeFun(){
+		if(ms1==0){ms1=9;
+			if(ms2==0){ms2=9;
+				if(ms3==0){ms3=9;
+					// if(ms4==0){ms4=9;
+
+						if(s1==0){s1=9;
+							if(s2==0){s2=5;
+
+								if(f1==0){f1=9;
+									if(f2==0){f2=5;
+
+										if(h1==0){h1=4;
+											if(h2==0){h2=2;
+
+												if(d1==0){d1=9;
+													if(d2==0){d2=2;
+
+														if(m1==0){m1=9;
+															if(m2==0){m2=1;
+															
+															}else{m2--;}
+														}else{m1--;}
+
+													}else{d2--;}
+												}else{d1--;}
+
+											}else{h2--;}
+										}else{h1--;}
+
+									}else{f2--;}
+								}else{f1--;}
+
+							}else{s2--;}
+						}else{s1--;}
+
+					// }else{ms4--;}
+				}else{ms3--;}
+			}else{ms2--;}
+		}else{ms1--;}
+		$('#test').html('月'+m2+m1+'日'+d2+d1+'时'+h2+h1+'分'+f2+f1+'-秒'+s2+s1+'-毫秒'+ms3+ms1+ms2);
+	}
+
+	setInterval(timeFun,1);
+
+
+	
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

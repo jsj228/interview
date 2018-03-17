@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>显示后两天的日期</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	function time(y,m,d){
+	     $('.startTime').html(m+'月'+(d-2)+'日');
+	     console.log('startTime='+y+'年'+m+'月'+d+'日');
+	     if(y%4==0|y%400==0){
+	         if(d>26&&m==2){m=m+1;d=(d+2)%28}
+	         else if(d>28&&(m==4|m==6|m==9|m==11)){m=m+1;d=(d+2)%30}
+	         else if(d>29&&(m==1|m==3|m==5|m==7|m==8|m==10)){m=m+1;d=(d+2)%31}
+	         else if(d>29&&m==12){y=y+1;m=m+1-12;d=(d+2)%31;}
+	         else{d=d+2;}
+	     }else{
+	         if(d>27&&m==2){m=m+1;d=(d+2)%29}
+	         else if(d>28&&(m==4|m==6|m==9|m==11)){m=m+1;d=(d+2)%30}
+	         else if(d>29&&(m==1|m==3|m==5|m==7|m==8|m==10)){m=m+1;d=(d+2)%31}
+	         else if(d>29&&m==12){y=y+1;m=m+1-12;d=(d+2)%31}
+	         else{d=d+2;}
+	     }
+	     if(m<10){m='0'+m;}
+	     if(d<10){d='0'+d}
+	     console.log('endTime='+y+'年'+m+'月'+d+'日');
+	}
+	time(new Date().getFullYear(),new Date().getMonth()+1,new Date().getDate());
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>时间倒计时</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+</head>
+<body>
+	<div id=test></div>
+<script type="text/javascript">
+	var y1=2118,
+		m1=12,
+		d1=12,
+		h1=00,
+		f1=00,
+		s1=00,
+		ms1=00;
+	function timeFun(){
+		// if(m1==12&&d1==12&&h1==23&&f1==00&&s1==00){return false;}
+		if(m1==12&&d1==12&&h1==23&&f1==00){return false;}
+		if(ms1==0){
+			ms1=1000;
+			if(s1==0){s1=60;
+				if(f1==0){f1=60;
+					if(h1==0){h1=24;
+						if(d1==0){d1=31;
+							if(m1==1){m1=12;}else{m1--;}
+						}else{d1--;}
+					}else{h1--;}
+				}else{f1--;}
+			}else{s1--;} 
+			}
+		else{ms1--;}
+	
+		$('#test').html(y1+'年-'+m1+'月-'+d1+'日-'+h1+'时-'+f1+'分-'+s1+'秒-'+ms1+'毫秒');
+	}
+	setInterval(timeFun,1);
+
+
+	
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+http://www.bkjia.com/jQuery/821747.html
+$(document).on("mousewheel DOMMouseScroll", function (e) {
+
+
+console.log(e.originalEvent.wheelDelta)  //chrome & ie  ---> 120 and -120 
+console.log(e.originalEvent.detail);	 //firefox  ---> 3 and -3 	
+console.log(e.originalEvent);
+
+var data=e.originalEvent.wheelDelta ||e.originalEvent.detail;
+	console.log(data);
+    
+	//delta > 0 向上滚/向右滚
+	// if (delta > 0) {animation=true;}
+	// //delta < 0 向下滚/向右滚
+	// if (delta < 0 ) {animation=false;}
+
+	arr.push(e.timeStamp);
+	console.log(Number(arr[arr.length-1]) - Number(arr[arr.length-2]));
+
+});

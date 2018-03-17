@@ -1,0 +1,49 @@
+HTML5 中提供的文件API在前端中有着丰富的应用，上传、下载、读取内容等在日常的交互中很常见。
+而且在各个浏览器的兼容也比较好，包括移动端，除了 IE 只支持 IE10 以上的版本。想要更好地掌握好操作文件的功能，
+先要熟悉每个API
+
+/*文件上传
+FileList 对象和 file 对象
+HTML中的 <input type="file" id="files" multiple accept="image/gif,image/jpeg,image/jpg,image/png">标签
+  其中 multiple 属性，允许用户选择多个文件，
+  FileList对象则就是表示用户选择的文件列表。
+这个列表中的每一个文件，就是一个 file 对象。
+file 对象的属性：
+    name : 文件名，不包含路径。
+    type : 文件类型。图片类型的文件都会以 image/ 开头，可以由此来限制只允许上传图片。
+    size : 文件大小。可以根据文件大小来进行其他操作。
+    lastModified : 文件最后修改的时间。
+<script>
+    var elem = document.getElementById('files');
+    elem.onchange = function (event) {
+      var files = event.target.files;
+      for (var i = 0; i < files.length; i++) {// 文件类型为 image 并且文件大小小于 
+        200kbif(files[i].type.indexOf('image/') !== -1 && files[i].size < 204800){console.log(files[i].name);}
+      }
+    }
+</script>
+input 其中accept 属性，可以用来规定能够通过文件上传进行提交的文件类型。
+accept="image/*" 可以用来限制只允许上传图像格式。但是在 Webkit 浏览器下却出现了响应滞慢的问题，要等上好几秒才弹出文件选择框。
+解决方法就是将 * 通配符改为指定的 MIME 类型。
+
+Blob 对象相当于一个容器，可以用于存放二进制数据。它有两个属性，size 属性表示字节长度，type 属性表示 MIME 类型。
+如何创建 Blob 对象
+Blob 对象可以使用 Blob() 构造函数来创建。
+var blob = new Blob(['hello'], {type:"text/plain"});
+Blob 构造函数中的第一个参数是一个数组，可以存放 ArrayBuffer对象、ArrayBufferView 对象、Blob对象和字符串。
+Blob 对象可以通过 slice() 方法来返回一个新的 Blob 对象。
+
+var newblob = blob.slice(0,5, {type:"text/plain"});
+slice() 方法使用三个参数，均为可选。第一个参数代表要从Blob对象中的二进制数据的起始位置开始复制，第二个参数代表复制的结束位置，第三个参数为 Blob 对象的 MIME 类型。
+canvas.toBlob() 也可以创建 Blob 对象。toBlob() 使用三个参数，第一个为回调函数，第二个为图片类型，默认为 image/png，第三个为图片质量，值在0到1之间。
+var canvas = document.getElementById('canvas');canvas.toBlob(function(blob){ console.log(blob); }, "image/jpeg", 0.5);
+
+/*文件下载---->给a 标签添加一个download属性，并且需要href属性指定下载文件的路径,即可*/
+<div class="media">
+    <a href="#" download data-localize="index_IOS"><img src="./images/ios.png" data-localize="index_IOS"></a>
+    <a href="#" download data-localize="index_Android"><img src="./images/android.png" data-localize="index_Android"></a>
+    <a href="#" download data-localize="index_PC"><img src="./images/pc.png" data-localize="index_PC"></a>
+</div>
+
+
+

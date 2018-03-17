@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title data-localize="logoTitle"></title>
+    <meta charset="utf-8">
+    <!-- 阻止google自动翻译 -->
+    <meta name="google" content="notranslate" />  
+           
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="images/logoTitle.png">
+    <link rel="stylesheet" href="./css/publicCss.css">
+    <script src="./js/3p/jquery-1.7.1.min.js"></script>
+
+    <script src="./js/3p/jquery.i18n.properties-1.0.9.js"></script>
+    <script src="./js/main.js"></script>
+</head>
+
+<body>
+  <style>
+    ul.header{font-size:18px;font-weight:bold;padding:0 20px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;}
+    h3{font-size:16px;margin:25px auto 14px;}
+    h4,h5{font-size:14px;text-align:left;margin:12px auto}
+    h5{font-weight:normal;}
+    footer{margin-top:60px}
+    footer>p{text-align:right;color:#333;}
+   @media screen and (max-width:1024px) and (min-width:768px) {
+        ul.header{font-size:16px}
+        h3{font-size:15px;margin:12px auto 10px;}
+        footer{margin-top:40px}
+    }
+   @media screen and (max-width:767px) and (min-width:320px) {
+        ul.header{font-size:13px}
+        h3{font-size:15px;margin:10px auto 8px;}
+        footer>p{font-size:14px;line-height:22px;}
+        footer{margin-top:20px}
+        div>p{text-align:left;}
+   }
+  </style>
+  <header >
+       <div>
+            <span>
+                <img src="./images/logo2.png"/>
+            </span>
+            <a href="./index.html"><b data-localize="home"></b></a>
+            <a href="./faq.html"><b data-localize="FAQ"></b></a>
+            <a href="./aboutUs.html"><b data-localize="aboutUs"></b></a>
+        </div>
+  </header><!-- /header -->
+    <div class="contentBox">
+        <ul class="header">
+            <li data-localize='liveUser'></li>
+            <li data-localize='liveConvention'></li>
+        </ul>
+        <h1 data-localize="liveUser"></h1>
+            <h3 data-localize="liveUser_1"></h3>
+            <p data-localize="1Text"></p>
+            <h3 data-localize="liveUser_2"></h3>
+            <h5 data-localize="liveUser_2-Title"></h5>
+            <p data-localize="liveUser_2-1"></p>
+            <p data-localize="liveUser_2-2"></p>
+            <p data-localize="liveUser_2-3"></p>
+            <p data-localize="liveUser_2-4"></p>
+            <p data-localize="liveUser_2-5"></p>
+            <p data-localize="liveUser_2-6"></p>
+            <p data-localize="liveUser_2-7"></p>
+            <h3 data-localize="liveUser_3"></h3>
+            <h5 data-localize="liveUser_3-Title"></h5>
+
+            <h4 data-localize="liveUser_3-2.1"></h4>
+            <h5 data-localize="liveUser_3-2.1-Title"></h5>
+            <p data-localize="liveUser_3-2.1-1"></p>
+            <p data-localize="liveUser_3-2.1-2"></p>
+            <p data-localize="liveUser_3-2.1-3"></p>
+            <p data-localize="liveUser_3-2.1-4"></p>
+            <p data-localize="liveUser_3-2.1-5"></p>
+            <p data-localize="liveUser_3-2.1-6"></p>
+            <p data-localize="liveUser_3-2.1-7"></p>
+            <p data-localize="liveUser_3-2.1-8"></p>
+            <p data-localize="liveUser_3-2.1-9"></p>
+
+            <h4 data-localize="liveUser_3-2.2"></h4>
+            <h5 data-localize="liveUser_3-2.2-Title"></h5>
+            <p data-localize="liveUser_3-2.2-1"></p>
+            <p data-localize="liveUser_3-2.2-2"></p>
+            <p data-localize="liveUser_3-2.2-3"></p>
+            <p data-localize="liveUser_3-2.2-4"></p>
+            <p data-localize="liveUser_3-2.2-5"></p>
+            <p data-localize="liveUser_3-2.2-6"></p>
+
+            <h4 data-localize="liveUser_3-2.3"></h4>
+            <p data-localize="liveUser_3-2.3-1"></p>
+            <p data-localize="liveUser_3-2.3-2"></p>
+            <p data-localize="liveUser_3-2.3-3"></p>
+            <p data-localize="liveUser_3-2.3-4"></p>
+            <p data-localize="liveUser_3-2.3-5"></p>
+
+            <h5 data-localize="liveUser_3-2.4"></h5>
+            <h3 data-localize="liveUser_4"></h3>
+            <p data-localize="liveUser_4-1"></p>
+            <p data-localize="liveUser_4-2"></p>
+        <h1 data-localize="liveConvention"></h1> 
+        <div id="Convention">
+        <h5 data-localize="liveConventionText"></h5>
+        </div>
+         <footer id="footer">
+        </footer>
+
+    </div>
+    <script>
+       (function(){
+            for(var i=1,p="";i<=10;i++){
+                p = document.createElement('p');
+                p.setAttribute("data-localize",'liveConvention-'+i);
+                document.getElementById("Convention").appendChild(p);
+            }
+            live_Footer =document.createElement('p');
+            live_Footer.setAttribute("data-localize",'live_Footer');
+            document.getElementById("footer").appendChild(live_Footer);
+            
+            live_Time =document.createElement('p');
+            live_Time.setAttribute("data-localize",'live_Time');
+            document.getElementById("footer").appendChild(live_Time);
+       })()
+    </script>
+</body>
+</html>

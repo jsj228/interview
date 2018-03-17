@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title data-localize="logoTitle"></title>
+    <meta charset="utf-8">
+    <!-- 阻止google自动翻译 -->
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="images/logoTitle.png">
+    <link rel="stylesheet" href="./css/publicCss.css">
+    
+    <script src="./js/3p/jquery-1.7.1.min.js"></script>
+    <script src="./js/3p/jquery.i18n.properties-1.0.9.js"></script>
+    <script src="./js/main.js"></script>
+</head>
+<body>
+    <style>
+       .contentBox>p{padding-bottom:16px}
+    </style>
+  <header >
+        <div>
+            <span>
+                <img src="./images/logo2.png"/>
+            </span>
+            <a href="./index.html"><b data-localize="home"></b></a>
+            <a href="./faq.html"><b data-localize="FAQ"></b></a>
+            <a href="./userAgreement.html"><b data-localize="Agreement"></b></a>
+        </div>
+  </header><!-- /header -->
+    <div class="contentBox">
+        <h1 data-localize="aboutUs"></h1>
+    </div>
+    <script>
+       (function(){
+            for(var i=1,p="";i<=10;i++){
+                p = document.createElement('p');
+                p.setAttribute("data-localize",'aboutUs-p'+i);
+                document.querySelector(".contentBox").appendChild(p);
+            }
+       })()
+    </script>
+</body>
+</html>

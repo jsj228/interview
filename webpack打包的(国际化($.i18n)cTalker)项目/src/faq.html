@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title data-localize="logoTitle"></title>
+    <meta charset="utf-8">
+    <!-- 阻止google自动翻译 -->
+    <meta name="google" content="notranslate" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="./images/logoTitle.png">
+<!--     <link rel="stylesheet" href="./css/publicCss.css">
+    <script src="./js/3p/jquery-1.7.1.min.js"></script>
+    <script src="./js/3p/jquery.i18n.properties-1.0.9.js"></script>
+    <script src="./js/main.js"></script> -->
+</head>
+
+<body>
+  <style>
+    h1,h4>a{color:#00b1fa}
+    hr{margin:35px auto 45px;}
+    div>p{margin:10px 0 25px;
+        padding-left:40px;
+        text-align:left;width:100%}
+    div>b,h4>a>b{font-size:16px;margin-left:15px;display:inline-block;width:92%;vertical-align:top;}
+    h4>a>b{margin-bottom:10px;}
+    h4>a>a,div#Convention>div>a{display:inline-block;width:22px;text-align:right;}
+    div>p,h4>a>b{display:inline-block;word-wrap:break-word;}
+    #id33>p{display:inline-block;width:100%;margin:10px 0 0 0;}
+   @media screen and (max-width:1024px) and (min-width:768px) {
+        hr{margin:15px auto 35px;}
+        h4>a>b,div>b{margin-bottom:12px;margin-left:10px;}
+        div>b{margin-bottom:0px;}
+        div>p{padding:0 15px 0 32px;}
+
+    }
+   @media screen and (max-width:767px) and (min-width:320px) {
+        hr{margin:15px auto 30px;}
+        h1,h4,div,hr{min-width:320px;max-width:767px;}
+        h4>a{display:inline-block;margin-bottom:3px;width:100%;}
+        h4 > a > a,div#contentBox a{width:20px;font-size:14px;}
+        h4>a>b,div>b{font-size:14px;margin-left:6px;display:inline-block;width:88%;margin-bottom:0px;}
+        div>p{margin:5px 0 15px;padding:0 28px 0 27px;width:100%;}
+        div:last-child>p{font-size:13.9px;} 
+   }
+  </style>
+  <header>
+        <div>
+            <span><img src="./images/logo2.png"/></span>
+            <a href="./index.html"><b data-localize="home"></b></a>
+            <a href="./userAgreement.html"><b data-localize="Agreement"></b></a>
+            <a href="./aboutUs.html"><b data-localize="aboutUs"></b></a>
+        </div>
+  </header>
+    <div class="contentBox">
+        <h1 data-localize="FAQ"></h1>
+        <div id="Convention">
+        </div>
+    </div>
+    <script>
+       (function(){
+            var parentBox=document.querySelector('#Convention'),box,Problem,Answer,sub,hr,iText;
+            for(var i=1,AnswerProblem=''; i<=29; i++) {
+                h4=document.createElement('h4');
+                a=document.createElement('a');
+                b=document.createElement('b');
+                sub=document.createElement('a');
+                iText=document.createTextNode(i+'.');
+                sub.appendChild(iText);
+                
+                a.setAttribute('href',"#id"+i);
+                b.setAttribute('data-localize',"FAQ_problem-"+i);
+                parentBox.appendChild(h4);
+                
+                h4.appendChild(a);
+                a.appendChild(sub);
+                a.appendChild(b);
+            }
+            hr=document.createElement('hr');
+            parentBox.appendChild(hr);
+            for(var i=1,AnswerProblem=''; i<=29; i++) {
+                box=document.createElement('div');
+                sub=document.createElement('a');
+                Problem=document.createElement('b');
+                Answer=document.createElement('p');
+                iText=document.createTextNode(i+'.');
+                sub.appendChild(iText);
+
+                parentBox.appendChild(box);
+                box.appendChild(sub);
+                box.appendChild(Problem);
+                box.appendChild(Answer);
+                box.setAttribute('id',"id"+i);
+                Problem.setAttribute('data-localize',"FAQ_problem-"+i);
+                Answer.setAttribute('data-localize',"FAQ_Answer-"+i);
+            }
+            // Answer=document.createElement('p');
+            // Answer.setAttribute('data-localize',"FAQ_Answer-33.p");
+            // document.querySelector('#id33').appendChild(Answer);
+
+       })()
+    </script>
+</body>
+</html>
