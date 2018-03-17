@@ -1,0 +1,8 @@
+/* index */
+@import './common.css';
+div.layer{
+	font-size:50px;
+	background:#ddd url("../img/logoTitle.png")no-repeat;
+	display:flex;
+	transform:rotate(-10deg);
+}

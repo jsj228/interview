@@ -1,0 +1,37 @@
+{
+  "name": "webpack-demo1",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "webpack": "webpack --config webpack.config.js --progress --display-module --colors --display-reason"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "css-loader": "^0.28.10",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.0.6",
+    "img-loader": "^2.0.1",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
+    "node-sass": "^4.7.2",
+    "postcss-cli": "^5.0.0",
+    "postcss-loader": "^2.1.1",
+    "responsive-loader": "^1.1.0",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "url-loader": "^0.6.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
+  },
+  "dependencies": {
+    "autoprefixer": "^8.1.0"
+  },
+  "description": ""
+}
