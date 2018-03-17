@@ -1,0 +1,11 @@
+/* common */
+*{margin:0;padding:0;list-style:none;outline:none;box-sizing:border-box;}
+div{background:#ff0;
+	display:flex;
+	transition:all 1s;
+	box-shadow: 0 0 0 0 #ffd;
+	cursor:pointer;
+	opacity:0.7;
+	transform:rotate(10deg);
+
+	border:1px solid #ddd;}
