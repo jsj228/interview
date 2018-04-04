@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <title>在线测评</title>
+    <link rel="stylesheet" type="text/css" href="./src/swiper.min.css">
+    <style>
+		*{box-sizing:border-box;margin:0;padding:0;outline:none;border:0;}
+		/*.swiper-container {width: 375px;height:667px;}*/
+		img{width:100%;}
+		#fromMsg{text-align:center;background:rgba(255,255,255,0.8);}
+		#fromMsg>h1{text-shadow:1px 1px 2px #379adb;color:#f00;margin-top:5%}
+		#fromMsg>b{font-size:14px;color:#900;}
+		#fromMsg>dl,#fromMsg>div{background:#eee;width:90%;border-radius:5px;margin:20px auto 0;padding:5% 0;box-shadow:0px 2px 20px #999;border:1px solid #dadada;}
+		#fromMsg>dl>h2,#fromMsg>div>h2{margin:0 auto 1.5%;}
+		#fromMsg>dl>dd{margin:0 auto;}
+		#fromMsg>dl>dd>li,#fromMsg>div>input{background:#fff;margin:3% auto;list-style:none;text-align:left;padding-left:15px;line-height:45px;border-radius:3px;
+			display:block;width:95%;}
+		#fromMsg>dl>dd>li.active{background:#379adb;color:#fff;}
+		#fromMsg>dl>dt{padding:0 10%;}
+		#fromMsg>dl>dt:after{content:"";display:block;clear:both;}
+		#fromMsg>dl>dt>button{background:#999;line-height:45px;border-radius:5px;padding:0 15px;font-size:18px;color:#fff;}
+		#fromMsg>dl>dt>button:first-child{float:left;}
+		#fromMsg>dl>dt>button:last-child{float:right;}
+		#fromMsg>dl>dt>button.active{background:#379adb;}
+		#fromMsg>div>input[type="button"]{text-align:center;font-size:18px;font-weight:bold;background:#379adb;color:#fff;}	
+		header a{display: block;width: 80%;margin: 0 auto;height:2.85rem;line-height:2.85rem;background-color: #ffffff;font-size: 1.54rem;color: #01d297;border-radius: 6px;text-align:center;}
+		.down,.up{background:#f00!important;}
+		.swiper-button-next{top:78%!important;right:44%;background:url(./src/down.png) center center no-repeat !important;width:13%;background-size:50% 50%;}
+    </style>
+</head>
+
+<body>
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+	    <div class="swiper-slide">
+	    	<img src="./src/banner0.jpg" alt="banner0">
+			<div class="swiper-button-next"></div>
+
+	    </div>
+	    <div class="swiper-slide">
+	    	<img src="./src/banner1.jpg" alt="banner1">
+	    	<div class="swiper-button-next"></div>
+	    </div>
+	    <div class="swiper-slide" id="fromMsg">
+	    	<h1>学历提升测试</h1>
+	    	<b>10秒测测,自己能否升本科</b>
+	    	<dl v-for="(val,key0) in msgOther.list" v-show=val.ifshow >
+	    		<h2 v-text=val.title></h2>
+	    		<span >{{key0+1}}/4</span>
+				<dd>
+					<li type="button" v-for="(v,key) in val.text" @click="selectFun(key0,key)"
+						:title="val.title" 
+						:class="v.class" 
+						:value="v.value" 
+						v-text="v.con"
+						:class="msgOther.class"
+					></li>
+				</dd>
+				<dt>
+					<button :class="btnUp"  @click="upFun(key0)" >上一题</button>
+					<button :class='btnDown' @click="downFun(key0)" >下一题</button>
+				</dt>
+			</dl>
+			<div v-if="input.ifShow">
+	    		<h2 v-text=input.title></h2>
+				<input v-for="inputList in input.inputList" 
+					:type="inputList.type"  
+					:placeholder="inputList.placeholder"
+					:class="inputList.class" 
+					:name="inputList.name"
+					:value="inputList.value"
+
+					:onClick="inputList.click"
+					v-show="input.ifShow"
+					>
+			</div>
+	    </div>
+	</div>
+<!-- 如果需要导航按钮 -->
+	   <!-- <div class="swiper-button-prev"></div> -->
+
+<!-- 如果需要滚动条 -->
+	<div class="swiper-scrollbar"></div>
+</div>
+    <script src="./src/swiper.min.js"></script>
+    <script src="./src/jquery-1.11.0.min.js"></script>
+    <script src="./src/leyu.js"></script>
+    <script src="./src/vue2.0.js"></script>
+    <script>
+      $('.swiper-container').height(document.body.clientHeight);
+			$('.swiper-container').width(document.body.clientWidth);
+			var mySwiper = new Swiper ('.swiper-container', {
+			    // autoplay: 6000, //自动播放时间周期
+				speed:500,//slider自动滑动开始到结束的时间（单位ms），也是触摸滑动时释放至贴合的时间。
+
+
+			    initialSlide :0,   //从值0 开始  ----->指的是开始页面
+				direction : 'vertical',//可设置水平(默认horizontal)或垂直(vertical)
+				autoplayStopOnLast : true,//设置为true，当切换到最后一个slide时停止自动切换。（loop模式下无效）。
+				grabCursor:true,//设置为true时，鼠标覆盖Swiper时指针会变成手掌形状，拖动时指针会变成抓手形状。（根据浏览器形状有所
+
+				parallax:true,//开启视差效果（相对父元素移动），设置为true并在所需要的元素上增加data-swiper-parallax属性。
+
+
+			    // 如果需要分页器
+			    pagination: '.swiper-pagination',
+			    touchRatio : 0.1,//触摸距离与slide滑动距离的比率。
+			    // loop: true,//是否 循环
+
+			    // 如果需要前进后退按钮
+			    nextButton: '.swiper-button-next',
+			    prevButton: '.swiper-button-prev',
+			    
+			    // 如果需要滚动条
+			    scrollbar: '.swiper-scrollbar',
+			  });        
+			new Vue({
+				el:'#fromMsg',
+				data:{
+					btnUp:'',
+					btnDown:'',
+					msgOther:{
+						class:'msg_other',
+						name:'msg_other',
+						list:[					
+							{text:[
+								{con:'小学及以下',class:'',value:'小学及以下'},
+								{con:'初中',class:'',value:'初中'},
+								{con:'高中',class:'',value:'高中'},
+								{con:'大专',class:'',value:'大专'},
+								{con:'其他',class:'',value:'其他'},
+							],ifshow:true,title:'您目前的学历层次是:',},{
+							text:[
+								{con:'16岁-23岁',class:'',value:'16岁-23岁'},
+								{con:'24岁-30岁',class:'',value:'24岁-30岁'},
+								{con:'30岁-40岁',class:'',value:'30岁-40岁'},
+								{con:'40岁以上',class:'',value:'40岁以上'},
+							],ifshow:false,title:'您目前的年龄段是:',},{
+							text:[
+								{con:'考公务员',class:'',value:'考公务员'},
+								{con:'升值加薪',class:'',value:'升值加薪'},
+								{con:'考证职称',class:'',value:'考证职称'},
+								{con:'申请入户',class:'',value:'申请入户'},
+								{con:'其他',class:'',value:'其他'},
+							],ifshow:false,title:'为什么考本科',},{
+							text:[
+								{con:'全程无忧',class:'',value:'全程无忧'},
+								{con:'学校听课',class:'',value:'学校听课'},
+								{con:'在家自学',class:'',value:'在家自学'},
+								{con:'辅导教学',class:'',value:'辅导教学'},
+								{con:'其他',class:'',value:'其他'},
+							],ifshow:false,title:'您更偏向于那种取证方式:',},
+						],
+					},
+					input:{
+						ifShow:'',
+						title:'欢迎来到留言模块!',
+						inputList:[
+						{type:'hidden',name:"msg_webID",class:'msg_text',value:'19682'},
+						{type:'hidden',name:"msg_url",class:'msg_text',value:''},
+						{type:'hidden',name:"msg_remarks",class:'msg_text',value:''},
+
+						{type:'text',name:"msg_username",class:'msg_text',value:'',placeholder:'姓名'},
+						{type:'text',name:"msg_userphone",class:'msg_text',value:'',placeholder:'手机号'},
+						{type:'button',name:"",class:'submit',value:'提交结果',click:"$.msgSubmit('fromMsg')",},
+						],
+					},
+				},
+				methods:{
+					selectFun:function(n0,n){
+						var Textln=this.msgOther.list[n0].text.length
+						if(Textln==2){
+							switch(n){
+								case 0:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n+1].class="";break;
+								case 1:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n-1].class="";break;
+							}
+						}
+						if(Textln==3){
+							switch(n){
+								case 0:this.msgOther.list[n0].text[n].class='active msg_other';this.msgOther.list[n0].text[n+1].class='';this.msgOther.list[n0].text[n+2].class='';break;
+								case 1:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n+1].class="";this.msgOther.list[n0].text[n-1].class="";break;
+								case 2:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n-1].class="";this.msgOther.list[n0].text[n-2].class="";break;
+							}
+						}
+						if(Textln==4){
+							switch(n){
+								case 0:this.msgOther.list[n0].text[n].class='active msg_other';this.msgOther.list[n0].text[n+1].class='';this.msgOther.list[n0].text[n+2].class='';
+								this.msgOther.list[n0].text[n+3].class='';break;	
+								case 1:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n+1].class="";this.msgOther.list[n0].text[n-1].class="";
+								this.msgOther.list[n0].text[n+2].class='';break;	
+								case 2:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n+1].class="";this.msgOther.list[n0].text[n-1].class="";
+								this.msgOther.list[n0].text[n-2].class='';break;	
+								case 3:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n-1].class="";this.msgOther.list[n0].text[n-2].class="";
+								this.msgOther.list[n0].text[n-3].class='';break;	
+							}
+						}
+						if(Textln==5){
+							switch(n){
+								case 0:this.msgOther.list[n0].text[n].class='active msg_other';this.msgOther.list[n0].text[n+1].class='';this.msgOther.list[n0].text[n+2].class='';
+								this.msgOther.list[n0].text[n+3].class='';this.msgOther.list[n0].text[n+4].class='';break;
+								case 1:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n+1].class="";this.msgOther.list[n0].text[n-1].class="";
+								this.msgOther.list[n0].text[n+2].class='';this.msgOther.list[n0].text[n+3].class='';break;	
+								case 2:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n+1].class="";this.msgOther.list[n0].text[n-1].class="";
+								this.msgOther.list[n0].text[n-2].class='';this.msgOther.list[n0].text[n+2].class='';break;
+								case 3:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n-1].class="";this.msgOther.list[n0].text[n-2].class="";
+								this.msgOther.list[n0].text[n-3].class='';this.msgOther.list[n0].text[n+1].class='';break;	
+								case 4:this.msgOther.list[n0].text[n].class="active msg_other";this.msgOther.list[n0].text[n-1].class="";this.msgOther.list[n0].text[n-2].class="";
+								this.msgOther.list[n0].text[n-3].class='';this.msgOther.list[n0].text[n-4].class='';break;	
+							}
+						}
+
+						if(n0==0){
+							this.btnDown="down";
+						}
+						else if(n0>0&&n0<this.msgOther.list.length){
+							this.btnDown="down";this.btnUp="up";
+						}
+						else{this.btnUp=""};
+						// console.log(n0);
+						
+					},
+					downFun:function(n0){
+						if(n0==this.msgOther.list.length-1){
+							this.btnUp='';
+							// alert('进入留言模块');
+							this.msgOther.list[n0].ifshow=false;
+							this.input.ifShow=true;
+						}
+						else{
+							this.btnDown='down';
+							this.btnUp='up';
+							for(var i=0,str="";i<this.msgOther.list[n0].text.length;i++){
+								str += this.msgOther.list[n0].text[i].class;
+							};
+							str=="active msg_other"?(this.msgOther.list[n0].ifshow=false,this.msgOther.list[n0+1].ifshow=true):(alert('请选择题目'));
+						};
+					},
+					upFun:function(n0){
+						n0<=0?this.btnUp="":(
+							console.log(n0),
+							this.msgOther.list[n0].ifshow=false,
+							this.msgOther.list[n0-1].ifshow=true
+						);
+					}
+				}
+			});
+
+    </script>
+
+</body>
+
+</html>
