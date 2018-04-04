@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>  
+<html>  
+
+<head> 
+	<meta charset="utf-8" /> 
+	<title>setInterval+animate</title> 
+    <script src="http://www.baihuitong.com.cn/js/jquery-3.2.1.min.js"></script>
+	<style>li{list-style:none}</style>
+</head> 
+<body> 
+    <div id="scrollDiv">
+        <h2>目前已有<b class="random"></b>人测试</h2>
+        <ul>
+            <li style="margin-top: 0px;">
+                林*云&nbsp;&nbsp;&nbsp;&nbsp;138****9854&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                刘*嘉&nbsp;&nbsp;&nbsp;&nbsp;188****7648&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                刘*雁&nbsp;&nbsp;&nbsp;&nbsp;158****3248&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                周*华&nbsp;&nbsp;&nbsp;&nbsp;138****8374&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                许*杰&nbsp;&nbsp;&nbsp;&nbsp;188****7514&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                林*研&nbsp;&nbsp;&nbsp;&nbsp;138****6734&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                周*琳&nbsp;&nbsp;&nbsp;&nbsp;137****7648&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                冯*明&nbsp;&nbsp;&nbsp;&nbsp;139****9854&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                刘*盛&nbsp;&nbsp;&nbsp;&nbsp;135****6317&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                吴*斌&nbsp;&nbsp;&nbsp;&nbsp;188****9764&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                邓*铭&nbsp;&nbsp;&nbsp;&nbsp;182****7633&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+            <li style="margin-top: 0px;">
+                胡*朗&nbsp;&nbsp;&nbsp;&nbsp;157****4621&nbsp;&nbsp;&nbsp;&nbsp;
+                <b class="btn">[查看测评结果]</b></li>
+        </ul>
+    </div>
+<script>
+(function(){
+    function mathRandom(){
+        $('.random').html(parseInt(Math.random()*300)+1000);
+    };
+    mathRandom();
+       
+    $(function(){
+        var el=$('#scrollDiv ul');
+        var moving;
+        el.hover(()=>{
+            clearInterval(moving);
+        },()=>{
+            moving=setInterval(function(){
+                var firsChild=el.find('li:first');
+                var h=firsChild.height();
+                firsChild.animate({marginTop:-h+'px'},600,function(){
+                	firsChild.css('marginTop',0).appendTo(el);
+                });
+            },2000)
+        }).trigger('mouseleave');
+    });
+
+})();
+</script>
+
+</body> 
+</html>
