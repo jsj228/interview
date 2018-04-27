@@ -1,0 +1,53 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>googleMap使用，需要跨网-因为google地图的服务器在USA</title>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&sensor=false">
+    </script>
+    <script>
+        (function mapFun(x, y) {
+            var myCenter = new google.maps.LatLng(x, y);
+            function initialize() {
+                var mapProp = {
+                    center: myCenter,
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                });
+                marker.setMap(map);
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: "英博士英语教育" + "<br>" + '地址：深圳市福田区新洲南路3191号新洲大厦裙楼2楼'
+                });
+                infowindow.open(map, marker);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+            $(".websiteMap>p button").click(function(e) {
+                console.log(this);
+                $(this).parent('span').addClass('locatActive');
+                $(this).parent('span').siblings('span').removeClass('locatActive');
+                mapFun($(this).html(), $(this).attr('id'));
+                mapFun = null;
+            });
+        })(22.7404072508, 113.8308307162);
+    </script>
+</head>
+<body>
+
+    <div class="websiteMap">
+        <p><b>我们在这里:</b>
+            <span class="locatActive">①:<button id="福田区">福田区英博士英语教育</button></span>
+            <span>②:<button id="龙华区">龙华区唱儿乐</button></span>
+            <span>③:<button id="宝安区">宝安区莎士比亚国际英语</button></span>
+        </p>
+        <div class="mapBox">
+            <!-- <div id="l-map"></div> -->
+            <div id="googleMap" style="width:500px;height:380px;"></div>
+        </div>
+       
+    </div>
+</body>
+</html>
