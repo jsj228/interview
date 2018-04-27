@@ -34,11 +34,16 @@
 		];
 		function answerFun(){
 			var str="";
-			var numArrRandom=numArr.splice(parseInt(Math.random()*numArr.length),1);
-			console.log(numArrRandom);
+			numArrRandom=numArr.splice(parseInt(Math.random()*numArr.length),1);
+			numArrRandom.length==0?arcFun=null:arcFun(); //numArrRandom.length==0没有取到数据
+			
 			if(numArr.length==0){console.log("这里是最后一题")}
-			console.log(typeof(numArrRandom[0].problem)!=="string");
-			// if(==='null'){alert('答题结束')}
+			if(typeof(numArrRandom[0])==="undefined"){
+				alert('答题结束');
+				return false;
+			}
+			
+
 			str+=`<h4>`+numArrRandom[0].problem+`</h4>`
 			for(var i=0;i<numArrRandom[0].answerList.length;i++){
 				str+=`<p>`+numArrRandom[0].answerList[i]+`</p>`;
@@ -46,19 +51,21 @@
 			document.getElementById('answerBox').innerHTML=str;
 			console.log(numArrRandom[0].correct);
 			console.log("numArr.length------->"+numArr.length);
+
 		}
 	 	answerFun();
 
 
 
 		// 获取canvas对象
+		
 		function arcFun(){
 			var canvas = document.getElementById("myCanvas").getContext("2d");
 			canvas.lineWidth="4"; //设置所有路径的线宽
-			var i=4.5,x=y=160;times=10,animat=null;
+			var i=4.5,x=y=160;times=10;animat=null;
+
 			animat=setInterval(function (){
 				canvas.beginPath();
-				// canvas.clearRect(130,140,60,50)
 				canvas.clearRect(100,100,200,200)
 				// 设置大小和字体
 				canvas.font="50px Times New Roman";   //font="size 字体"
@@ -69,22 +76,16 @@
 				i+=0.6, times--;
 				canvas.arc(x,y,40,Math.PI*1.5,i,false);
 				canvas.stroke();
-				console.log(times);
-				
 
-				if(times<0){
+				console.log(times);
+				if( times<0){
 					clearInterval(animat);
-	 				answerFun();
-					arcFun();
-					// console.log("numArr.length------->"+numArr.length);
-	 				// numArr.length==0?(answerFun=null,):;
+					answerFun();
 				}
 			},1000);
 		};
-		arcFun()
 
-
-
+// 天-小时-分-秒 --->倒计时
 // function countDown(times){
 // 	var timer=null;
 // 	timer=setInterval(function(){
