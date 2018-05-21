@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>点击复制文本到剪切板</title>
+</head>
+<body>
+	复制的内容：<input type="text" name="copyValue" value="123"> 
+	<buttom id="btnClick">点击复制</buttom>	
+	<script>
+		document.querySelector('#btnClick').onclick=function(){
+      //选择文本
+			document.querySelector('[name="copyValue"]').select()
+      //执行复制命令
+			document.execCommand('Copy');
+			alert('复制成功')
+		}
+	</script>
+</body>
+</html>
