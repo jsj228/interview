@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>  
+<html>  
+
+<head> 
+	<meta charset="utf-8" /> 
+	<title>setInterval+animate</title> 
+    <script src="http://www.baihuitong.com.cn/js/jquery-3.2.1.min.js"></script>
+	<style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+    h2,#scrollDiv{margin:0 auto;width:500px;}
+    #scrollDiv{height:150px;overflow:hidden;position:relative;border:1px dashed #00f;}
+        ul{height:100%;}
+        li{display:inline-block;;height:100%;text-align:center;background:#eee}
+        /*li:nth-child(2){background:#f00;transition:all 1s}*/
+        .first_last{background:#00f;position:absolute;top:50%;color:#fff;}
+        .first_last:hover{background:#ff0}
+        span{position:absolute;bottom:0.02%;left:10%;z-index:10}        
+        span b{display:inline-block;background:#ddd;padding:4px 16px;margin:0 5px;}
+        span b.active{background:#f00;cursor:none;}
+    </style>
+
+</head> 
+<body> 
+    <h2>animate_banner</h2>
+    <div id="scrollDiv">
+        <button class="first_last" name="first" style="left:5px"><<</button>
+        <button class="first_last" name="last" style="right:5px">>></button>
+        <ul>
+            <li>林*云&nbsp;&nbsp;&nbsp;&nbsp;138****9854<br><b class="btn">[查看测评结果]</b></li><li>
+                周*华&nbsp;&nbsp;&nbsp;&nbsp;138****8374<br><b class="btn">[查看测评结果]</b></li><li>
+                111111&nbsp;&nbsp;&nbsp;&nbsp;111111<br><b class="b">111111</b></li><li>
+                2222222222&nbsp;&nbsp;&nbsp;&nbsp;2222222222<br><b class="b">tn2222222222</b></li><li>
+                3333333333&nbsp;&nbsp;&nbsp;&nbsp;3333333333<br><b class="b">333333333333</b></li><li>
+                4444444&nbsp;&nbsp;&nbsp;&nbsp;4444444<br><b class="b">444444444444</b></li><li>
+                555555&nbsp;&nbsp;&nbsp;&nbsp;555555<br><b class="btn">555555</b></li>
+        </ul>
+        <span><b></b><b></b><b class="active"></b></b><b></b><b></b><b></b></b><b></b></span>
+    </div>
+<script>
+(function(){
+    $(function(){
+        var child=$('#scrollDiv li');
+        var el=$('#scrollDiv ul').css({width:child.length*100+'%'});
+        child.css({width:el.width()/child.length})
+        el.css({marginLeft:-$('#scrollDiv li').width()})
+        var moving;
+        // 鼠标事件
+       $('#scrollDiv').hover(()=>{
+            clearInterval(moving);
+        },()=>{
+            moving=setInterval(movingFun,2000)
+        }).trigger('mouseleave');
+        function movingFun(){
+            //first为默认滚动的方向
+            var first=this.name||(this.tagName=="B"&&
+                $('span>b.active').index()>=$(this).index()?'first':'last')||'first'; 
+            var firsChild=el.find('li:first');
+            var lastChild=el.find('li:last');
+            var w=first=='first'?firsChild.width():-firsChild.width();
+            // 点击下标
+            if(this.tagName=="B"&&first=='first'){
+                el.append(child['$(this).index()']);
+                }else{
+                el.prepend(child['$(this).index()']);
+            };
+            // 点击left_right
+            if(first=='first'&&this.tagName=="BUTTON"){
+                num=$('span>b.active').index()==0?child.length:$('span>b.active').index();
+                $('span>b:nth-child('+num).addClass('active').siblings('b').removeClass('active');
+            }else{
+                num=$('span>b.active').index() == parseInt(child.length-1)?1:$('span>b.active').index()+2;
+                $('span>b:nth-child('+num).addClass('active').siblings('b').removeClass('active');
+            };
+            $(this).addClass('active').siblings('b').removeClass('active');
+            // 做运动
+            firsChild.animate(
+                {marginLeft:-w+'px'
+                // ,opacity:'0'
+                },600,function(){
+                    firsChild.css({'marginLeft':0,opacity:'1'})
+                 first=='first'?(firsChild.appendTo(el)):el.prepend(lastChild);
+            });
+        }
+        $('span>b').click(movingFun)
+        $('.first_last').click(movingFun);
+    });
+})();
+</script>
+
+</body> 
+</html>
