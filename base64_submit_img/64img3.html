@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>base64Img</title>
+    <meta charset="utf-8">
+    <script src="./zepto.js"></script>
+</head>
+
+<body>
+    <!-- accept  IE10+ -->
+    <input type="file" id="fileEl" accept="image/x-png,image/gif,image/jpeg,image/bmp" />
+    <button onclick="img()">提交</button>
+    <div id="imgContainer"></div>
+    <script>
+        //上传头像图片   
+        function img() { //PictureUrl为input file 的id  
+            function getObjectURL(file) {
+                var url = null;
+                if (window.createObjcectURL != undefined) {
+                    url = window.createOjcectURL(file);
+                } else if (window.URL != undefined) {
+                    url = window.URL.createObjectURL(file);
+                } else if (window.webkitURL != undefined) {
+                    url = window.webkitURL.createObjectURL(file);
+                }
+                return url;
+            }
+            console.log(document.querySelector('#fileEl').files[0])
+                // 使用每个input file的files属性 就是HTML5中的 FileReader ---->IE10+ 
+            var objURL = getObjectURL(document.querySelector('#fileEl').files[0]); //这里的objURL就是input file的真实路径 
+            console.log(objURL)
+            $('#imgContainer').html("<img src='" + objURL + "' alt='Alternate Text' width='640px' height='350px' id='target' />");
+        }
+    </script>
+
+</body>
+
+</html>

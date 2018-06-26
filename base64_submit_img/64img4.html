@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>base64Img</title>
+    <meta charset="utf-8">
+    <script src="./zepto.js"></script>
+</head>
+
+<body>
+    <!-- accept  IE10+ -->
+    <input type="file" id="fileEl" accept="image/x-png,image/gif,image/jpeg,image/bmp" />
+    <button onclick="img()">提交</button>
+    <div id="imgContainer"></div>
+    <script>
+        //上传头像图片   
+        function img() { //PictureUrl为input file 的id  
+            var obj = document.querySelector('#fileEl');
+            var url = function() {
+                if (obj) {
+                    if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
+                        obj.select() || obj.blur();
+                        return console.log(document.selection.createRange().text);
+                    } else if (window.navigator.userAgent.indexOf("Firefox") >= 1) {
+                        if (obj.files) {
+                            return console.log(obj.files.item(0).getAsDataURL());
+                        }
+                        return console.log(obj.value);
+                    }
+                    return console.log(obj.value);
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

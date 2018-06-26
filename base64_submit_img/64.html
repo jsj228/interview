@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>base64Img</title>
+    <meta charset="utf-8">
+    <script src="./zepto.js"></script>
+</head>
+
+<body>
+    <!-- accept  IE10+ -->
+    <input type="file" id="fileEl" accept="image/x-png,image/gif,image/jpeg,image/bmp" />
+    <button onclick="uploadHead()">提交</button>
+
+    <img src="" id="imgBox" accept="image/png">
+    <script>
+        //上传头像图片   
+        function uploadHead() {
+            var oFReader = new FileReader();
+            var file = document.getElementById('fileEl').files[0];
+            console.log(file)
+            oFReader.readAsDataURL(file);
+            oFReader.onloadend = function(e) {
+                var src = e.target.result;
+                $('#imgBox').attr('src', src);
+                console.log(src) //转成base64的img
+            }
+        }
+    </script>
+
+</body>
+
+</html>
