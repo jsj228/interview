@@ -12,18 +12,26 @@
     <input type="file" id="fileEl" accept="image/x-png,image/gif,image/jpeg,image/bmp" />
     <button onclick="uploadHead()">提交</button>
 
-    <img src="" id="imgBox" accept="image/png">
+    <div id="imgBox"></div>
     <script>
         //上传头像图片   
+        var userImg=[];
+
         function uploadHead() {
+            // if $("#fileEl")
             var oFReader = new FileReader();
             var file = document.getElementById('fileEl').files[0];
-            console.log(file)
+            console.log(parseInt(file.size/1024))//等于多少k
+
             oFReader.readAsDataURL(file);
             oFReader.onloadend = function(e) {
                 var src = e.target.result;
-                $('#imgBox').attr('src', src);
-                console.log(src) //转成base64的img
+                $('#img').attr('src', src);
+                $('#imgBox').append('<img src="'+ src + '"/accept="image/png">');
+                userImg.push({"imgSrc":src});
+                console.log(userImg.length) //转成base64的img
+                $("#fileEl").val('')
+
             }
         }
     </script>
