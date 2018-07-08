@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>下啦刷新，上加载更多 npm install mescroll.js</title>
+    <script src="./zePto.js"></script>
+    <link rel="stylesheet" type="text/css" href="./mescroll/mescroll.m.css" />
+    <script src="./mescroll/mescroll.min.js"></script>
+</head>
+
+<body>
+    <!--标题-->
+    <div class="header">
+        <a class="btn-left" href="./index2.html">main</a>
+        <p>body为滚动区域</p>
+        <p class="tip">无需设置高度,写法简单,适用于无标题界面,避免滚动条穿顶</p>
+        <!--菜单-->
+        <div class="nav">
+            <p class="active" i="0">全部</p>
+            <p i="1">奶粉</p>
+            <p i="2">面膜</p>
+            <p i="3">图书</p>
+        </div>
+    </div>
+    <!--展示上拉加载的数据列表-->
+    <ul id="dataList" class="data-list">
+        <!-- <li>
+				<img class="pd-img" src="../res/img/pd1.jpg"/>
+				<p class="pd-name">商品标题商品标题商品标题商品标题商品标题商品</p>
+				<p class="pd-price">200.00 元</p>
+				<p class="pd-sold">已售50件</p>
+			</li> -->
+    </ul>
+</body>
+
+<script>
+    var mescroll = new MeScroll("body", { //第一个参数；对应涮新区域
+        //如果您的下拉刷新是重置列表数据,那么down完全可以不用配置,具体用法参考第一个基础案例
+        //解析: down.callback默认调用mescroll.resetUpScroll(),而resetUpScroll会将page.num=1,再触发up.callback
+        down: {
+            callback: downCallback //下拉刷新的回调,别写成downCallback(),多了括号就自动执行方法了
+        },
+        up: {
+            callback: upCallback, //上拉加载的回调
+            isBounce: false //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
+        }
+    });
+    ////下拉刷新的回调函数
+    function downCallback() {
+        $.ajax({
+            url: './data.json',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                console.log('downCallback');
+                //联网成功的回调,隐藏下拉刷新的状态;
+                mescroll.endSuccess(); //无参
+                //设置数据
+                //setXxxx(data);//自行实现 TODO
+            },
+            error: function(data) {
+                //联网失败的回调,隐藏下拉刷新的状态
+                mescroll.endErr();
+            }
+        });
+    }
+    //上拉加载的回调函数 page = {num:1, size:10}; num:当前页 默认从1开始, size:每页数据条数,默认10
+    function upCallback(page) {
+        /*调用请求数据函数*/
+        getDataJson(0, page.num, page.size, function(curPageData) {
+                console.log(page + '联网加载列表数据')
+                console.log(curPageData + '---curPageData');
+                //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+                //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+                console.log("请求参数--pdType=" + 0 + ", page.num=" + page.num + ", page.size=" + page.size + ", curPageData.length=" + curPageData.length);
+                // pdType = 0, page.num = 1, page.size = 10, curPageData.length = 10
+
+                //方法一(推荐): 后台接口有返回列表的总页数 totalPage
+                //mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+                //方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+                //mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+
+                //方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+                //mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+                //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+                mescroll.endSuccess(curPageData.length); //10 请求完成
+                // console.log(curPageData); //10个undefined
+                //拼接列表数据
+                setListData(curPageData);
+            },
+            function() { //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                mescroll.endErr();
+            }
+        );
+    }
+
+    function getDataJson(pdType, pageNum, pageSize, successCallback, errorCallback) {
+        //延时一秒,模拟联网
+        setTimeout(function() {
+            $.ajax({
+                type: 'GET',
+                url: './data.json',
+                // url: '../res/pdlist1.json?pdType='+pdType+'&num='+pageNum+'&size='+pageSize,
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data)
+                    var listData = [];
+                    //pdType 全部商品0; 奶粉1; 面膜2; 图书3;
+                    if (pdType == 0) {
+                        //全部商品 (模拟分页数据)
+                        for (var i = (pageNum - 1) * pageSize; i < pageNum * pageSize; i++) {
+                            if (i == data.length) break;
+                            listData.push(data.curPageData[i]);
+                        }
+
+                    } else if (pdType == 1) {
+                        //奶粉
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].pdName.indexOf("奶粉") != -1) {
+                                listData.push(data[i]);
+                            }
+                        }
+
+                    } else if (pdType == 2) {
+                        //面膜
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].pdName.indexOf("面膜") != -1) {
+                                listData.push(data[i]);
+                            }
+                        }
+
+                    } else if (pdType == 3) {
+                        //图书
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].pdName.indexOf("图书") != -1) {
+                                listData.push(data[i]);
+                            }
+                        }
+                    }
+                    console.log(listData);
+                    //回调
+                    successCallback(listData);
+                },
+                error: errorCallback
+            });
+        }, 300)
+    }
+    // 拼接DOM
+    function setListData(curPageData) {
+        var listDom = $("#dataList");
+        for (var i = 0; i < curPageData.length; i++) {
+            var str = '<img class="pd-img" src="' + curPageData[i].pdImg + '"/>';
+            str += '<p class="pd-name">' + curPageData[i].pdName + '</p>';
+            str += '<p class="pd-price">' + curPageData[i].pdPrice + ' 元</p>';
+            str += '<p class="pd-sold">已售' + curPageData[i].pdSold + '件</p>';
+            listDom.append(str);
+            console.log(curPageData[i]); //undefined
+        }
+    }
+</script>
+
+</html>
