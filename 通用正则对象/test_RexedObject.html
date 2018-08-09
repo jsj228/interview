@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>newRegExp</title>
+</head>
+<body>
+	<style>input{width:200px;padding:0 10px;border:1px solid #ddd;border-radius:5px;line-height:40px}</style>
+	<h3>test()方法：<input id="test" type="text" value="abbb"  pattern="a?b+$"  onblur="regExpFun(this,'a?b+$')"></h3>
+	<!-- <h3>test()方法：<input id="test" type="text" value="abbb2"  pattern="/a?b+$/gi"  onblur="regExpFun(this)"></h3> -->
+
+	<script>
+		function regExpFun(el,re){
+			var str = el.value,
+				regExp = el.pattern;//H5  IE10
+			// console.log(re);
+			// console.log(regExp);
+			console.log(el);
+			console.log(el.value);
+			console.log('regExp='+new RegExp(regExp).test(str));
+			console.log('re='+ new RegExp(re).test(str));
+			console.log(regExp.lastIndex);
+			// console.log(regExp.indexOf('a'));
+			
+
+
+			var pat =/my/;
+			var str ="this is my code...";
+			console.log(pat.test(str));// true
+			// // exec方法
+			// // exec() 方法检索字符串中的指定值。返回值是被找到的值。如果没有发现匹配，则返回 null。
+			// var pat =/hello/;
+			// console.log(pat.exec("oh hello world"));//返还hello
+
+		}
+	</script>
+</body>
+</html>
