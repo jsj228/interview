@@ -14,10 +14,12 @@
     <div id="imgContainer"></div>
     <script>
         //上传头像图片   
-        function img() { //PictureUrl为input file 的id  
-            var file=document.querySelector('#fileEl').files[0];
-            // 记得要释放objUrl
-            var objURL= window.URL.createObjectURL(file) || window.webkitURL.createObjectURL(file)|| window.createOjcectURL(file);
+        function img() {
+            // 使用每个input file的files属性 就是HTML5中的 FileReader ---->IE10+ 
+            var file=document.querySelector('#fileEl').files[0],objURL='';
+            // console.log(file);
+            // 前端预览图片
+            objURL= window.URL.createObjectURL(file) || window.webkitURL.createObjectURL(file)|| window.createOjcectURL(file) 
             console.log(objURL)
             $('#imgContainer').html("<img src='" + objURL + "' width='640px' height='350px' id='target' />");
         }

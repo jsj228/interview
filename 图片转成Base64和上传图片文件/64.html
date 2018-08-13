@@ -19,24 +19,19 @@
 
         function uploadHead() {
             // if $("#fileEl")
-            
             var file = document.getElementById('fileEl').files[0];
             console.log(parseInt(file.size/1024))//等于多少k
-
             // console.log(file)
             var filed=new FileReader();
                 filed.readAsDataURL(file); //将文件读取为DataURL
-
                 console.log(filed);
-            filed.onloadend = function(e) {
+            filed.onloadend = function(e) { //filed.onloadend 事件
                 console.log(e)
                 var src = e.target.result;//base64格式的img
-                $('#img').attr('src', src);
                 $('#imgBox').append('<img src="'+ src + '"/accept="image/png">');
                 userImg.push({"imgSrc":src});
                 // console.log(userImg.length) 
                 $("#fileEl").val('')
-
             }
         }
     </script>
