@@ -1,0 +1,10 @@
+// 分享按钮
+    $(".wlb_tsina").click(function () {
+        window.open("http://v.t.sina.com.cn/share/share.php?url=" +'text 123' + "&title=" +'title000000');
+    });
+    $(".wlb_douban").click(function () {
+        window.open("http://www.douban.com/recommend/?url=" + _share_url + "&title=" + _share_content);
+    });
+    $(".wlb_qzone").click(function () {
+        window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + _share_url + "&title=" + _share_title + "&pics=" + _share_pic + "&desc=" + _share_content);
+    });
