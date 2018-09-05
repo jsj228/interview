@@ -1,55 +1,44 @@
-//引入events模块  //安装events模块 npm i events --save-dev
-var events = require('events').EventEmitter;
-// 创建 event 对象
-var event= new events();
-// 使用on/once给event对象绑定事件监听器
-// 使用emit('事件名',参数1,参数2,...)来触发event绑定的事件监听器
+// node.js  中的缓冲区----Buffer类(是node.js的核心库)
+// 由于js自身只有字符的数据类型,并没有二进制数据类型；
+//所以在js处理TCP流或文件流时，必须使用到二进制的数据
+// 所以Node.js中定义了一个Buffer类，用来创建一个专门存放二进制数据的缓存区。
+//一个 Buffer 类似于一个整数数组，但它对应于 V8 堆内存之外的一块原始内存。
+//Node v6.0 一下的：new Buffer();
+//Node v6.0 以后:Buffer.from();
+// 定义Buffer对象的示例：
+    // 定义一个buf    Buffer类的常量
+    const buf=Buffer.from('runoob','ascii');
+    console.log(buf.toString('base64'));// 72756e6f6f62 
 
-//使用on 给event对象添加some_event事件,并绑定匿名方法
-    // on(event, listener)
-    // 为指定事件注册一个监听器，接受一个字符串 event 和一个回调函数。
-    event.on('some_event',function (arg1) {
-        console.log('触发some_event事件',arg1)
-    });
-    // 绑定 connection 事件处理程序
-    event.on('connection', function (arg1,arg2) {
-        console.log('连接成功', arg1,arg2);
-        // 触发 some_event 事件
-        event.emit('some_event',"some_event参数1")
-        // 触发 data_received 事件 
-        event.emit('data_received',001,002,003);
-    });
-    // 使用匿名函数绑定 data_received 事件
-    event.on('data_received', function (a,b,c) {
-        console.log('数据接收成功',a,b,c);
-    });
-    setTimeout(() => {
-        // 触发 connection 事件 
-        event.emit('connection','connection参数1', 'connection参数2');
-    },1000);
-// 使用once 给event对象添加oneFun事件,并绑定匿名方法
-    // once(event, listener)
-    // 绑定单次事件监听，即 监听器最多只会触发一次，触发后立刻解除该监听器。
-    event.once('onceFun',function (a,b,c) {
-        console.log('once(event, listener) 绑定一次onceFun事件监听',a,b,c)
-    });
-    event.emit('onceFun','00A','00B','00c');
+// Node,js目前所支持的字符编码包括：
+    // ascii:仅支持7位ASCII数据；如果设置去掉高位，则编码的速度更快
+    //utf8：多字节编码的Unicode字符，
+    //utf16le 或 ucs2：把数据编码成2或4个字节；小字节编码的Unicode字符
+    //base64：Base64编码
+    //latin1或binary：把数据编码成一个字节的方式
+    //hex：将每个字节编码成十六进制的数据
 
-//使用removeListener(event,FunName)来移除指定的事件监听器和相应的方法
-    var nameFun=function (a, b, c) {
-        console.log('使用removeListener(event,FunName)来移除指定的事件监听器', a, b, c)
-    }
-    event.on('removeEvent', nameFun);
-    event.emit('removeEvent', 'AAA', 'BB', 'C');
-    //注销事件监听器后 ;后续的该事件就无法调用了
-    event.removeListener('removeEvent', nameFun);
-    event.emit('removeEvent', 'aa', 'bb', 'c');
-    
-//使用removeAllListener([event])来移除所有的事件监听器 
-//如果指定事件，则移除指定事件的所有监听器
-    event.removeAllListeners(); // 移除不掉once给对象绑定的事件监听器
-//函数setMaxListeners(n)用于提高监听器的默认限制的数量。
-    event.setMaxListeners(15); 
-
-console.log("程序执行完毕");
-//ctrl+c 可退出node服务
+ //Buffer提供了一下来创建Buffer类
+    // Buffer.alloc(size[, fill[, encoding]]) ： 返回一个指定大小的 Buffer 实例，如果没有设置 fill，则默认填满 0
+    // Buffer.allocUnsafe(size) ： 返回一个指定大小的 Buffer 实例，但是它不会被初始化，所以它可能包含敏感的数据
+    // Buffer.allocUnsafeSlow(size)
+    // Buffer.from(array) ： 返回一个被 array 的值初始化的新的 Buffer 实例（传入的 array 的元素只能是数字，不然就会自动被 0 覆盖）
+    // Buffer.from(arrayBuffer[, byteOffset[, length]]) ： 返回一个新建的与给定的 ArrayBuffer 共享同一内存的 Buffer。
+    // Buffer.from(buffer) ： 复制传入的 Buffer 实例的数据，并返回一个新的 Buffer 实例
+    // Buffer.from(string[, encoding]) ： 返回一个被 string 的值初始化的新的 Buffer 实例
+//创建Buffer类示例：
+    // 创建一个长度为 10、且用 0 填充的 Buffer。
+    const buf1 = Buffer.alloc(10,0);
+    // 创建一个长度为 10、且用 0x1 填充的 Buffer。 
+    const buf2 = Buffer.alloc(10, 1);
+    // 创建一个长度为 10、且未初始化的 Buffer。
+    // 这个方法比调用 Buffer.alloc() 更快，
+    // 但返回的 Buffer 实例可能包含旧数据，
+    // 因此需要使用 fill() 或 write() 重写。
+    const buf3 = Buffer.allocUnsafe(10);
+    // 创建一个包含 [0x1, 0x2, 0x3] 的 Buffer。
+    const buf4 = Buffer.from([1, 2, 3]);
+    // 创建一个包含 UTF-8 字节 [0x74, 0xc3, 0xa9, 0x73, 0x74] 的 Buffer。
+    const buf5 = Buffer.from('tést');
+    // 创建一个包含 Latin-1 字节 [0x74, 0xe9, 0x73, 0x74] 的 Buffer。
+    const buf6 = Buffer.from('tést', 'latin1');
