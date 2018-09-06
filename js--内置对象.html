@@ -136,6 +136,12 @@
 　　getMinutes()      返回分钟(0-59)
 　　getSeconds()      返回秒数(0-59)
 　　getMilliseconds() 返回毫秒(0-999)
+
+    获取指定时间戳 的年月日，时分秒 
+    var t=new Date(时间戳);
+    t.getYear()+'年'+t.getMonth()+1+'月'+t.getDate()+'日 - '+t.getHours()+':'+t.getMinutes()+":"t.getSeconds()+":"+t.getMilliseconds();    
+
+
 　　getUTCDay()      依据国际时间来得到现在是星期几(0-6)
 　　getUTCFullYear()    依据国际时间来得到完整的年份
 　　getUTCMonth()     依据国际时间来得到月份(0-11)
@@ -170,6 +176,8 @@
 　　toString()       将日期对象转换为字符串
 　　UTC(yyyy, mm, dd, hh, mm, ss, msec)返回从格林威治标准时间到指定时间的差距,单位为毫秒
 　　valueOf()       返回日期对象的原始值
+    
+
  
 10.Math
    属性:
