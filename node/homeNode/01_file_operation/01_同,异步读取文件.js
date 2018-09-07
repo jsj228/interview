@@ -16,13 +16,14 @@ http.createServer(function(request,response) {
         }else{
             console.log('fs.readFileSync读取文件失败:服务器容易崩溃')
         }
-        //异步读取文件  fs.readFile
+        //异步读取文件  fs.readFile(path,[编码方式],callback)  当不指定读出的数据是采用是？格式编码时，默认读取格式为buffer格式
+        // fs.readFile('./file_operation.html','utf-8', function (err, fileData) {
         fs.readFile('./file_operation.html',function(err,fileData) {
             if(err){
                 console.log('fs.readFile读取文件失败'+err.stack);return false;
             }else{
                 //response.write 在这里不能有这个操作
-                console.log('fs.readFile文件内容为：-----' +fileData.toString());
+                console.log('fs.readFile文件内容为：-----' +fileData.toString());//将文件内容转换成str
             }
         });
     
