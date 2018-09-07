@@ -9,7 +9,8 @@
     var fs=require('fs');
 //当文件已经有时，就会清楚当前文件的内容并写新的文件内容  --->当文件写满时就会出错
     //同步写文件
-    var res=fs.writeFileSync('./www/test.txt','写入test文件','utf8'); //返回值判断是否写入成功  //undefind为写入成功 赋值的情况下，表示写入失败
+    //返回值判断是否写入成功  //undefind为写入成功 赋值的情况下，表示写入失败
+    var res=fs.writeFileSync('./www/test.txt','写入test文件','utf8'); 
     console.log('判断是否写入成功'+res);
     // 异步写文件
     fs.writeFile('./www/test2.txt','内容er','utf8',function(err){
@@ -50,4 +51,3 @@
         console.log('A---'+a+Oject.prototype.toString.call(a));
         console.log('b---'+b);
     });
-

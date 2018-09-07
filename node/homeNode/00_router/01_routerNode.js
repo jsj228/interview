@@ -5,9 +5,9 @@ var url=require('url'); //引入node自带的url
 http.createServer(function (request,response) {
     response.writeHead(200,{'Content-type':'text/html;charset=utf-8'});
     if(request.url!=="favicon.ico"){
-        //去掉/杠并打印出路径名
+        //去掉/杠并相对路径
         var UrlName=url.parse(request.url).pathname.replace(/\//g,'');
-        console.log(UrlName);
+        console.log(url.parse(request.url).pathname);
         response.end()
     }
     

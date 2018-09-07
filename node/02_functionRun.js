@@ -18,9 +18,6 @@ http.createServer(function (request,response) {
         for(var i=2;i<=5;i++){
             otherFunMore['fun'+i](response);
         }
-
-
-
         response.end()
     }
     

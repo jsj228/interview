@@ -5,8 +5,7 @@ http.createServer(function (req, res) {
     res.writeHead(200, { 'Content-type': 'text/html;charset=utf-8' });
     if (req.url !== "/favicon.ico") { //清楚第二次访问 //url是node自带的
         console.log('访问中');
-        
-        // 判断前端访问路由        
+        //配置简单的路由    
         if(!(req.url.search(/(^\/)[index]?/g))){
             //向前端页面中写入内容
             res.write('欢迎来到：'+req.url);
@@ -15,7 +14,7 @@ http.createServer(function (req, res) {
             res.write('Sorry 404 \n'+req.url+'页面不存在');
         }
         console.log(req.method);//获取前端页面向后台请求的方式：get /post/
-        //结束http请求 //也可以输出内容 response.end('000')
+        //结束请求 //也可以输出内容 response.end('000')
         res.end();
     }
 }).listen(8000,function () {
