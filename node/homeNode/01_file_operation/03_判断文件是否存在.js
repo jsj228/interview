@@ -16,10 +16,10 @@ http.createServer(function(request,response) {
         }else{
             response.write('同步判断文件是不存在的！！！')
         }
-        //异步
-        fs.exists('./file_operation.html',function(err){
-            console.log(err)
-            if(err){
+        //异步 fs.exists
+        fs.exists('./file_operation.html',function(isTrue){
+            console.log(isTrue)
+            if (isTrue){
                 console.log('异步判断文件是存在.')
             }else{
                 console.log('异步判断文件是不存在！！！')
