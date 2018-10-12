@@ -10,7 +10,6 @@ http.createServer(function(request,response) {
         console.log('访问中');
         //创建目录 fs.mkdir(path[,mode],callback);
         //mode - 默认权限为0777
-
         fs.mkdir("./creatMkdir/test",function(err){
             if(err){console.log('如果目录存|结尾存在/在就：创建./creatMkdir目录失败')
             }else{console.log('创建./creatMkdir目录成功')}
@@ -32,7 +31,7 @@ http.createServer(function(request,response) {
                     console.log('fs.rmdir删除目录成功')
                 }
             })
-            // 文件模块方法参考手册
+            // 文件模块方法参考手册  
         });
         response.end('<hr>访问结束')
     }
