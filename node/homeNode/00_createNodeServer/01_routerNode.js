@@ -10,7 +10,6 @@ http.createServer(function (request,response) {
         console.log(url.parse(request.url).pathname);
         response.end()
     }
-    
 }).listen("81");
 console.log('欢迎调node.js函数-->http://127.0.0.1:81');
 
