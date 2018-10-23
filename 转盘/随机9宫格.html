@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>九宫格</title>
+</head>
+<body>
+    <style>
+        *{box-sizing:border-box;background:none;border:0;outline:none;margin:0;}
+        .Box{margin:10% auto;width:300px;height:300px;overflow:hidden;position: relative;}
+        a,button,#move{display:inline-block;vertical-align:middle;width:100px;height:100px;line-height:100px;text-align:center;color:#eee;border:1px solid #ddd}
+        button{border-radius:10px;cursor:pointer;}
+        #move,button{background:#e3493c;}
+        #move{opacity:0.5;position:absolute;top:0px;left:100px;}
+        a{background:#666}
+    </style>
+    <div class="Box">
+        <p><a>1等奖</a><a>2等奖</a><a>3等奖</a></p>
+        <p><a>谢谢参与</a><button id="startBtn">开始</button><a>4等奖</a></p>
+        <p><a>7等奖</a><a>6等奖</a><a>5等奖</a></p>
+        <span id="move"></span>
+    </div>
+    <script>
+        var elObj=document.getElementById('move'),startBtn=document.getElementById('startBtn');
+            function getDefaultStyle (obj,attrName) {
+                return obj.currentStyle? obj.currentStyle[attrName]: document.defaultView.getComputedStyle(obj,false)[attrName];
+            }
+            var Top= parseInt(getDefaultStyle(elObj,'top')),
+            Left = parseInt(getDefaultStyle(elObj,'left')),
+             moving=null;
+        function moveFun(random){
+            var num=0, t=200;
+            moving=setInterval(function(){
+                num++;
+                num>random/2?(t+=50,console.log('t++'+t)):(t-=100,console.log('t--'+t));
+                if(num>random){
+                    clearInterval(moving); 
+                    //计算奖品，发送请求
+                    if(num%8>0){
+                        num%8==1?console.log('谢谢您的参与'):console.log(num+'恭喜你中了'+(8-(num-1)%8)+'等奖');
+                    }else{console.log('恭喜您中了一等奖')}
+                };
+                if(Left>=0&&Left<200&&Top==0){
+                    Left+=100;
+                }else if(Top>=0&&Top<200&&Left==200){
+                    Top+=100;
+                }else if(Left>0&&Left<=200&&Top==200){
+                    Left-=100;
+                }else if(Top>0&&Top<=200&&Left==0){
+                    Top-=100;
+                }
+                elObj.style.top=Top+'px';
+                elObj.style.left=Left+'px';
+            },t);
+
+        }
+        moveFun()
+        startBtn.onclick=function(){
+            clearInterval(moving);
+            var T=parseInt(Math.random()*(40-20+1)+20);
+            console.log(T)
+            moveFun(T);
+        }
+
+    </script>
+</body>
+</html>
