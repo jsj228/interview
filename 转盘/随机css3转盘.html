@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>随机css动画转盘</title>
+</head>
+<body>
+    <style>
+        *{box-sizing:border-box;background:none;border:0;outline:none;}
+        .imgBox{margin:10% auto;width:300px;height:300px;overflow:hidden;position: relative;}
+        .imgBox img{width:100%;position:relative;}
+        #btnRouter{position:absolute;top:50%;left:50%;width:150px;height:150px;margin:-75px 0  0 -75px;cursor:pointer;}
+    </style>
+    <div class="imgBox">
+        <img id="rotateObj" src="./imgRouter.png">
+        <button id="btnRouter"  onclick="rotateFun()"><img src="./btnImg.png"></button>
+    </div>
+    <script src="./jquery-1.11.0.min.js"></script>
+    <script>
+        var btnImg=$('#btnRouter img');
+        var elObj=$('#rotateObj');
+        var deg=0,
+        moving=setInterval(function(){
+            deg+=45;
+            elObj.css({
+                transform: 'rotate('+deg+'deg)',
+                transition:'all 3s linear',
+            })
+        },800);
+        btnImg.mouseover(function(){clearInterval(moving);  });
+        function rotateFun(){
+            clearInterval(moving);
+            deg+=parseInt(Math.random()*10)*45+720;
+            if((deg/45)%8>0){
+                (deg/45)%8==1?console.log('谢谢您的参与'):console.log('恭喜你中了'+(9 - (deg/45) % 8)+'等奖');
+            }else{console.log('恭喜您中了一等奖')}
+            elObj.css({transform: 'rotate('+deg+'deg)'});
+        };  
+    </script>
+</body>
+</html>
