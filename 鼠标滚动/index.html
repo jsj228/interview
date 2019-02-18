@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<!-- 当id作为变量名直接使用时，会在火狐浏览器中有兼容性问题 -->
+	<!-- <h1 id="h1" onmouseover="show.style.display='block'" onmouseout="show.style.display='none'">git test</h1> -->
+	<h1 id="h1" onmouseover="document.getElementById('show').style.display='block'" onmouseout="document.getElementById('show').style.display='none'">git test</h1>
+	<p style="display:none;" id="show">this a show</p>
+	
+	<!-- setInterval动画 -->
+	<!-- 动画1 -->
+	<div style="position:relative;">
+		<div style="
+		padding:50px;background:#ddd;
+		left:0;top:100px;
+		position:absolute;" id="moveDiv"></div>
+		<p style="position:absolute;left:300px;width:2px;height:200px;background:#ddd"></p>
+	</div>
+	<button onclick="stratMove()">moveRun</button>
+	<script>
+		var moveRun=null;
+		function stratMove(){
+			clearInterval(moveRun);//清楚上一次点击触发的定时器动画，不然会出现多个定时器动画的一起工作，导致动画叠加；
+			var oDiv=document.getElementById('moveDiv');
+			moveRun=setInterval(function(){
+				var speed=1;
+				if (oDiv.offsetLeft>=300) {
+					clearInterval(moveRun);
+					oDiv.style.left=300+'px';
+				}
+				else{
+					oDiv.style.left=oDiv.offsetLeft+speed+'px';
+
+				}
+			},30);
+		}
+	</script>
+
+
+	<!-- 动画2- 侧边栏  -->
+	<div id="asideBox" style="background:#ddd;position:absolute;left:-150px;top:400px;width:150px;height:100px;">
+		<span style="width:20px;height:70px;background:#f00;color:#eee;cursor:pointer;position:absolute;right:-20px;top:25%;">侧边栏</span>
+	</div>
+	<script>
+		var el=document.getElementById('asideBox')
+		el.onmouseover=function(){asideRun(this,0)};
+		el.onmouseout=function(){asideRun(this,-150)};
+		var asideMove=null; //不能和运动函数命名相同
+		function asideRun(em,itarget){
+			clearInterval(asideMove);
+			asideMove=setInterval(function(){
+				var speed=(itarget - em.offsetLeft)/10;
+				speed= speed>=0 ?Math.ceil(speed):Math.floor(speed);
+				if (em.offsetLeft==itarget) {clearInterval(asideMove);}
+				else{
+					em.style.left=em.offsetLeft+speed+'px';
+				}
+
+			},30)
+		}
+	</script>
+
+<!--动画3 多物体动画  opacity的兼容性 -->
+	<style>
+		.opacityEl{filter:alpha(opacity:30);opacity:0.3;padding:50px;background:#000;float:right;margin-left:15px;}
+	</style>
+	<div class="opacityEl"></div>
+	<div class="opacityEl"></div>
+	<div class="opacityEl"></div>
+	<div class="opacityEl"></div>
+	<script>
+		var emOpacity=document.querySelectorAll('.opacityEl');
+		for(var i=0;i<emOpacity.length;i++){
+			emOpacity[i].onmouseover=function(){opacityFun(this,100)};
+			emOpacity[i].onmouseout=function(){opacityFun(this,30)};
+			emOpacity[i].opacityMove=null;
+			emOpacity[i].alpha=30;
+		}
+		
+		function opacityFun(obj,itarget){
+			var speed=0;
+			clearInterval(obj.opacityMove);
+			obj.opacityMove=setInterval(function(){
+				speed=(itarget - obj.alpha)/100;
+				 speed= speed>0?Math.ceil(speed):Math.floor(speed);
+				if(obj.alpha==itarget){
+					clearInterval(obj.opacityMove);
+				}else{
+					obj.alpha+=speed
+					obj.style.opacity=obj.alpha/100;
+					obj.style.filter='alpha(opacity:'+obj.alpha+')';
+				}
+			},30)
+		}
+	</script>
+<!-- 动画4 多物体动画  -->
+	<style>
+		.moreEl{width:100px;height:60px;background:#666;margin:20px 0 0  400px;}
+	</style>
+	<div class="moreEl"></div>
+	<div class="moreEl"></div>
+	<div class="moreEl"></div>
+	<script>
+		var moreEm=document.querySelectorAll('.moreEl');
+		for(var i=0;i<moreEm.length;i++){
+			moreEm[i].onmouseover=function(){moreFun(this,400)}
+			moreEm[i].onmouseout=function(){moreFun(this,100)}
+			moreEm[i].moreMove=null;
+		}
+		function moreFun(obj,itarget){
+			clearInterval(obj.moreMove);
+			obj.moreMove=setInterval(function(){
+				console.log(obj.offsetWidth);
+				var speed= (itarget-obj.offsetWidth)/10;
+				speed= speed>0?Math.ceil(speed):Math.floor(speed);
+				if(obj.offsetWidth>=itarget){clearInterval(obj.moreMove);obj.style.width=itarget+'px'}
+				else{obj.style.width=obj.offsetWidth+speed+'px'}
+			},30)
+
+		}
+	</script>
+
+<!-- offsetWidth;中的bug -->
+	<style>
+	/*border:1px solid #f00; 如果加上1px的边框，下边的这段表现出现有的bug*/
+	/*解决的方法 ------>给元素添加box-sizing:border-box属性;来设置浏览器的盒模型*/
+		/*在正常的盒模型中；offsetWidth= obj.width+padding+border ；  obj Width = content width + padding + border （Width为内容宽度）*/
+		/*在IE怪异的盒模型中；offsetWidth= obj.width ；  obj空间宽度 = content Width + margin (Width包含了元素内容宽度、边框宽度、内距宽度)*/
+		/*--------->或者将offsetWidth替换成obj.style.height*/
+	#offsetWidthBug{width:200px;height:50px;background:#ff0;margin:30px 50px 20px;padding:0 1px;box-sizing:border-box}
+	</style>
+	<div id="offsetWidthBug"></div>
+	<script>
+		var emObj=document.getElementById('offsetWidthBug')
+		setInterval(function(){
+
+				emObj.style.width=emObj.offsetWidth-1+ 'px'; 
+		},30)
+	</script>
+
+	
+<!-- 动画5 任意值  -->
+	<style>
+		#ElAttrs{width:100px;height:30px;background:#666;margin:20px 0 0  300px;opacity:0.3;filter:alpha(opacity:30)}
+	</style>
+	<div id="ElAttrs"></div>
+	<!-- <div class="moreEl"></div> -->
+	<!-- <div class="moreEl"></div> -->
+	<script>
+		
+		var El=document.getElementById('ElAttrs');
+			// ElWidth=El.style.width;//el.style.attrs 只能获取行内样式
+			El.onmouseover=function(){
+				// moreFun(this,400,'height');
+				moreFun(this,100,'opacity')}
+			El.onmouseout=function(){
+				// moreFun(this,30,'height');
+				moreFun(this,30,'opacity')}
+			El.moreMove=null;
+		function moreFun(obj,itarget,attr){
+			//优先使用W3C规范 //针对IE9以下兼容
+			clearInterval(obj.moreMove);
+			obj.moreMove=setInterval(function(){
+				var getStyle=parseFloat(window.getComputedStyle?getComputedStyle(obj,false)[attr]:obj.currentStyle[attr]); 
+				if(attr=='opacity'){getStyle=Math.round(getStyle*100);} //Math.round 算术中四舍五入
+				var speed= (itarget-getStyle)/6;
+				speed= speed>0?Math.ceil(speed):Math.floor(speed);
+				// var speed= Math.round((itarget-getStyle)/50);
+				if(getStyle==itarget){
+					clearInterval(obj.moreMove);
+				}else{
+					// console.log(speed+'speed');
+					// console.log(itarget+'itarget');
+					// console.log(getStyle+'getStyle');
+					attr=='opacity'?(obj.style[attr]=(getStyle+speed)/100,
+						obj.style.filter='alpha(opacity:'+getStyle+speed+')')
+					:obj.style[attr]=getStyle+speed+'px';
+					
+				}
+			},30)
+		}
+	</script>
+
+
+</body>
+</html>

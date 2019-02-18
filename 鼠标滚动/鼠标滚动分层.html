@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>滚动条事件</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <style>
+        html,
+        body {
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        ul,
+        li {
+            list-style-type: none;
+        }
+        
+        #elBox {
+            border: 1px solid #ddd;
+            width: 60%;
+            margin: 0 auto;
+        }
+        
+        #elBox>div {
+            height: 500px;
+            margin: 10px 0;
+            text-align: center;
+            border: 1px solid #d00;
+        }
+        
+        ul.aside {
+            position: fixed;
+            top: 0;
+            right: -15px;
+            width: 20%;
+            padding: 0;
+        }
+        
+        .bgActive {
+            color: #f00;
+        }
+    </style>
+    <div id="elBox">
+        <div>第一层</div>
+        <div>第二层</div>
+        <div>第三层</div>
+        <div>第四层</div>
+    </div>
+    <ul class=" aside ">
+        <li class="bgActive">第一层</li>
+        <li>第二层</li>
+        <li>第三层</li>
+        <li>第四层</li>
+    </ul>
+    <script>
+        // var odiv=document.getElementById('elBox'),
+        var asideLi = document.querySelectorAll('.aside li'),
+            childs = document.querySelectorAll('#elBox div');
+        // var oinput=document.querySelector('[type="text "]');
+        window.onscroll = function() {
+            window.scrollBy(0, 0); //滚动100像素的内容：
+            // 获取滚动条位置  w3c[Firefox,IE9+,]/(IE6/7/8/Safari/chrome)：
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop + 100;
+            // 可视区域的height   --document.body.clientHeight ==> BODY对象高度
+            // odiv.style.top=document.documentElement.clientHeight-odiv.offsetHeight+scrollTop+'px';
+            // console.log(document.documentElement.clientHeight);
+            // console.log(odiv.offsetHeight);
+            if (scrollTop < childs[0].offsetTop) {
+                asideLi[0].className = 'bgActive';
+            }
+            if (scrollTop > childs[0].offsetTop && scrollTop < childs[1].offsetTop) {
+                asideLi[0].className = 'bgActive';
+                asideLi[1].className = '';
+            }
+            for (var i = 1; i < childs.length - 1; i++) {
+                if (scrollTop > childs[i].offsetTop && scrollTop < childs[i + 1].offsetTop) {
+                    asideLi[i - 1].className = '';
+                    asideLi[i].className = 'bgActive';
+                    asideLi[i + 1].className = '';
+                }
+            }
+            console.log('00===', childs[0].offsetTop)
+            console.log('1===', childs[1].offsetTop)
+            console.log('2===', childs[2].offsetTop)
+            console.log('3===', childs[3].offsetTop)
+            console.log('scrollTop===>', scrollTop)
+        };
+    </script>
+
+</body>
+
+</html>
