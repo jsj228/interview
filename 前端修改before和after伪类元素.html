@@ -28,8 +28,17 @@ css样式
 	// jQuery
 	$('<style>.red:before{background-color:green}</style>').appendTo('head');
 4.使用HTML5的data-属性，在属性中使用attr()动态修改。
-	在p标签中增加data-XXX="red"属性，然后
-	在p元素的样式直接加：
-	p{data-XXX:'green'}
-	再使用js设置data-XXX 即可属性
-	$('red').attr('data-XXX','green');
+	① 在p元素的样式直接加：
+		p{position:relative;
+		  &::after{
+		    content: attr(data-xxx);
+		    position: absolute;
+		    top: 4px;
+		    left:50px;
+		    width: 200px;
+		    color: red;
+		    text-align: left;
+		  }
+		}
+	②再使用js设置data-xxx即可属性
+	   	$('p').attr("data-xxx","撤销失败!");

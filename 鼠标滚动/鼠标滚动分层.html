@@ -11,27 +11,23 @@
         html,
         body {
             width: 100%;
-            overflow: hidden;
+            /*overflow: hidden;*/
         }
-        
         ul,
         li {
             list-style-type: none;
         }
-        
         #elBox {
             border: 1px solid #ddd;
             width: 60%;
             margin: 0 auto;
         }
-        
         #elBox>div {
             height: 500px;
             margin: 10px 0;
             text-align: center;
             border: 1px solid #d00;
         }
-        
         ul.aside {
             position: fixed;
             top: 0;
@@ -39,7 +35,6 @@
             width: 20%;
             padding: 0;
         }
-        
         .bgActive {
             color: #f00;
         }
@@ -64,7 +59,8 @@
         window.onscroll = function() {
             window.scrollBy(0, 0); //滚动100像素的内容：
             // 获取滚动条位置  w3c[Firefox,IE9+,]/(IE6/7/8/Safari/chrome)：
-            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop + 100;
+            var elTop = document.documentElement.scrollTop?document.documentElement:document.body;
+            var scrollTop = elTop.scrollTop + 100;
             // 可视区域的height   --document.body.clientHeight ==> BODY对象高度
             // odiv.style.top=document.documentElement.clientHeight-odiv.offsetHeight+scrollTop+'px';
             // console.log(document.documentElement.clientHeight);
