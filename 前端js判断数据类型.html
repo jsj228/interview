@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<script>
+		//es5正常的函数
+		function is(obj, target) {
+			var type = Object.prototype.toString.call(obj).slice(8, -1);
+			return type==target;
+		}
+		console.log(is(123,'Number'));
+		//①封装在一个公用的文件中 ,并使用export default 进行导出；
+		export default function is(obj, target) {
+			var type = Object.prototype.toString.call(obj).slice(8, -1);
+			return type==target;
+		}
+		//②在其他文件中引入 ;
+			// import is from './tools/is';
+		//③在其他文件中使用;
+			// if (is(num, 'Number')) {
+		 //      	result = parseFloat(nStr);
+			// }else if(is(num, 'String')) {
+			//     result = parseFloat(num);
+			// }
+			// return result + '';
+	</script>
+</body>
+</html>
