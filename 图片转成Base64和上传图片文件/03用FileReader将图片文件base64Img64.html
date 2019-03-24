@@ -2,7 +2,9 @@
 <html>
 
 <head>
-    <title> FileReader将图片文件base64Img</title>
+    <title> FileReader将图片文件base64Img 
+        https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader
+    </title>
     <meta charset="utf-8">
     <script src="./zepto.js"></script>
 </head>
@@ -11,20 +13,18 @@
     <!-- accept  IE10+       multiple   ---IE10  属性规定输入域中可选择多个值。  -->      
     <input type="file" id="fileEl" accept="image/x-png,image/gif,image/jpeg,image/bmp"  multiple="multiple"/>
     <button onclick="uploadHead()">提交</button>
-
     <div id="imgBox"></div>
     <script>
         //上传头像图片   
         var userImg=[];
-
         function uploadHead() {
-            // if $("#fileEl")
             var file = document.getElementById('fileEl').files[0];
             console.log(parseInt(file.size/1024))//等于多少k
             // console.log(file)
             var filed=new FileReader();
                 filed.readAsDataURL(file); //将文件读取为DataURL
-                console.log(filed);
+            console.log('filed',filed);
+            
             filed.onloadend = function(e) { //filed.onloadend 事件
                 console.log(e)
                 var src = e.target.result;//base64格式的img

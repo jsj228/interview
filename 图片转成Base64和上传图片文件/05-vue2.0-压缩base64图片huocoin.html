@@ -1,0 +1,44 @@
+第一步：引入lrz模块
+
+import lrz from "lrz";
+
+第二步：封装图片压缩函数
+lrzImg(file) {
+    return new Promise((resolve) => {
+        // 压缩 图片
+        lrz(file, {width: 800,quality: 0.6}
+            ).then(function (rst) {
+                resolve(rst);
+            })
+            .catch(function (err){
+                this.errStatus.imgErr ='上传超時!';
+            });
+    });
+}
+
+第三步:图片进行压缩处理
+uploadFile(e) {
+    const imgMaxSize = 2097152;
+    let trageFile = e.target.files[0];//文件
+    this.lrzImg(trageFile).then(
+        (result) => {
+            if (result.base64Len > imgMaxSize) {
+                this.errStatus.imgErr ='文件过大!';
+                this.imgStatus=false;
+                return false;
+            }else {
+                this.errStatus.imgErr ='√';
+                //转换为base64 进行输出
+                this.addresData.img=result.base64;
+                this.imgStatus=true;
+            }
+        }
+    );
+}
+
+第四步:进行模板调用uploadFile函数
+
+<input type="file" @change.stop='uploadFile' accept="image/*"  value="" class="filepath"/>
+
+第五步:使用ajax.post的形式进行图片上传
+

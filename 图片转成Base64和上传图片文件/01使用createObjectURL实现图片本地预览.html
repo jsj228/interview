@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>base64Img</title>
+    <title> window.URL.createObjectURL</title>
     <meta charset="utf-8">
     <script src="./zepto.js"></script>
 </head>
@@ -19,7 +19,7 @@
             var file=document.querySelector('#fileEl').files[0],objURL='';
             // console.log(file);
             // 前端预览图片
-            objURL= window.URL.createObjectURL(file) || window.webkitURL.createObjectURL(file)|| window.createOjcectURL(file) 
+            objURL= window.URL.createObjectURL(file) || window.webkitURL.createObjectURL(file)|| window.createOjcectURL(file);
             console.log(objURL)
             $('#imgContainer').html("<img src='" + objURL + "' width='640px' height='350px' id='target' />");
         }

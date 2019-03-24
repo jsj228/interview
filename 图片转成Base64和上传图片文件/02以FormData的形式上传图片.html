@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>运行再服务器上传图片文件 IE10+</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<label>
+    <!--添加这个属性 multiple="multiple" 实现选中多张图片  -->
+     <!-- accept="image/gif, image/jpeg, image/jpg, image/png" 指定上传文件的类型 -->
+	<input  multiple="multiple"  type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile1" value="1" name="pic"/>
+	上传图片文件
+</label>
+<script src="./zepto.js"></script>
+<!-- <script src="./jquery-1.11.0.min.js"></script> -->
+<script type="text/javascript">
+$(document).ready(function () {
+    //响应文件添加成功事件
+    $("#inputfile1").change(function () {
+        // console.log('len',document.querySelector('[type="file"]').files.length);   
+        var file=document.querySelector('[type="file"]').files[0];
+        // 记得要释放objUrl
+        var objURL= window.URL.createObjectURL(file) || window.webkitURL.createObjectURL(file)|| window.createObjectURL(file);
+        $(this).parent().append("<img src='" + objURL + "' width='640px' height='350px' id='target' />");
+        console.log(objURL)
+        //创建FormData对象
+        var data = new FormData();
+        //为FormData对象添加数据
+        $.each($(this)[0].files, function (i, file) {
+            data.append('upload_file' + i, file);
+        });
+        var _this = $(this).parent();
+        //发送数据
+        $.ajax({
+            url: '/ajax/imgUser',
+            type: 'POST',
+            data: data,
+            cache: false,
+            contentType: false,		//不可缺参数
+            processData: false,		//不可缺参数
+            success: function (data) {
+                if (data) {
+                    if (data == "error") {
+                        alert("{:L('UP_FILE_ERROR')}！");
+                        return false;
+                    }
+                    if (data == "error2") {
+                        alert("{:L('UP_FILR_MUCH_ERROR')}！");
+                        return false;
+                    }
+                    _this.html("< img  src='__DOMAIN__/Upload/idcard/"+ data +"'  style='height:140px;width:200px;background: rgba(0,0,0,.3);display: inline-block;vertical-align: middle;'/>")
+                    $('.set_upload_img').show();
+                    if ($('.set_upload_img').find('img').length >= 3) {
+                        $('#shang_qq_chuandiv').hide();
+                        alert("{:L('UP_FILR_MUCH_SUCCESS')}");
+                    }
+                }
+            },
+            error: function () {
+                alert("{:L('UPLOAD_ERROR')}");
+                $('.set_upload_img').hide();
+                //$(".loading").hide();	//加载失败移除加载图片
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
