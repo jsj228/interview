@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://www.cnblogs.com/wisewrong/p/9642264.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>JavaScript 高性能数组去重 - Wise.Wrong - 博客园</title>
+    <meta property="og:description" content="中午和同事吃饭，席间讨论到数组去重这一问题 我立刻就分享了我常用的一个去重方法，随即被老大指出这个方法效率不高 回家后我自己测试了一下，发现那个方法确实很慢 于是就有了这一次的高性能数组去重研究 一、">
+    <link type="text/css" rel="stylesheet" href="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/blog-common.css">
+<link type="text/css" rel="stylesheet" href="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/317026.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/bundle-BlueSky-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/wisewrong/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/wisewrong/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/wisewrong/wlwmanifest.xml">
+    <script src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/amp4ads-host-v0.js.下载"></script><script src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/pubads_impl_rendering_2019072201.js.下载"></script><script async="" src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/encoder.js.下载"></script><script src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script>var currentBlogId=317026;var currentBlogApp='wisewrong',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/f.txt"></script><script src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/pubads_impl_2019072201.js.下载" async=""></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-35/html/container.html"></head>
+<body>
+<a name="top"></a>
+
+<!--PageBeginHtml Block Begin-->
+<link rel="stylesheet" type="text/css" href="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/font_799730_dmu36q5hdon.css">
+<div id="top_tips">Talk is cheap. Show me your code</div>
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/wisewrong/"><img id="blogLogo" src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/wisewrong/">Wise.Wrong</a></h1>
+<h2>不懂交互的前端不是好全栈</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/"><i class="iconfont icon-homefill"></i><span>博客园</span></a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/wisewrong/"><i class="iconfont icon-peoplefill"></i><span>首页</span></a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1"><i class="iconfont icon-writefill"></i><span>新随笔</span></a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Wise.Wrong"><i class="iconfont icon-messagefill"></i><span>联系</span></a></li>
+<li>
+<!----></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/"><i class="iconfont icon-repairfill"></i><span>管理</span></a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 83&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 376</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/wisewrong/p/9642264.html">JavaScript 高性能数组去重</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p><span style="font-size: 14px;">中午和同事吃饭，席间讨论到数组去重这一问题</span></p>
+<p><span style="font-size: 14px;">我立刻就分享了我常用的一个去重方法，随即被老大指出这个方法效率不高</span></p>
+<p><span style="font-size: 14px;">回家后我自己测试了一下，发现那个方法确实很慢</span></p>
+<p><span style="font-size: 14px;">于是就有了这一次的高性能数组去重研究</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 16px;"><strong>一、测试模版</strong></span></p>
+<p><span style="font-size: 14px;">数组去重是一个老生常谈的问题，网上流传着有各种各样的解法</span></p>
+<p><span style="font-size: 14px;">为了测试这些解法的性能，我写了一个测试模版，用来计算数组去重的耗时</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="font-size: 14px;"><span style="color: #008000;">//</span><span style="color: #008000;"> distinct.js</span>
+<span style="color: #000000;">
+let arr1 </span>= Array.<span style="color: #0000ff;">from</span>(<span style="color: #0000ff;">new</span> Array(<span style="color: #800080;">100000</span>), (x, index)=&gt;<span style="color: #000000;">{
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> index
+})
+
+let arr2 </span>= Array.<span style="color: #0000ff;">from</span>(<span style="color: #0000ff;">new</span> Array(<span style="color: #800080;">50000</span>), (x, index)=&gt;<span style="color: #000000;">{
+    </span><span style="color: #0000ff;">return</span> index+<span style="color: #000000;">index
+})
+
+let start </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Date().getTime()
+console.log(</span><span style="color: #800000;">'</span><span style="color: #800000;">开始数组去重</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+
+function distinct(a, b) {
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 数组去重</span>
+<span style="color: #000000;">}
+
+console.log(</span><span style="color: #800000;">'</span><span style="color: #800000;">去重后的长度</span><span style="color: #800000;">'</span><span style="color: #000000;">, distinct(arr1, arr2).length)
+
+let end </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Date().getTime()
+console.log(</span><span style="color: #800000;">'</span><span style="color: #800000;">耗时</span><span style="color: #800000;">'</span>, end - start)</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;">这里分别创建了两个长度为 10W 和 5W 的数组</span></p>
+<p><span style="font-size: 14px;">然后通过 distinct() 方法合并两个数组，并去掉其中的重复项</span></p>
+<p><span style="font-size: 14px;">数据量不大也不小，但已经能说明一些问题了</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 16px;"><strong>二、Array.filter() + indexOf</strong></span></p>
+<p><span style="font-size: 14px;">这个方法的思路是，将两个数组拼接为一个数组，然后使用 ES6 中的&nbsp;<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter" target="_blank">Array.filter()</a> 遍历数组，并结合 indexOf 来排除重复项</span></p>
+<div class="cnblogs_code">
+<pre><span style="font-size: 14px;"><span style="color: #000000;">function distinct(a, b) {
+    let arr </span>=<span style="color: #000000;"> a.concat(b);
+    </span><span style="color: #0000ff;">return</span> arr.filter((item, index)=&gt;<span style="color: #000000;"> {
+        </span><span style="color: #0000ff;">return</span> arr.indexOf(item) ===<span style="color: #000000;"> index
+    })
+}</span></span></pre>
+</div>
+<p><span style="font-size: 14px;">这就是我被吐槽的那个数组去重方法，看起来非常简洁，但实际性能。。。</span></p>
+<p><span style="font-size: 14px;"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180913183116577-917737589.png" alt="" width="264" height="79"></span></p>
+<p><span style="font-size: 14px;">是的，现实就是这么残酷，处理一个长度为 15W 的数组都需要 8427ms</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><strong><span style="font-size: 16px;">三、双重 for 循环</span></strong></p>
+<p><span style="font-size: 14px;">最容易理解的方法，外层循环遍历元素，内层循环检查是否重复</span></p>
+<p><span style="font-size: 14px;">当有重复值的时候，可以使用 push()，也可以使用 splice()</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="font-size: 14px;"><span style="color: #0000ff;">function</span><span style="color: #000000;"> distinct(a, b) {
+    let arr </span>=<span style="color: #000000;"> a.concat(b);
+    </span><span style="color: #0000ff;">for</span> (let i=0, len=arr.length; i&lt;len; i++<span style="color: #000000;">) {
+        </span><span style="color: #0000ff;">for</span> (let j=i+1; j&lt;len; j++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">if</span> (arr[i] ==<span style="color: #000000;"> arr[j]) {
+                arr.splice(j, </span>1<span style="color: #000000;">);
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> splice 会改变数组长度，所以要将数组长度 len 和下标 j 减一</span>
+                len--;<span style="color: #000000;">
+                j</span>--;<span style="color: #000000;">
+            }
+        }
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> arr
+}</span></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;">但这种方法占用的内存较高，效率也是最低的</span></p>
+<p><span style="font-size: 14px;">&nbsp;<img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180920125555003-1710467503.png" alt="" width="286" height="93"></span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><strong><span style="font-size: 16px;">四、for...of +&nbsp;includes()</span></strong></p>
+<p><span style="font-size: 14px;">双重for循环的升级版，外层用 for...of 语句替换 for 循环，把内层循环改为&nbsp;includes()</span></p>
+<p><span style="font-size: 14px;">先创建一个空数组，当 includes()&nbsp;返回 false 的时候，就将该元素 push 到空数组中&nbsp;</span></p>
+<p><span style="font-size: 14px;">类似的，还可以用 indexOf() 来替代 includes()</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="font-size: 14px;"><span style="color: #0000ff;">function</span><span style="color: #000000;"> distinct(a, b) {
+    let arr </span>=<span style="color: #000000;"> a.concat(b)
+    let result </span>=<span style="color: #000000;"> []
+    </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> (let i of arr) {
+        </span>!result.includes(i) &amp;&amp;<span style="color: #000000;"> result.push(i)
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> result
+}</span></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;">这种方法和 filter + indexOf 挺类似</span></p>
+<p><span style="font-size: 14px;">只是把 filter() 的内部逻辑用 for 循环实现出来，再把 indexOf 换为 includes</span></p>
+<p><span style="font-size: 14px;">所以时长上也比较接近</span></p>
+<p><span style="font-size: 14px;">&nbsp;<img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180920142555361-480718309.png" alt="" width="272" height="84"></span></p>
+<p><span style="font-size: 14px;">&nbsp;&nbsp;</span></p>
+<p><span style="font-size: 16px;"><strong>五、Array.sort()</strong></span></p>
+<p><span style="font-size: 14px;">首先使用 sort() 将数组进行排序</span></p>
+<p><span style="font-size: 14px;">然后比较相邻元素是否相等，从而排除重复项</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="font-size: 14px;"><span style="color: #0000ff;">function</span><span style="color: #000000;"> distinct(a, b) {
+    let arr </span>=<span style="color: #000000;"> a.concat(b)
+    arr </span>=<span style="color: #000000;"> arr.sort()
+    let result </span>= [arr[0<span style="color: #000000;">]]
+
+    </span><span style="color: #0000ff;">for</span> (let i=1, len=arr.length; i&lt;len; i++<span style="color: #000000;">) {
+        arr[i] </span>!== arr[i-1] &amp;&amp;<span style="color: #000000;"> result.push(arr[i])
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> result
+}</span></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;">这种方法只做了一次排序和一次循环，所以效率会比上面的方法都要高</span></p>
+<p><span style="font-size: 14px;">&nbsp;<img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180920145432043-1219364650.png" alt="" width="276" height="86"></span></p>
+<p><span style="font-size: 14px;">&nbsp;&nbsp;</span></p>
+<p><strong><span style="font-size: 16px;">六、new Set()</span></strong></p>
+<p><span style="font-size: 14px;">ES6 新增了 <a href="http://es6.ruanyifeng.com/#docs/set-map" target="_blank">Set</a>&nbsp;这一数据结构，类似于数组，但<span style="color: #800000;"><strong> Set 的成员具有唯一性</strong></span></span></p>
+<p><span style="font-size: 14px;">基于这一特性，就非常适合用来做数组去重了</span></p>
+<div class="cnblogs_code">
+<pre><span style="font-size: 14px;"><span style="color: #000000;">function distinct(a, b) {
+    </span><span style="color: #0000ff;">return</span> Array.<span style="color: #0000ff;">from</span>(<span style="color: #0000ff;">new</span><span style="color: #000000;"> Set([...a, ...b]))
+}</span></span></pre>
+</div>
+<p><span style="font-size: 14px;">那使用 Set 又需要多久时间来处理 15W 的数据呢？</span></p>
+<p><span style="font-size: 14px;"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180913192205800-2108081675.png" alt="" width="307" height="89"></span></p>
+<p><span style="font-size: 14px;">喵喵喵？？？ 57ms ？？我没眼花吧？？</span></p>
+<p><span style="font-size: 14px;">然后我在两个数组长度后面分别加了一个0，在<span style="color: #3366ff;"> 150W </span>的数据量之下...</span></p>
+<p><span style="font-size: 14px;"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180913192413388-12163612.png" alt="" width="305" height="102"></span></p>
+<p><span style="font-size: 14px;">居然有如此高性能且简洁的数组去重办法？！</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 16px;"><strong>七、for...of + Object</strong></span></p>
+<p><span style="font-size: 14px;">这个方法我只在一些文章里见过，实际工作中倒没怎么用</span></p>
+<p><span style="font-size: 14px;">首先创建一个空对象，然后用 for 循环遍历</span></p>
+<p><span style="font-size: 14px;">利用<span style="color: #800000;"><strong>对象的属性不会重复</strong></span>这一特性，校验数组元素是否重复</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="font-size: 14px;"><span style="color: #0000ff;">function</span><span style="color: #000000;"> distinct(a, b) {
+    let arr </span>=<span style="color: #000000;"> a.concat(b)
+    let result </span>=<span style="color: #000000;"> []
+    let obj </span>=<span style="color: #000000;"> {}
+
+    </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> (let i of arr) {
+        </span><span style="color: #0000ff;">if</span> (!<span style="color: #000000;">obj[i]) {
+            result.push(i)
+            obj[i] </span>= 1<span style="color: #000000;">
+        }
+    }
+
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> result
+}</span></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;">当我看到这个方法的处理时长，我又傻眼了</span></p>
+<p><span style="font-size: 14px;"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180920144241545-1967025696.png" alt="" width="280" height="84"></span></p>
+<p><span style="font-size: 14px;"><strong>15W 的数据居然只要 16ms ？？？ 比 Set() 还快？？？</strong></span></p>
+<p><span style="font-size: 14px;">然后我又试了试 150W 的数据量...</span></p>
+<p><span style="font-size: 14px;"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/1059788-20180920144417481-1569178817.png" alt="" width="282" height="85"></span></p>
+<p><span style="font-size: 14px;">emmmmmmm.... 惹不起惹不起...</span></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/wisewrong/category/952983.html" target="_blank">JavaScript</a></div>
+<div id="EntryTag">标签: <a href="https://www.cnblogs.com/wisewrong/tag/javascript/">javascript</a>, <a href="https://www.cnblogs.com/wisewrong/tag/%E9%9D%A2%E8%AF%95/">面试</a>, <a href="https://www.cnblogs.com/wisewrong/tag/%E7%AE%97%E6%B3%95/">算法</a>, <a href="https://www.cnblogs.com/wisewrong/tag/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">数组去重</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(9642264,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;927db152-66a5-e611-845c-ac853d9f53ac&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/wisewrong/" target="_blank"><img src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/20170925120030.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/wisewrong/">Wise.Wrong</a><br>
+            <a href="https://home.cnblogs.com/u/wisewrong/followees">关注 - 7</a><br>
+            <a href="https://home.cnblogs.com/u/wisewrong/followers">粉丝 - 837</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;927db152-66a5-e611-845c-ac853d9f53ac&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(9642264,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">22</span>
+    </div>
+    <div class="buryit" onclick="votePost(9642264,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/wisewrong/p/9621231.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/wisewrong/p/9621231.html" title="发布于2018-09-11 11:22">前端面试(算法篇) - 水仙花数</a><br><a href="https://www.cnblogs.com/wisewrong/p/9689897.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/wisewrong/p/9689897.html" title="发布于2018-09-22 12:54">iphone 上微信的“复制链接”功能复制出来的是修改前的链接</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2018-09-20 15:09</span> <a href="https://www.cnblogs.com/wisewrong/">Wise.Wrong</a> 阅读(<span id="post_view_count">12334</span>) 评论(<span id="post_comment_count">5</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=9642264" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/wisewrong/p/9642264.html#" onclick="AddToWz(9642264);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=317026,cb_entryId=9642264,cb_blogApp=currentBlogApp,cb_blogUserGuid='927db152-66a5-e611-845c-ac853d9f53ac',cb_entryCreatedDate='2018/9/20 15:09:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/wisewrong/p/9642264.html#4072641" class="layer">#1楼</a><a name="4072641" id="comment_anchor_4072641"></a>  <span class="comment_date">2018-09-20 17:37</span> <a id="a_comment_author_4072641" href="https://www.cnblogs.com/cedd/" target="_blank">b4b4</a> <a href="http://msg.cnblogs.com/send/b4b4" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4072641" class="blog_comment_body">一个比一个经典，厉害了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4072641,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4072641,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/wisewrong/p/9642264.html#4072703" class="layer">#2楼</a><a name="4072703" id="comment_anchor_4072703"></a>  <span class="comment_date">2018-09-20 18:32</span> <a id="a_comment_author_4072703" href="https://www.cnblogs.com/TSailor/" target="_blank">为了_学习</a> <a href="http://msg.cnblogs.com/send/%E4%B8%BA%E4%BA%86_%E5%AD%A6%E4%B9%A0" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4072703" class="blog_comment_body">[...new Set(a)]</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4072703,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4072703,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/wisewrong/p/9642264.html#4072709" class="layer">#3楼</a><a name="4072709" id="comment_anchor_4072709"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2018-09-20 18:45</span> <a id="a_comment_author_4072709" href="https://www.cnblogs.com/wisewrong/" target="_blank">Wise.Wrong</a> <a href="http://msg.cnblogs.com/send/Wise.Wrong" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4072709" class="blog_comment_body"><a href="https://www.cnblogs.com/wisewrong/p/9642264.html#4072641" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,4072641);">@</a>
+b4b4<br>这些方法不测不知道，一测吓一跳啊</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4072709,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4072709,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4072709_avatar" style="display:none;">http://pic.cnblogs.com/face/1059788/20170925120030.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/wisewrong/p/9642264.html#4248790" class="layer">#4楼</a><a name="4248790" id="comment_anchor_4248790"></a>  <span class="comment_date">2019-05-06 16:35</span> <a id="a_comment_author_4248790" href="https://www.cnblogs.com/sheldonbean/" target="_blank">SheldonParsons</a> <a href="http://msg.cnblogs.com/send/SheldonParsons" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4248790" class="blog_comment_body">厉害。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4248790,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4248790,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/wisewrong/p/9642264.html#4298010" class="layer">#5楼</a><a name="4298010" id="comment_anchor_4298010"></a><span id="comment-maxId" style="display:none;">4298010</span><span id="comment-maxDate" style="display:none;">2019/7/11 10:52:53</span>  <span class="comment_date">2019-07-11 10:52</span> <a id="a_comment_author_4298010" href="https://www.cnblogs.com/guxuelong/" target="_blank">黎明の破晓</a> <a href="http://msg.cnblogs.com/send/%E9%BB%8E%E6%98%8E%E3%81%AE%E7%A0%B4%E6%99%93" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4298010" class="blog_comment_body">[...new Set(a)] 才是冠军</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4298010,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4298010,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4298010_avatar" style="display:none;">http://pic.cnblogs.com/face/852896/20180130153719.png</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/wisewrong/p/9642264.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/wisewrong/p/9642264.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.grapecity.com.cn/developer/spreadjs?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-SpreadJS&#39;)">【前端】SpreadJS表格控件，可嵌入系统开发的在线Excel</a><br><a href="https://group.cnblogs.com/topic/81799.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-Dell&#39;)">【戴尔】Vostro 5481小机身大视野，新一代职场搭档就是它</a><br><a href="https://q.cnblogs.com/" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-博问&#39;)">【推荐】程序员问答平台，解决您开发中遇到的技术难题</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/gpt.js.下载"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block" style="">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CLvf76Sx0eMCFQa8vQodeGcLzQ"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none; width: 300px; height: 250px;"></div></div>
+</div>
+<div id="under_post_news"></div>
+<div id="cnblogs_c2" class="c_ad_block" style="">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CLzf76Sx0eMCFQa8vQodeGcLzQ"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./JavaScript 高性能数组去重 - Wise.Wrong - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/628781/" target="_blank">发力全场景零售，苏宁秀出了哪些肌肉？</a><br> ·  <a href="https://news.cnblogs.com/n/628780/" target="_blank">SpaceX货运飞船发射成功 同一龙飞船第三次飞往空间站</a><br> ·  <a href="https://news.cnblogs.com/n/628779/" target="_blank">湖北：中国光谷加速奔向世界光谷</a><br> ·  <a href="https://news.cnblogs.com/n/628778/" target="_blank">云业务成​“三国杀”：微软Google发力追赶，AWS增速下滑</a><br> ·  <a href="https://news.cnblogs.com/n/628777/" target="_blank">苹果成为美国最大的太阳能企业用户</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar" style="top: 4016px;">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="back_top">
+<a href="https://www.cnblogs.com/wisewrong/p/9642264.html#home">TOP</a>
+</div>
+<script type="text/javascript">window['__document_write_ajax_callbacks__']['3']();</script><script type="text/javascript">window['__document_write_ajax_callbacks__']['1']();</script><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/wisewrong/">Wise.Wrong</a><br>园龄：<a href="https://home.cnblogs.com/u/wisewrong/" title="入园时间：2016-11-08">2年8个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/wisewrong/followers/">837</a><br>关注：<a href="https://home.cnblogs.com/u/wisewrong/followees/">7</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;927db152-66a5-e611-845c-ac853d9f53ac&#39;)">+加关注</a></div><script type="text/javascript">window['__document_write_ajax_callbacks__']['4']();</script><script>window['__document_write_ajax_callbacks__']['2']();</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/wisewrong/category/952052.html">CSS(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/wisewrong/category/952983.html">JavaScript(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/wisewrong/category/1042889.html">Node.js(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/wisewrong/category/1469577.html">React(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/wisewrong/category/933810.html">Vue(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/wisewrong/category/933809.html">工作笔记(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/wisewrong/category/1279047.html">前端面试(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/wisewrong/category/1174268.html">小程序(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/wisewrong/category/990723.html">愚人有语(15)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	126580
+	</li>
+	<li class="liRank">
+		排名 -	3750
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/wisewrong/p/6380903.html#4308972">1. Re:Vue 爬坑之路（五）—— 组件进阶</a></li>
+        <li class="recent_comment_body">slot作用域那个，props获取的为子组件text绑定的数据，也就是说，可以使用props.子组件属性获取子主见数据，如果用父组件绑定数据传递给子组件，props获取不到值<br></li>
+        <li class="recent_comment_author">--牛妈代代</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/wisewrong/p/10113370.html#4308097">2. Re:移动端实现拖拽的两种方法</a></li>
+        <li class="recent_comment_body">有一个问题，移动端不支持drap拖拽 可以通过定位实现 但是比如dragover这种效果不知道该如何替代实现</li>
+        <li class="recent_comment_author">--一紙线稿</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/wisewrong/p/10118332.html#4305961">3. Re:2018 年终总结 &amp; 2019 年度计划</a></li>
+        <li class="recent_comment_body">大哥，后面那两本书好背吗？</li>
+        <li class="recent_comment_author">--web小白需努力</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/wisewrong/p/10840798.html#4303460">4. Re:衣服洗一个月之后失踪，这个互联网洗衣平台把衣服洗出了翅膀</a></li>
+        <li class="recent_comment_body">到处是坑</li>
+        <li class="recent_comment_author">--蔡新</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/wisewrong/p/8985471.html#4302294">5. Re:在 Vue 项目中引入 tinymce 富文本编辑器</a></li>
+        <li class="recent_comment_body">完全按照这个写的 但是完全没出来</li>
+        <li class="recent_comment_author">--sober1443</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/wisewrong/p/6277262.html" title="1. Vue 爬坑之路（三）—— 使用 vue-router 跳转页面(309112)">1. Vue 爬坑之路（三）—— 使用 vue-router 跳转页面(309112)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6402183.html" title="2. Vue 爬坑之路（六）—— 使用 Vuex + axios 发送请求(161583)">2. Vue 爬坑之路（六）—— 使用 Vuex + axios 发送请求(161583)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6255817.html" title="3. Vue 爬坑之路（一）—— 使用 vue-cli 搭建项目(134205)">3. Vue 爬坑之路（一）—— 使用 vue-cli 搭建项目(134205)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6266038.html" title="4. Vue 爬坑之路（二）—— 组件之间的数据传递(92278)">4. Vue 爬坑之路（二）—— 组件之间的数据传递(92278)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6558001.html" title="5. Vue 爬坑之路（八）—— 使用 Echarts 创建图表(59564)">5. Vue 爬坑之路（八）—— 使用 Echarts 创建图表(59564)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/wisewrong/p/6277262.html">1. Vue 爬坑之路（三）—— 使用 vue-router 跳转页面(58)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6255817.html">2. Vue 爬坑之路（一）—— 使用 vue-cli 搭建项目(44)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6402183.html">3. Vue 爬坑之路（六）—— 使用 Vuex + axios 发送请求(39)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6344390.html">4. Vue 爬坑之路（四）—— 与 Vuex 的第一次接触(28)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6495726.html">5. Vue 爬坑之路（七）—— 监听滚动事件 实现动态锚点(21)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/wisewrong/p/6255817.html">1. Vue 爬坑之路（一）—— 使用 vue-cli 搭建项目(29)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6402183.html">2. Vue 爬坑之路（六）—— 使用 Vuex + axios 发送请求(25)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6277262.html">3. Vue 爬坑之路（三）—— 使用 vue-router 跳转页面(22)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/9642264.html">4. JavaScript 高性能数组去重(22)</a></li><li><a href="https://www.cnblogs.com/wisewrong/p/6266038.html">5. Vue 爬坑之路（二）—— 组件之间的数据传递(19)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2019 Wise.Wrong
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+
+<script type="text/javascript">
+      var wise = {}
+      wise.commentItemStyle = function() {
+        var comments = document.getElementById('blog-comments-placeholder');
+        if (comments && !comments.innerHTML) {
+          comments.style.display = 'none'
+        }
+        return wise
+      }
+      
+      wise.addNavIcon = function() {
+        var sitehome = document.getElementById('blog_nav_sitehome')
+        var myhome = document.getElementById('blog_nav_myhome')
+        var newpost = document.getElementById('blog_nav_newpost')
+        var contact = document.getElementById('blog_nav_contact')
+        var admin = document.getElementById('blog_nav_admin')
+        var doms = [sitehome, myhome, newpost, contact, admin]
+        var icons = ['icon-homefill', 'icon-peoplefill', 'icon-writefill', 'icon-messagefill', 'icon-repairfill']
+        
+        for(var i = 0, len = doms.length; i < len; i++) {
+          addIcon(doms[i], icons[i])
+        }
+        
+        function addIcon(dom, icon) {
+          var text = dom.innerHTML
+          dom.innerHTML = ''
+          var i = document.createElement('i')
+          var s = document.createElement('span')
+          i.className = 'iconfont ' + icon
+          s.innerHTML = text
+          dom.appendChild(i)
+          dom.appendChild(s)
+        }
+        return wise
+      }
+      
+      wise.sideBarFixed = function(){
+        var sideBar = document.getElementById('sideBar')
+        if (window.scrollY > 414) {
+          sideBar.style.top = (window.scrollY + 30) + 'px'
+        } else {
+          sideBar.style.top =  '444px'
+        }
+        return wise
+      }
+      
+      wise.addTopViewTitle = function() {
+        var listBox = document.getElementById('TopViewPostsBlock')
+        if (listBox && listBox.getElementsByTagName('a') && listBox.getElementsByTagName('a').length > 0) {
+            var items = listBox.getElementsByTagName('a')
+            for (var i = 0, len = items.length; i < len; i++) {
+              items[i].title = items[i].innerText
+            }
+        } else {
+          setTimeout(wise.addTopViewTitle, 300)
+        }
+      }
+      
+      window.addEventListener('scroll', function(){
+        wise.sideBarFixed()
+      })
+      wise.addNavIcon().sideBarFixed().commentItemStyle().addTopViewTitle()
+</script><script type="text/javascript">getFollowStatus('927db152-66a5-e611-845c-ac853d9f53ac')</script></body></html>
