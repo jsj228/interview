@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>给定时间进行倒计时</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+</head>
+<body>
+	给定时间进行倒计时
+	<div id=test></div>
+<script type="text/javascript">
+	function innerTime() {
+	    new Promise((resolve) => { //获取服务器的当前时间        new Date().getTime() ->获取系统的时间
+	        this.$http.get("/ajax_tdv/time").then((Time) => {
+	            resolve(Time);
+	        });
+	    }).then((tt) => {
+	        this.$http.get("/ajax_sub/getPeriod").then(({ data, status }) => { //获取结束时间 
+	            if (status == 1) {
+	                this.buyList = data;
+	                var elArr = parseInt(new Date(data.start_time.replace(/-/g, '/')).getTime() / 1000);   //replace(/-/g, '/')  苹果手机 - 中格式转换成/
+	                // var  offset_GMT  =  new  Date().getTimezoneOffset();  // 本地时间和格林威治的时间差，单位为分钟
+	                var t = setInterval(() => {
+	                    tt++; //获取服务器的当前时间 加加
+	                    // var  nowDate  =  new  Date().getTime();  // 本地时间距 1970 年 1 月 1 日午夜（GMT 时间）之间的毫秒数
+	                    // var tt = parseInt(new  Date(nowDate  +  offset_GMT  *  60  *  1000  +  8  *  60  *  60  *  1000)  /  1000);
+	                    var tCuo = elArr - tt;
+	                    var d = parseInt(tCuo / (3600 * 24)) ? parseInt(tCuo / (3600 * 24)) + '天' : '',
+	                        h = parseInt((tCuo % (3600 * 24)) / 3600) ? parseInt((tCuo % (3600 * 24)) / 3600) + '小时:' : '',
+	                        f = parseInt(((tCuo % (3600 * 24)) % 3600) / 60) ? parseInt(((tCuo % (3600 * 24)) % 3600) / 60) + '分:' : '',
+	                        s = ((tCuo % (3600 * 24)) % 3600) % 60 == 0 ? '60秒' : parseInt(((tCuo % (3600 * 24)) % 3600) % 60) + '秒'
+	                    this.feiTimes = d + '&nbsp;' + h + '&nbsp;' + f + '&nbsp;' + s;
+	                    if (tCuo < 0) {
+	                        this.feiStatus = 2;
+	                        this.feiTimes = "认购中...";
+	                        clearInterval(t)
+	                    }
+	                    if (!this.buyList) {
+	                        clearInterval(t)
+	                    }
+	                }, 1000)
+	            }
+	        }).catch(err => {
+	            console.log(err)
+	        });
+	    });
+	}
+</script>
+</body>
+</html>
