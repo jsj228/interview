@@ -1,82 +1,64 @@
-中午和同事吃饭，席间讨论到数组去重这一问题
-
-我立刻就分享了我常用的一个去重方法，随即被老大指出这个方法效率不高
-
-回家后我自己测试了一下，发现那个方法确实很慢
-
-于是就有了这一次的高性能数组去重研究
-
-
+	中午和同事吃饭，席间讨论到数组去重这一问题，我立刻就分享了我常用的一个去重方法，随即被老大指出这个方法效率不高
+	回家后我自己测试了一下，发现那个方法确实很慢，	于是就有了这一次的高性能数组去重研究.
 
 一、测试模版
-
-	数组去重是一个老生常谈的问题，网上流传着有各种各样的解法
-
-	为了测试这些解法的性能，我写了一个测试模版，用来计算数组去重的耗时
-
+	数组去重是一个老生常谈的问题，网上流传着有各种各样的解法，为了测试这些解法的性能，我写了一个测试模版，用来计算数组去重的耗时
 	复制代码
-	// distinct.js
-
 	let arr1 = Array.from(new Array(100000), (x, index)=>{
-	return index
+		return index
 	})
-
 	let arr2 = Array.from(new Array(50000), (x, index)=>{
-	return index+index
+		return index+index
 	})
-
 	let start = new Date().getTime()
 	console.log('开始数组去重')
 
 	function distinct(a, b) {
-	// 数组去重
+		// 数组去重
 	}
-
 	console.log('去重后的长度', distinct(arr1, arr2).length)
-
 	let end = new Date().getTime()
 	console.log('耗时', end - start)
 	复制代码
 	这里分别创建了两个长度为 10W 和 5W 的数组
-
 	然后通过 distinct() 方法合并两个数组，并去掉其中的重复项
-
 	数据量不大也不小，但已经能说明一些问题了
 
-
-
 二、Array.filter() + indexOf
-
 	这个方法的思路是，将两个数组拼接为一个数组，然后使用 ES6 中的 Array.filter() 遍历数组，并结合 indexOf 来排除重复项
-
 	function distinct(a, b) {
-	let arr = a.concat(b);
-	return arr.filter((item, index)=> {
-	return arr.indexOf(item) === index
-	})
+		let arr = a.concat(b);
+		return arr.filter((item, index)=> {
+			return arr.indexOf(item) === index
+		})
 	}
 	这就是我被吐槽的那个数组去重方法，看起来非常简洁，但实际性能。。。
-
-
-
 	是的，现实就是这么残酷，处理一个长度为 15W 的数组都需要 8427ms
-
-
 
 三、双重 for 循环
 
 	最容易理解的方法，外层循环遍历元素，内层循环检查是否重复
-
 	当有重复值的时候，可以使用 push()，也可以使用 splice()
-
 	复制代码
 	function distinct(a, b) {
-	let arr = a.concat(b);
-	for (let i=0, len=arr.length; i<len; i++) { for (let j=i+1; j<len; j++) { if (arr[i]==arr[j]) { arr.splice(j, 1); //
-		splice 会改变数组长度，所以要将数组长度 len 和下标 j 减一 len--; j--; } } } return arr } 复制代码 但这种方法占用的内存较高，效率也是最低的 
+		let arr = a.concat(b);
+		for (let i=0, len=arr.length; i<len; i++) { 
+			for (let j=i+1; j<len; j++) {
+				if (arr[i]==arr[j]) {
+					arr.splice(j, 1); //splice 会改变数组长度，所以要将数组长度 len 和下标 j 减一 
+					len--; j--;
+				}
+			}
+		}
+		return arr
+	} 
+	复制代码 但这种方法占用的内存较高，效率也是最低的 
 四、for...of +
-    includes() 双重for循环的升级版，外层用 for...of 语句替换 for 循环，把内层循环改为 includes() 先创建一个空数组，当 includes() 返回 false 的时候，就将该元素 push
-    到空数组中 类似的，还可以用 indexOf() 来替代 includes() 复制代码 function distinct(a, b) { let arr=a.concat(b) let result=[] for (let i
+    includes() 双重for循环的升级版，外层用 for...of 语句替换 for 循环，
+	把内层循环改为 includes() 先创建一个空数组，当 includes() 返回 false 的时候，就将该元素 push
+    到空数组中 类似的，还可以用 indexOf() 来替代 includes() 
+		
+	function distinct(a, b) { let arr=a.concat(b) let result=[] for (let i
     of arr) { !result.includes(i) && result.push(i) } return result } 复制代码 这种方法和 filter + indexOf 挺类似 只是把 filter()
     的内部逻辑用 for 循环实现出来，再把 indexOf 换为 includes 所以时长上也比较接近 
 五、Array.sort() 首先使用 sort() 将数组进行排序 然后比较相邻元素是否相等，从而排除重复项 复制代码
