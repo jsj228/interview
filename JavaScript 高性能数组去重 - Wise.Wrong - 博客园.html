@@ -36,7 +36,6 @@
 	是的，现实就是这么残酷，处理一个长度为 15W 的数组都需要 8427ms
 
 三、双重 for 循环
-
 	最容易理解的方法，外层循环遍历元素，内层循环检查是否重复
 	当有重复值的时候，可以使用 push()，也可以使用 splice()
 	复制代码
@@ -53,18 +52,34 @@
 		return arr
 	} 
 	复制代码 但这种方法占用的内存较高，效率也是最低的 
+
 四、for...of +
     includes() 双重for循环的升级版，外层用 for...of 语句替换 for 循环，
 	把内层循环改为 includes() 先创建一个空数组，当 includes() 返回 false 的时候，就将该元素 push
     到空数组中 类似的，还可以用 indexOf() 来替代 includes() 
 		
-	function distinct(a, b) { let arr=a.concat(b) let result=[] for (let i
-    of arr) { !result.includes(i) && result.push(i) } return result } 复制代码 这种方法和 filter + indexOf 挺类似 只是把 filter()
+	function distinct(a, b) {
+		let arr=a.concat(b) 
+		let result=[] 
+		for (let i of arr) { 
+			!result.includes(i) && result.push(i)
+		} 
+		return result 
+	}
+	复制代码 这种方法和 filter + indexOf 挺类似 只是把 filter()
     的内部逻辑用 for 循环实现出来，再把 indexOf 换为 includes 所以时长上也比较接近 
-五、Array.sort() 首先使用 sort() 将数组进行排序 然后比较相邻元素是否相等，从而排除重复项 复制代码
-    function distinct(a, b) { let arr=a.concat(b) arr=arr.sort() let result=[arr[0]] for (let i=1, len=arr.length;
-    i<len; i++) { arr[i] !==arr[i-1] && result.push(arr[i]) } return result } 
+
+五、Array.sort()
+	首先使用 sort() 将数组进行排序 然后比较相邻元素是否相等，从而排除重复项 复制代码
+    function distinct(a, b) {
+		let arr=a.concat(b)
+			arr=arr.sort()
+		let result=[arr[0]] 
+		for (let i=1, len=arr.length;i<len; i++) {
+			arr[i] !==arr[i-1] && result.push(arr[i]) 
+		} return result } 
 	   复制代码 这种方法只做了一次排序和一次循环，所以效率会比上面的方法都要高 
+											
 六、new Set() ES6 新增了 Set 这一数据结构，类似于数组，但 Set 的成员具有唯一性 基于这一特性，就非常适合用来做数组去重了 function distinct(a, b) { return Array.from(new
     Set([...a, ...b])) } 那使用 Set 又需要多久时间来处理 15W 的数据呢？ 喵喵喵？？？ 57ms ？？我没眼花吧？？ 然后我在两个数组长度后面分别加了一个0，在 150W 的数据量之下...
     居然有如此高性能且简洁的数组去重办法？！ 
