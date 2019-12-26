@@ -57,7 +57,6 @@
     includes() 双重for循环的升级版，外层用 for...of 语句替换 for 循环，
 	把内层循环改为 includes() 先创建一个空数组，当 includes() 返回 false 的时候，就将该元素 push
     到空数组中 类似的，还可以用 indexOf() 来替代 includes() 
-		
 	function distinct(a, b) {
 		let arr=a.concat(b) 
 		let result=[] 
@@ -78,15 +77,30 @@
 		for (let i=1, len=arr.length;i<len; i++) {
 			arr[i] !==arr[i-1] && result.push(arr[i]) 
 		} return result } 
-	   复制代码 这种方法只做了一次排序和一次循环，所以效率会比上面的方法都要高 
+	复制代码 这种方法只做了一次排序和一次循环，所以效率会比上面的方法都要高 
 											
-六、new Set() ES6 新增了 Set 这一数据结构，类似于数组，但 Set 的成员具有唯一性 基于这一特性，就非常适合用来做数组去重了 function distinct(a, b) { return Array.from(new
-    Set([...a, ...b])) } 那使用 Set 又需要多久时间来处理 15W 的数据呢？ 喵喵喵？？？ 57ms ？？我没眼花吧？？ 然后我在两个数组长度后面分别加了一个0，在 150W 的数据量之下...
+六、new Set()
+	ES6 新增了 Set 这一数据结构，类似于数组，但 Set 的成员具有唯一性 基于这一特性，就非常适合用来做数组去重了 
+	function distinct(a, b) { 
+		return Array.from(new Set([...a, ...b]));
+	} 
+	那使用 Set 又需要多久时间来处理 15W 的数据呢？ 喵喵喵？？？ 57ms ？？我没眼花吧？？ 
+	然后我在两个数组长度后面分别加了一个0，在 150W 的数据量之下...
     居然有如此高性能且简洁的数组去重办法？！ 
-七、for...of + Object 这个方法我只在一些文章里见过，实际工作中倒没怎么用 首先创建一个空对象，然后用 for 循环遍历 利用对象的属性不会重复这一特性，
-	校验数组元素是否重复 
-    复制代码 
-	function distinct(a, b) { let arr=a.concat(b) let result=[] let obj={} for (let i of arr) { if (!obj[i]) {
-    result.push(i) obj[i]=1 } } return result } 
+											
+七、for...of + Object 这个方法我只在一些文章里见过，实际工作中倒没怎么用 首先创建一个空对象，
+	然后用 for 循环遍历 利用对象的属性不会重复这一特性，校验数组元素是否重复 
+											
+	function distinct(a, b) { 
+		let arr=a.concat(b) 
+		let result=[]
+		let obj={}
+		for (let i of arr) {
+			if (!obj[i]) {
+    			result.push(i) obj[i]=1 
+			}
+		}
+	    return result 
+	} 
 	复制代码 当我看到这个方法的处理时长，我又傻眼了 15W 的数据居然只要 16ms ？？？ 比 Set() 还快？？？ 然后我又试了试 150W
     的数据量... emmmmmmm.... 惹不起惹不起...
