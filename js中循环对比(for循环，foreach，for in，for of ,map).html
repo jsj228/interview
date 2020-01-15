@@ -59,43 +59,43 @@ map undefined
 map 3
 map null
 map 7
+ 
 性能对比
-var arr =new Array(100000).fill(1)
-console.time('for循环')
-for (let i=0;i<arr.length;i++) {
-}
-console.timeEnd('for循环')
+<script>    
+    var arr =new Array(10000000).fill(1)
+    console.time('for循环')
+    for (let i=0;i<arr.length;i++) {
+    }
+    console.timeEnd('for循环')
 
-console.time('缓存优化的for循环')
-for (let i=0,len=arr.length;i<len;i++) {
-}
-console.timeEnd('缓存优化的for循环')
+    console.time('缓存优化的for循环')
+    for (let i=0,len=arr.length;i<len;i++) {
+    }
+    console.timeEnd('缓存优化的for循环')
+    console.time('foreach循环')
+    arr.forEach(item => {} )
+    console.timeEnd('foreach循环')
 
-console.time('foreach循环')
-arr.forEach(item => {} )
-console.timeEnd('foreach循环')
+    console.time('for of 循环')
+    for(let i of arr) {
+    }
+    console.timeEnd('for of 循环')
 
-console.time('for of 循环')
-for(let i of arr) {
-}
-console.timeEnd('for of 循环')
+    console.time('for in 循环')
+    for(let i in arr) {
+    }
+    console.timeEnd('for in 循环')
 
-console.time('for in 循环')
-for(let i in arr) {
-}
-console.timeEnd('for in 循环')
-
-console.time('map循环')
-arr.map(item => {})
-console.timeEnd('map循环')
-
+    console.time('map循环')
+    arr.map(item => {})
+    console.timeEnd('map循环')        
+</script>
 结果：
-
-for循环: 3.226ms
-缓存优化的for循环: 1.965ms
-foreach循环: 2.144ms
-for of 循环: 5.128ms
-for in 循环: 11.501ms（最好不要用，可能会遍历原型链上的属性）
-map循环: 13.134ms
+for循环: 74.544921875ms
+缓存优化的for循环: 6.071044921875ms
+foreach循环: 96.380126953125ms
+for of 循环: 104.8798828125ms
+for in 循环: 2372.712890625ms
+map循环: 133.43994140625ms
 注意lz在对数组的循环中没有做任何处理仅仅是空代码来比较性能，map循环直接返回空数组，在对数组进行浅拷贝上占用内存低，for of循环也对占用内存上进行了一定的优化，而for与for of可以随时中断循环与跳出循环。抛开业务场景和使用便利性，单纯谈性能和效率是没有意义的
 ES6新增的诸多数组的方法确实极大的方便了前端开发，使得以往复杂或者冗长的代码，可以变得易读而且精炼，而好的for循环写法，在大数据量的情况下，确实也有着更好的兼容和多环境运行表现
