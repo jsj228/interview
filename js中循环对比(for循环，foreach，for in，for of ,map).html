@@ -1,0 +1,101 @@
+js中循环对比(for循环，foreach，for in，for of ,map)
+对空位的处理
+for循环(不会忽略空位，标记undefined)
+var arr =[1,2,undefined,3,null,,7]
+for (let i=0;i<arr.length;i++) {
+    console.log('for循环',arr[i])
+}
+
+结果：
+for循环 1
+for循环 2
+for循环 undefined
+for循环 3
+for循环 null
+for循环 undefined
+for循环 7
+for of(不会忽略空位，标记undefined)
+for(let i of arr) {
+    console.log('for of',i)
+}
+
+结果：
+for of 1
+for of 2
+for of undefined
+for of 3
+for of null
+for of undefined
+for of 7
+for in(会忽略空位）
+for(let i in arr) {
+    console.log('for in',arr[i])
+}
+
+结果：
+for in 1
+for in 2
+for in undefined
+for in 3
+for in null
+for in 7
+forEach(会忽略空位)
+arr.forEach(item => console.log('foreach',item))
+
+结果：
+foreach 1
+foreach 2
+foreach undefined
+foreach 3
+foreach null
+foreach 7
+map(会忽略空位)，filter，every，some，find，findIndex都会忽略空位
+arr.map(item => console.log('map',item))
+
+结果：
+map 1
+map 2
+map undefined
+map 3
+map null
+map 7
+性能对比
+var arr =new Array(100000).fill(1)
+console.time('for循环')
+for (let i=0;i<arr.length;i++) {
+}
+console.timeEnd('for循环')
+
+console.time('缓存优化的for循环')
+for (let i=0,len=arr.length;i<len;i++) {
+}
+console.timeEnd('缓存优化的for循环')
+
+console.time('foreach循环')
+arr.forEach(item => {} )
+console.timeEnd('foreach循环')
+
+console.time('for of 循环')
+for(let i of arr) {
+}
+console.timeEnd('for of 循环')
+
+console.time('for in 循环')
+for(let i in arr) {
+}
+console.timeEnd('for in 循环')
+
+console.time('map循环')
+arr.map(item => {})
+console.timeEnd('map循环')
+
+结果：
+
+for循环: 3.226ms
+缓存优化的for循环: 1.965ms
+foreach循环: 2.144ms
+for of 循环: 5.128ms
+for in 循环: 11.501ms（最好不要用，可能会遍历原型链上的属性）
+map循环: 13.134ms
+注意lz在对数组的循环中没有做任何处理仅仅是空代码来比较性能，map循环直接返回空数组，在对数组进行浅拷贝上占用内存低，for of循环也对占用内存上进行了一定的优化，而for与for of可以随时中断循环与跳出循环。抛开业务场景和使用便利性，单纯谈性能和效率是没有意义的
+ES6新增的诸多数组的方法确实极大的方便了前端开发，使得以往复杂或者冗长的代码，可以变得易读而且精炼，而好的for循环写法，在大数据量的情况下，确实也有着更好的兼容和多环境运行表现
