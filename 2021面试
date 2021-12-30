@@ -1,1 +1,470 @@
 
+一、Web面试题
+1.web常见的五种前端布局方式
+（1）文档布局（text）
+文档流本质是 nomal flow （普通流、常规流）
+
+元素在文档中的特点 块级元素，和内联元素。
+
+缺点：在移动端不可以使用pc端的页面，两个页面的布局是不一致的，移动端需要自己再设计一个布局并使用不同的域名呈现
+
+（2）浮动布局（float）
+浮动一般用于让块级元素排成一行在同一行显示
+
+任何元素都可浮动，如一个元素设置为浮动元素，浮动元素无论最初是什么都会变成一个行块级元素，拥有disolay：inline-block属性float：left沿着父容器顶部向左推入容器，如果卡住推不动，判断当前位置能否全部显示该子容器，如果能完成 如果不能继续找空档往里推
+
+缺点：脱离文档流，需要清除浮动，高度塌陷（float的破坏性主要是指它会使父容器的高度塌陷，也就是父元素在高度计算的时候会忽略浮动的元素）。
+
+优点：兼容性好，计较简单容易上手
+
+（3）定位布局（position）
+relative属性：脱离文档流，但保留占位符，其偏移位置是相对于本身在正常文档流中时的位置， 脱离文档流是说设置了relative属性之后，元素不在z-index：0；的正常文档流中，其z-index的值>0但保留占位符，就是在正常文档流中位置依旧保留着，后续元素不能占位，然后相对于本身正常位置进行偏移。
+
+absolute：完全脱离文档流，不保留占位符，其元素定位是相对于其父级以上，一直追溯至设置了position：relative或fixed属性的外层元素（也包含块元素），如果其外层元素均匀未设置position属性，则定位是相对于HTML文档进行的绝对定位，并不是相对于body的定位
+
+缺点：脱离文档流，会导致后续元素全部脱离文档流，可用行差。
+
+优点： 就是 让元素拥有了 inline-block 宽高限制
+
+（4）流式布局（streaming）
+元素的宽高用百分比做单位，元素宽高按屏幕分辨率调整，布局不发生变化。屏幕尺度跨度过大的情况下不能正常显示
+
+缺点：如果尺度过大或者过小在屏幕上就不能正常显示
+
+优点：兼容性比较好，当屏幕分辨率变化时元素大小不变布局也不变
+
+（5）弹性布局（rem/em）
+弹性布局是css3引入的布局方式，用来代以前的WEB开发人员的一些复杂易错的hacks方法（如float实现流失布局）
+
+缺点：浏览器的兼容性比较差只能到ie9以及以上。
+
+优点：适应性强，在做不同屏幕分辨率的界面时非常使用，可以随意按照宽度，比列划分元素的宽高，实现快捷，易维护。简单，方便，快速。
+
+（6）自适应布局（adaptation）
+自适应布局分辨为不一样屏幕分辨率定义布局，可以创建多个静态布局，每一个静态布局对应一个分辨率范围，屏幕分辨率变化时，页面里面的元素的位置会变化而大小不会变，可使用(@media媒体查询)给不同的尺寸和介质的设备切换不同的样式在优秀的响应范围设计下可以给配范围内的设备最好的体验，在同一个设备下实际还是固定的布局
+
+缺点：如果需要不同页面那么还需要写多页的代码
+
+优点：屏幕分辨率变化时，页面里面元素的位置变化而大小不会变化
+
+（7）响应式布局（ BootStrap）
+为不同的屏幕分辨率定义布局，同时，在每个布局中，应用流式布局的理念，即页面元素宽度随着窗口调整而自动适配。可以把响应式布局看作是流式布局和自适应布局设计理念的融合。即：创建多个流体式布局，分别对应一个屏幕分辨率范围。响应式几乎已经成为优秀页面布局的标准，每个屏幕分辨率下面会有一个布局样式，即元素位置和大小都会变媒体查询+流式布局。通常使用 @media 媒体查询 和网格系统 (Grid System) 配合相对布局单位进行布局，实际上就是综合响应式、流动等上述技术通过 CSS 给单一网页不同设备返回不同样式的技术统称。
+
+缺点：媒体查询是有限的，也就是可以枚举出来的，只能 适应主流的宽高，要匹配足够的屏幕大小，工作量比较大，设计也需要多个版本
+
+优点：适应pc和移动端，如果只够的耐心，效果会很完美。
+
+2.什么是盒子模型？
+在网页中，一个元素占有空间的大小由几个部分构成，其中包括元素的内容（content），元素的内边距（padding），元素的边框（border），元素的外边距（margin）四个部分。这四个部分占有的空间中，有的部分可以显示相应的内容，而有的部分只用来分隔相邻的区域或区域。4个部分一起构成了css中元素的盒模型。
+
+3.行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？
+（1）行内元素：a、b、span、img、input、strong、select、label、em、button、textarea
+
+（2）块级元素：div、ul、li、dl、dt、dd、p、h1-h6、blockquote
+
+（3）空元素：即系没有内容的HTML元素，例如：br、meta、hr、link、input、img
+
+4.CSS实现垂直水平居中
+（1）margin: 0 auto
+
+.元素{
+width:100px;
+height:100px;
+line-height:100px;
+margin:0 auto;
+}
+1
+2
+3
+4
+5
+6
+（2）元素水平垂直居中
+
+<div class="wrap">
+    <div class="example">
+    </div>
+</div>
+1
+2
+3
+4
+.wrap {
+    position: relative;
+    background-color: orange;
+    width: 300px;
+    height: 300px;
+}
+.example {
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -50px 0 0 -50px;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+（3）flex布局
+
+.元素 {
+  background-color: #FF8C00;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center; /*使子项目水平居中*/
+  align-items: center; /*使子项目垂直居中*/
+}
+1
+2
+3
+4
+5
+6
+7
+8
+（4） 绝对布局
+
+<div class="warp">
+  <div class="example">
+    居中显示
+  </div>
+</div>
+1
+2
+3
+4
+5
+.warp {
+  position: relative;
+  background-color: orange;
+  width: 200px;
+  height: 200px;
+}
+.example {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+（5）给子元素相对定位，在通过translaY（）得到垂直居中
+
+.warp {
+  position: relative;
+  background-color: orange;
+  width: 200px;
+  height: 200px;
+}
+.example {
+  position: relative;
+  top:50%;
+  transform:translateY(-50%);
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+ 
+（6）利用inline-block的vertical-align: middle去对齐after伪元素
+
+.warp {
+    text-align: center;
+    overflow: auto;
+    width: 200px;
+    height: 200px;
+    background-color: orange;
+}
+.example {
+    display: inline-block;
+    background-color: red;
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+}
+
+.warp:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin-left: -0.25em;
+}
+
+（7）display: flex-box
+
+.warp {
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
+ 
+.example {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+  
+5.简述同步和异步的区别
+（1）同步是阻塞模式，异步是非阻塞模式。
+
+（2）同步就是指一个进程在执行某个请求的时候，若该请求需要一段时间才能返回信息，那么这个进程将会一直等待下去，直到收到返回信息才继续执行下去；
+
+（3）异步是指进程不需要一直等下去，而是继续执行下面的操作，不管其他进程的状态。当有消息返回时系统会通知进程进行处理，这样可以提高执行的效率。
+
+6.一次完整的HTTP事务是怎样的一个过程
+基本流程：
+
+a. 域名解析
+
+b. 发起TCP的3次握手
+
+c. 建立TCP连接后发起http请求
+
+d. 服务器端响应http请求，浏览器得到html代码
+
+e. 浏览器解析html代码，并请求html代码中的资源
+
+f. 浏览器对页面进行渲染呈现给用户
+
+7.TCP的三次握手
+（1）第一次握手：客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态，等待服务器确认
+
+（2）第二次握手：服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态
+
+（3）第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手
+
+8.HTTP和HTTPS的区别
+（1）http: 超文本传输协议，是互联网上广泛的一种网络协议，是一个用户客户端和服务端请求和应答的标准（TCP）,用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少
+
+（2）https： 一安全为目标的HTTP通道，在http下加入了SSL层。SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密
+
+（3）https协议需要申请证书，一般免费证书比较少，所以需要一定的费用
+
+http是超文本传输协议，信息是明文传输。https则是具有安全性的ssl加密传输协议
+
+http和https使用的是完全不相同的两种连接方式，用的端口也不一样，http是80端口，https是443端口，所以一般安全级别比较高的服务都为采用https协议来进行信息加密避免敏感信息泄露
+
+9.浏览器是如何渲染页面的
+（1）从浏览器地址栏的请求链接开始
+
+（2）浏览器通过DNS解析查到域名映射的IP地址
+
+（3）成功之后浏览器端向此IP地址取得连接
+
+（4）成功连接之后，浏览器端将请求头信息 通过HTTP协议向此IP地址所在服务器发起请求
+
+（5）服务器接受到请求之后等待处理，最后向浏览器端发回响应
+
+（6）此时在HTTP协议下，浏览器从服务器接收到 text/html类型的代码
+
+（7）浏览器开始显示此html，并获取其中内嵌资源地址
+
+（8）然后浏览器再发起请求来获取这些资源，并在浏览器的html中显示
+
+10.浏览器存储方法及其优缺点
+（1） cookie
+
+h5之前，存储主要用cookies，缺点是在请求头上带着数据，导致流量增加。大小限制4k
+
+（2）localStorage
+
+以键值对(Key-Value)的方式存储，永久存储，永不失效，除非手动删除。IE8+支持，每个域名限制5M
+
+（3）sessionStorage
+
+sessionStorage操作的方法与localStroage是一样的，区别在于 sessionStorage 在关闭页面后即被清空，而 localStorage 则会一直保存。很多时候数据只需要在用户浏览一组页面期间使用，关闭窗口后数据就可以丢弃了，这种情况使用sessionStorage就比较方便
+
+（4）cookie、localStorage、sessionStorage之间的区别
+
+存储大小限制不同，cookie数据不能超过4k，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大
+
+数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
+
+作用域不同，sessionStorage不在不同的浏览器页面中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的
+
+Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者
+
+11.防抖和节流
+（1）函数节流(throttle)：事件频繁触发的情况下，在指定时间内只执行一次任务
+
+（2）函数防抖(debounce)：任务在事件触发后等待一段时间再执行，如果事件频繁触发，会重新计算等待时间
+
+二、Vue面试题
+1. 对于MVVM的理解
+MVVM 是 Model-View-ViewModel 的缩写。
+
+（1）Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。
+
+（2）View 代表UI 组件，它负责将数据模型转化成UI 展现出来。
+
+（3）ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步View 和 Model的对象，连接Model和View。
+
+（4）在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。
+
+（5）ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
+
+下面是MVVM的交互图：
+
+
+2. Vue实现双向数据绑定
+（1）Vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应监听回调。当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
+
+（2）vue的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
+
+3. Vue组件间的参数传递
+（1）父组件向子组件传值：子组件通过props方法接受数据
+
+（2）子组件向父组件传值：子组件通过e m i t ( ) 方 法 传 递 参 数 ， 父 组 件 通 过 emit()方法传递参数，父组件通过emit()方法传递参数，父组件通过on()监听
+
+（3）兄弟组件传值：eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。
+
+4. v-show 与 v-if 区别
+（1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
+
+（2）v-show和v-if的使用：频繁切换时用v-show，运行时较少改变时用v-if
+
+5. Vue的生命周期
+（1）Vue的生命周期：beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
+
+（2）生命周期详解：
+
+beforeCreate：（创建前） 在数据观测和初始化事件还未开始
+
+created：（创建后） 完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来
+
+beforeMount：（载入前） 在挂载开始之前被调用，相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。
+
+mounted：（载入后） 在el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。完成模板中的html渲染到html页面中。此过程中进行ajax交互。
+
+beforeUpdate：（更新前） 在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
+
+updated：（更新后） 在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
+
+beforeDestroy：（销毁前） 在实例销毁之前调用。实例仍然完全可用。
+
+destroyed：（销毁后） 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
+
+（3）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
+
+（4）vue生命周期的作用是什么：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑
+
+（5）vue生命周期总共有几个阶段：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后
+
+（6）第一次页面加载会触发哪几个钩子：会触发 下面这几个beforeCreate, created, beforeMount, mounted
+
+（7）DOM 渲染在 哪个周期中就已经完成：DOM 渲染在 mounted 中就已经完成了
+
+6. 绑定 class 的数组用法
+（1）对象方法 v-bind:class="{‘orange’: isRipe, ‘green’: isNotRipe}"
+
+（2）数组方法v-bind:class="[class1, class2]"
+
+（3）行内 v-bind:style="{color: color, fontSize: fontSize+‘px’ }"
+
+7. 计算属性computed和 监听watch 的区别
+（1）computed 是一个对象时，它有哪些选项：有get和set两个选项
+
+计算属性默认只有 getter，不过在需要时你也可以提供一个 setter
+
+（2）computed 和 watch有什么区别：只是需要动态值，那就用计算属性；需要知道值的改变后执行业务逻辑，才用 watch
+
+（3）watch 是一个对象时，它有哪些选项：handler，deep 是否深度，immeditate 是否立即执行
+
+8. Vue的路由实现：hash模式 和 history模式
+（1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
+
+（2）history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。history 模式下，前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
+
+9. 组件中 data 为什么是函数
+（1）因为组件是用来复用的，JS 里对象是引用关系，这样作用域没有隔离，而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题
+
+10. vue.js的两个核心是什么
+（1）数据驱动和组件化
+
+11. vue中 key 值的作用
+（1）使用key来给每个节点做一个唯一标识
+
+（2）key的作用主要是为了高效的更新虚拟DOM。另外vue中在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果。
+
+12.v-for 与 v-if 的优先级
+（1）v-for的优先级比v-if高
+
+13.vue-router有哪几种路由守卫
+（1）全局守卫：beforeEach
+
+（2）后置守卫：afterEach
+
+（3）全局解析守卫：beforeResolve
+
+（4）路由独享守卫：beforeEnter
+
+14.$route和 $router的区别是什么
+（1）$router为VueRouter的实例，是一个全局路由对象，包含了路由跳转的方法、钩子函数等
+
+（2）$route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数
+
+15.vuex有哪几种属性
+（1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
+
+State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
+
+Getter：getters 可以对State进行计算操作，它就是Store的计算属性
+
+Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
+
+Action：Action 提交的是 mutation，而不是直接变更状态。
+
+Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
+
+原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
