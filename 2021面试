@@ -124,7 +124,8 @@ absolute：完全脱离文档流，不保留占位符，其元素定位是相对
     （3）第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手
 
 8.HTTP和HTTPS的区别
-    （1）http: 超文本传输协议，是互联网上广泛的一种网络协议，是一个用户客户端和服务端请求和应答的标准（TCP）,用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少
+    （1）http: 超文本传输协议，是互联网上广泛的一种网络协议，是一个用户客户端和服务端请求和应答的标准（TCP）,
+        用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少
     （2）https： 一安全为目标的HTTP通道，在http下加入了SSL层。SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密
     （3）https协议需要申请证书，一般免费证书比较少，所以需要一定的费用
     
@@ -249,15 +250,10 @@ absolute：完全脱离文档流，不保留占位符，其元素定位是相对
 （2）$route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数
 15.vuex有哪几种属性
 （1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
-
-State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
-
-Getter：getters 可以对State进行计算操作，它就是Store的计算属性
-
-Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
-
-Action：Action 提交的是 mutation，而不是直接变更状态。
-
-Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
+    State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
+    Getter：getters 可以对State进行计算操作，它就是Store的计算属性
+    Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
+    Action：Action 提交的是 mutation，而不是直接变更状态。
+    Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
 
 原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
