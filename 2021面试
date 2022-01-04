@@ -217,7 +217,7 @@ absolute：完全脱离文档流，不保留占位符，其元素定位是相对
     （3）行内 v-bind:style="{color: color, fontSize: fontSize+‘px’ }"
 
 7. 计算属性computed和 监听watch 的区别
-（1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     计算属性默认只有 getter，不过在需要时你也可以提供一个 setter
+（1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     计算属性默认只有 getter，不过在需要时你也可以提供一个 setter   (注：computed有缓存，如果不需要缓存可以使用方法函数代替)
 （2）computed 和 watch有什么区别：只是需要动态值，那就用计算属性；需要知道值的改变后执行业务逻辑，才用 watch
 （3）watch 是一个对象时，它有哪些选项：handler，deep 是否深度，immeditate 是否立即执行
 
