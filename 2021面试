@@ -261,7 +261,21 @@ absolute：完全脱离文档流，不保留占位符，其元素定位是相对
 vue页面加载过慢解决
 
 一、vue-router路由懒加载
-    webpack独有的require.ensure技术，也可以实现按需加载;    
+ 1、方法一
+    export default new Router({
+      routes: [{
+          path: '/index',
+          component: resolve=>require(['@/components/HelloWorld'],resolve)
+        }]
+    })
+ 2、方法二
+    export default new Router({
+      routes: [{
+          path: '/index',
+          component: ()=>import('@/components/HelloWorld')
+        }]
+    })
+ 3、webpack独有的require.ensure技术，也可以实现按需加载;    
     懒加载是当路由被访问的时候才加载对应组件，而不是在首页就全部加载，以此来提高首页反应速度。
     说明: require.ensure在需要的时候才下载依赖的模块，当参数指定的模块都下载下来了（下载下来的模块还没执行），便执行参数指定的回调函数。require.ensure会创建一个chunk，
     且可以指定该chunk的名称，如果这个chunk名已经存在了，则将本次依赖的模块合并到已经存在的chunk中，最后这个chunk在webpack构建的时候会单独生成一个文件。
