@@ -8,7 +8,8 @@
 <body>
 <script type="text/javascript">
 	//显示后两天的日期
-	var oneweekdate = new Date(T-2*24*3600*1000);
+var T=new Date(),
+var oneweekdate = new Date(T-2*24*3600*1000);
     Year = oneweekdate.getFullYear();
     m = oneweekdate.getMonth()+1;
     d = oneweekdate.getDate();
