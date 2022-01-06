@@ -7,6 +7,18 @@
 </head>
 <body>
 <script type="text/javascript">
+// 	
+	if(va==7)var oneweekdate = new Date(T-7*24*3600*1000);
+    if(va==30)var oneweekdate = new Date(T-30*24*3600*1000);
+    if(va==90)var oneweekdate = new Date(T-90*24*3600*1000);
+    if(va==365)var oneweekdate = new Date(T-365*24*3600*1000);
+    Year = oneweekdate.getFullYear();
+    m = oneweekdate.getMonth()+1;
+    d = oneweekdate.getDate();
+    m=m<9?('0'+m):m;
+    d=d<9?('0'+d):d;
+	document.write('<br>结束时间：'+Year+'年'+m+'月'+d+'日');
+	
 	function time(y,m,d){
 	    document.write('开始时间:'+y+'年'+m+'月'+(d-2)+'日');
 	     if(y%4==0|y%400==0){
