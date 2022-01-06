@@ -258,17 +258,35 @@ absolute：完全脱离文档流，不保留占位符，其元素定位是相对
 
 原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-版权声明：本文为CSDN博主「小天使娜娜」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/localhost_1314/article/details/88848591
+vue页面加载过慢解决
+
 一、vue-router路由懒加载
+    webpack的require.ensure技术，也可以实现按需加载;    这种情况下，多个路由指定相同的chunkName，会合并打包成一个js文件。
     懒加载是当路由被访问的时候才加载对应组件，而不是在首页就全部加载，以此来提高首页反应速度。
     说明: require.ensure在需要的时候才下载依赖的模块，当参数指定的模块都下载下来了（下载下来的模块还没执行），便执行参数指定的回调函数。require.ensure会创建一个chunk，
     且可以指定该chunk的名称，如果这个chunk名已经存在了，则将本次依赖的模块合并到已经存在的chunk中，最后这个chunk在webpack构建的时候会单独生成一个文件。
-    语法: require.ensure(dependencies: String[], callback: function([require]), [chunkName: String]) 
-    dependencies: 依赖的模块数组
-    callback: 回调函数，该函数调用时会传一个require参数
-    chunkName: 模块名，用于构建时生成文件时命名使用
+    语法: require.ensure(dependencies: String[], callback: function([url]), [chunkName: String]) 
+          dependencies: 依赖的模块数组   callback: 回调函数，该函数调用时会传一个require参数     chunkName: 模块名，用于构建时生成文件时命名使用
+    import Vue from 'vue'
+    import Router from 'vue-router'
+    Vue.use(Router) 
+    export default new Router({
+      routes: [
+        {
+          path: '/index',
+          name: 'Index',
+          component: resolve=>require.ensure (['@/components/HelloWorld'],"home")
+        },
+        {
+          path: '/home',
+          name: 'home',
+          component: resolve=>require.ensure (['@/components/home'],"home")
+        }
+      ]
+    })
     注意点：require.ensure的模块只会被下载下来，不会被执行，只有在回调函数使用require(模块名)后，这个模块才会被执行。
+    webpack.base.conf.js修改：https://blog.csdn.net/LSL3521/article/details/105227330
+    
 二、打包优化——工程文件打包的时候不生成.map文件
     npm run build编译之后，我们查看编译生成的文件，发现有很多.map文件，这些文件占了不小的空间。
     .map文件的作用是帮助编译后的代码调试，但是我们上线的代码已经调试完成，所以上线时可以不生成.map文件。
