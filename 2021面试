@@ -182,9 +182,40 @@ absolute：完全脱离文档流，不保留占位符，其元素定位是相对
 13.call和apply的作用
 
 14.防抖和节流
-（1）函数节流(throttle)：事件频繁触发的情况下，在指定时间内只执行一次任务
-（2）函数防抖(debounce)：任务在事件触发后等待一段时间再执行，如果事件频繁触发，会重新计算等待时间   _.debounce(function, 500)
-
+    （1）函数节流(throttle)：事件频繁触发的情况下，在指定时间内只执行一次任务
+    （2）函数防抖(debounce)：任务在事件触发后等待一段时间再执行，如果事件频繁触发，会重新计算等待时间   _.debounce(function, 500)
+        /*
+            @param fn执行的函数
+            @param Times时间间隔单位是毫秒级
+            @param isTtrue 为true debounce会在Times时间间隔开始的时候立即执行fn函数
+            @return function
+        */
+        function debounce(fn,Timed,isTrue){
+           var timeOut=null;
+           return function(){
+            var _this=this;      //获取函数所在的this作用域   
+            var args=arguments ; //获取参数
+            clearTimeout(timeOut)
+            if(isTrue && timeOut==null){
+               //立即执行fn函数
+               fn.apply(_this,args);
+               timeOut=0;
+               return;
+            }
+            timeOut = setTimeout(function(){
+               fn.apply(_this,args);
+               timeOut=null
+            },Timed)
+           }
+        }
+        var num=0;
+        document.getElementById('btn').addEventListener('click',
+            debounce(function(){
+                init++;
+                 document.getElementsByTagName("tagName").innerHtml(init)
+               // getElementsByClassName("className")                 getElementsByTagName("tagName")    querySelector(".className")(或者#id或者直接写tag)
+            },1000,true)
+        )
 ————————————————————————————————————————————————————————————————————————————————— vue —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 二、Vue面试题
 1. 对于MVVM的理解  
