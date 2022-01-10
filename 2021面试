@@ -180,17 +180,20 @@ absolute：完全脱离文档流，不保留占位符，其元素定位是相对
     （1）跨域问题是如何产生的：浏览器的同源安全的策略，使得   协议不同、域名、子域名、端口 有一种不相同时，会出现跨域
     （2）怎吗结局跨域问题 
         a.JSONP 解决get跨域问题
-        b.iframe 跨域
-        c.webpack 
-            本地配置代理服务，解决跨域 https://www.cnblogs.com/zishang91/p/8909900.html，
-            生产后:后端服务（nginx）的反向代理接口跨域
+        b.webpack   本地配置代理服务，解决跨域 https://www.cnblogs.com/zishang91/p/8909900.html，
+        c.生产后:后端服务（nginx）的反向代理接口跨域
+        d.后端开启CORS即可， 设置Access-Control-Allow-Origin=true
 
 10.this的指向问题
-    es5：
-    
-    es6：
-    
-(foo.bar,foo.bar)();
+    es5：谁调用的，指向谁， (fn)();
+    es6：指向是固定的,（ 只会从自己的作用域链的上一层继承this ，并始终指向fn 定义生效时所在的对象）
+    jq:指向的是jq对象
+        //$(document).ready(function(){
+        $(function(){  
+            console.log(this);       //this    document 文档 
+            console.log($(this));   //$(this)  document 节点
+            console.log($);         //$        jq对象
+        })
 9.call和apply的作用
     https://blog.csdn.net/foreverwy/article/details/78150563
 10.闭包问题
