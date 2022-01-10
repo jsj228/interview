@@ -50,9 +50,7 @@ git 是如何解决代码冲突的
 （1）margin: 0 auto
     .元素{ width:100px; height:100px; line-height:100px;margin:0 auto;}
 （2）元素水平垂直居中
-    <div class="wrap">
-        <div class="example"></div>
-    </div>
+    <div class="wrap">    <div class="example"></div>    </div>
     .wrap {position: relative;background-color: orange;width: 300px;height: 300px; }
     .example {  background-color:red;width: 100px;height: 100px;position: absolute;left: 50%;top: 50%;margin: -50px 0 0 -50px;  }
 （3）flex布局       .元素 {  
