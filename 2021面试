@@ -217,6 +217,8 @@ git 是如何解决代码冲突的
                // getElementsByClassName("className")                 getElementsByTagName("tagName")    querySelector(".className")(或者#id或者直接写tag)
             },1000,true)
         )
+    3.for-each和map的区别
+    
 ————————————————————————————————————————————————————————————————————————————————— vue —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 二、Vue面试题
 1. 对于MVVM的理解  
@@ -234,10 +236,12 @@ git 是如何解决代码冲突的
         将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
     （2）vue的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
         最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
-3. Vue组件间的参数传递
+3. Vue组件间的参数传递 （微信收藏）
     （1）父组件向子组件传值：子组件通过props方法接受数据
     （2）子组件向父组件传值：子组件通过  emit() 方法传递参数 ， 父组件通过 emit() 方法传递参数，父组件通过emit()方法传递参数，父组件通过on()监听
-    （3）兄弟组件传值：eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。 https://blog.csdn.net/zhongzk69/article/details/80928170
+    （3）兄弟组件传值：eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。
+        https://blog.csdn.net/zhongzk69/article/details/80928170         https://blog.csdn.net/weixin_39944375/article/details/113323828
+    （4）跨级传值*：provide/inject  
 4. v-show 与 v-if 区别
     （1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
     （2）v-show和v-if的使用：频繁切换时用v-show，运行时较少改变时用v-if
