@@ -3,8 +3,9 @@ git 是如何解决代码冲突的
 
 一、Web面试题
 1.什么是盒子模型？
-    在网页中，一个元素占有空间的大小由几个部分构成，其中包括元素的内容（content），元素的内边距（padding），元素的边框（border），元素的外边距（margin）四个部分。
-    这四个部分占有的空间中，有的部分可以显示相应的内容，而有的部分只用来分隔相邻的区域或区域。4个部分一起构成了css中元素的盒模型。
+    在网页中，一个元素占有空间的大小由几个部分构成，其中包括元素的内容（content），元素的内边距（padding），元素的边框（border），元素的外边距（margin）四个部分一起构成了css中元素的盒模型。
+    标准盒子模型：一个块的总宽度= width + margin(左右) + padding(左右) + border(左右)
+      IE盒子模型：一个块的总宽度= width + margin(左右)（即 width 已经包含了padding和border值）
 2.web常见的五种前端布局方式
 （1）文档布局（text）  文档流本质是 nomal flow （普通流、常规流）      元素在文档中的特点 块级元素，和内联元素。
     缺点：在移动端不可以使用pc端的页面，两个页面的布局是不一致的，移动端需要自己再设计一个布局并使用不同的域名呈现
@@ -167,6 +168,8 @@ git 是如何解决代码冲突的
     https://blog.csdn.net/weixin_43586120/article/details/89456183?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164177496016780264011266%2522%252C%252
     2scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164177496016780264011266&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~to
     p_positive~default-1-89456183.first_rank_v2_pc_rank_v29&utm_term=%E9%97%AD%E5%8C%85&spm=1018.2226.3001.4187
+11.获取元素的高度 
+  el.offsetHeight        el.clientHeight          window.getComputedStyle('#id').getPropertyValue('height')      
 ———————————————————————————————————————————————————————————————————————————————————— es6 ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 1浅拷贝，深拷贝
     es6中的浅拷贝  var targetObj = Object.assign ({},obj1,obj2,obj3,...)
@@ -222,74 +225,76 @@ git 是如何解决代码冲突的
     （5）ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，
         因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
 2. Vue实现双向数据绑定
-（1）Vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
-    在数据变动时发布消息给订阅者，触发相应监听回调。当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 
-    将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
-（2）vue的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
-    最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
+    （1）Vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
+        在数据变动时发布消息给订阅者，触发相应监听回调。当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 
+        将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
+    （2）vue的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
+        最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
 3. Vue组件间的参数传递
-（1）父组件向子组件传值：子组件通过props方法接受数据
-（2）子组件向父组件传值：子组件通过  emit() 方法传递参数 ， 父组件通过 emit() 方法传递参数，父组件通过emit()方法传递参数，父组件通过on()监听
-（3）兄弟组件传值：eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。
+    （1）父组件向子组件传值：子组件通过props方法接受数据
+    （2）子组件向父组件传值：子组件通过  emit() 方法传递参数 ， 父组件通过 emit() 方法传递参数，父组件通过emit()方法传递参数，父组件通过on()监听
+    （3）兄弟组件传值：eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。
 4. v-show 与 v-if 区别
-（1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
-（2）v-show和v-if的使用：频繁切换时用v-show，运行时较少改变时用v-if
+    （1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
+    （2）v-show和v-if的使用：频繁切换时用v-show，运行时较少改变时用v-if
 5. Vue的生命周期
-（1）Vue的生命周期：beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
-（2）生命周期详解：
-    beforeCreate：（创建前） 在数据观测和初始化事件还未开始
-    created：（创建后） 完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来
-    beforeMount：（载入前） 在挂载开始之前被调用，相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。
-    mounted：（载入后） 在el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。
-        完成模板中的html渲染到html页面中。此过程中进行ajax交互。
-    beforeUpdate：（更新前） 在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
-    updated：（更新后） 在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。
-        然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
-    beforeDestroy：（销毁前） 在实例销毁之前调用。实例仍然完全可用。
-    destroyed：（销毁后） 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
-（3）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
-（4）vue生命周期的作用是什么：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑
-（5）vue生命周期总共有几个阶段：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后
-（6）第一次页面加载会触发哪几个钩子：会触发 下面这几个beforeCreate, created, beforeMount, mounted
-（7）DOM 渲染在 哪个周期中就已经完成：DOM 渲染在 mounted 中就已经完成了
+    （1）Vue的生命周期：beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
+    （2）生命周期详解：
+        beforeCreate：（创建前） 在数据观测和初始化事件还未开始
+        created：（创建后） 完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来
+        beforeMount：（挂载前） 在挂载开始之前被调用，相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。
+        mounted：（挂载后） 在el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。
+            完成模板中的html渲染到html页面中。此过程中进行ajax交互。
+        beforeUpdate：（更新前） 在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
+        updated：（更新后） 在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。
+            然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
+        beforeDestroy：（销毁前） 在实例销毁之前调用。实例仍然完全可用。
+        destroyed：（销毁后） 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
+    （3）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
+    （4）vue生命周期的作用是什么：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑
+    （5）vue生命周期总共有几个阶段：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后
+    （6）第一次页面加载会触发哪几个钩子：会触发 下面这几个beforeCreate, created, beforeMount, mounted
+    （7）DOM 渲染在 哪个周期中就已经完成：DOM 渲染在 mounted 中就已经完成了
+5.1 如何进行vue中的二次渲染
+    如果要在组件内部中进行强制刷新，则可以调用 this.$forceUpdate() 强制重新渲染组件，从而达到更新目的。
 6. 绑定 class 的数组用法
     （1）对象方法 v-bind:class="{‘orange’: isRipe, ‘green’: isNotRipe}"
     （2）数组方法v-bind:class="[class1, class2]"
     （3）行内 v-bind:style="{color: color, fontSize: fontSize+‘px’ }"
 
 7. 计算属性computed和 监听watch 的区别
-（1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     计算属性默认只有 getter，不过在需要时你也可以提供一个 setter   (注：computed有缓存，如果不需要缓存可以使用方法函数代替)
-（2）computed 和 watch有什么区别：只是需要动态值，那就用计算属性；需要知道值的改变后执行业务逻辑，才用 watch
-（3）watch 是一个对象时，它有哪些选项：handler，deep 是否深度，immeditate 是否立即执行
+    （1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     计算属性默认只有 getter，不过在需要时你也可以提供一个 setter   (注：computed有缓存，如果不需要缓存可以使用方法函数代替)
+    （2）computed 和 watch有什么区别：只是需要动态值，那就用计算属性；需要知道值的改变后执行业务逻辑，才用 watch
+    （3）watch 是一个对象时，它有哪些选项：handler，deep 是否深度，immeditate 是否立即执行
 8. Vue的路由实现：hash模式 和 history模式
-（1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
-    特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
-（2）history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），
-    replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。history 模式下，
-    前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
+    （1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
+        特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
+    （2）history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），
+        replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。history 模式下，
+        前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
 
 9. 组件中 data 为什么是函数
-（1）因为组件是用来复用的，JS 里对象是引用关系，这样作用域没有隔离，而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题
+    （1）因为组件是用来复用的，JS 里对象是引用关系，这样作用域没有隔离，而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题
 10. vue.js的两个核心是什么      数据驱动和组件化
 11. vue中 key 值的作用
-（1）使用key来给每个节点做一个唯一标识
-（2）key的作用主要是为了高效的更新虚拟DOM。另外vue中在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果。
+    （1）使用key来给每个节点做一个唯一标识
+    （2）key的作用主要是为了高效的更新虚拟DOM。另外vue中在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果。
 12.v-for 与 v-if 的优先级            v-for的优先级比v-if高
 13.vue-router有哪几种路由守卫
-（1）全局守卫：beforeEach
-（2）后置守卫：afterEach
-（3）全局解析守卫：beforeResolve
-（4）路由独享守卫：beforeEnter
+    （1）全局守卫：beforeEach
+    （2）后置守卫：afterEach
+    （3）全局解析守卫：beforeResolve
+    （4）路由独享守卫：beforeEnter
 14.$route和 $router的区别是什么
-（1）$router为VueRouter的实例，是一个全局路由对象，包含了路由跳转的方法、钩子函数等
-（2）$route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数
+    （1）$router为VueRouter的实例，是一个全局路由对象，包含了路由跳转的方法、钩子函数等
+    （2）$route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数
 15.vuex有哪几种属性
-（1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
-    State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
-    Getter：getters 可以对State进行计算操作，它就是Store的计算属性
-    Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
-    Action：Action 提交的是 mutation，而不是直接变更状态。
-    Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
+    （1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
+        State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
+        Getter：getters 可以对State进行计算操作，它就是Store的计算属性
+        Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
+        Action：Action 提交的是 mutation，而不是直接变更状态。
+        Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
 原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
 —————————————————————————————————————————————————————————————————————————————— vue页面加载过慢解决 ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 vue页面加载过慢解决
