@@ -152,6 +152,12 @@ git 是如何解决代码冲突的
             obj.f1(); //0
             f1(); //1   window.f1()
     es6：指向是固定的,（ 只会从自己的作用域链的上一层继承this ，并始终指向fn 定义生效时所在的对象）
+        var x=2;
+        var obj={
+            x:1,
+            fn:()=>{console.log(this.x)}
+        }
+        window.obj.fn()
     jq:指向的是jq对象
         //$(document).ready(function(){
         $(function(){  
