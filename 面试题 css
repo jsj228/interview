@@ -1,1 +1,77 @@
-https://github.com/jsj228/myself/edit/master/2021%E9%9D%A2%E8%AF%95
+1.什么是盒子模型？
+    在网页中，一个元素占有空间的大小由几个部分构成，其中包括元素的内容（content），元素的内边距（padding），元素的边框（border），元素的外边距（margin）四个部分一起构成了css中元素的盒模型。
+    标准盒子模型：一个块的总宽度= width + margin(左右) + padding(左右) + border(左右)
+      IE盒子模型：一个块的总宽度= width + margin(左右)（即 width 已经包含了padding和border值）
+2.web常见的五种前端布局方式
+（1）文档布局（text）  文档流本质是 nomal flow （普通流、常规流）      元素在文档中的特点 块级元素，和内联元素。
+    缺点：在移动端不可以使用pc端的页面，两个页面的布局是不一致的，移动端需要自己再设计一个布局并使用不同的域名呈现
+（2）浮动布局（float）
+    浮动一般用于让块级元素排成一行在同一行显示
+    任何元素都可浮动，如一个元素设置为浮动元素，浮动元素无论最初是什么都会变成一个行块级元素，拥有disolay：inline-block属性
+    float：left沿着父容器顶部向左推入容器，如果卡住推不动，判断当前位置能否全部显示该子容器，如果能完成 如果不能继续找空档往里推
+    缺点：脱离文档流，需要清除浮动，高度塌陷（float的破坏性主要是指它会使父容器的高度塌陷，也就是父元素在高度计算的时候会忽略浮动的元素）。
+    优点：兼容性好，计较简单容易上手
+（3）定位布局（position）
+    relative属性：脱离文档流，但保留占位符，其偏移位置是相对于本身在正常文档流中时的位置， 脱离文档流是说设置了relative属性之后，元素不在z-index：0；
+    的正常文档流中，其z-index的值>0但保留占位符，就是在正常文档流中位置依旧保留着，后续元素不能占位，然后相对于本身正常位置进行偏移。
+    absolute：完全脱离文档流，不保留占位符，其元素定位是相对于其父级以上，一直追溯至设置了position：relative或fixed属性的外层元素（也包含块元素），
+    如果其外层元素均匀未设置position属性，则定位是相对于HTML文档进行的绝对定位，并不是相对于body的定位
+    缺点：脱离文档流，会导致后续元素全部脱离文档流，可用行差。
+    优点： 就是 让元素拥有了 inline-block 宽高限制
+（4）流式布局（streaming）
+    元素的宽高用百分比做单位，元素宽高按屏幕分辨率调整，布局不发生变化。屏幕尺度跨度过大的情况下不能正常显示
+    缺点：如果尺度过大或者过小在屏幕上就不能正常显示
+    优点：兼容性比较好，当屏幕分辨率变化时元素大小不变布局也不变
+（5）弹性布局（rem/em）
+    弹性布局是css3引入的布局方式，用来代以前的WEB开发人员的一些复杂易错的hacks方法（如float实现流失布局）
+    缺点：浏览器的兼容性比较差只能到ie9以及以上。
+    优点：适应性强，在做不同屏幕分辨率的界面时非常使用，可以随意按照宽度，比列划分元素的宽高，实现快捷，易维护。简单，方便，快速。
+（6）自适应布局（adaptation）
+    自适应布局分辨为不一样屏幕分辨率定义布局，可以创建多个静态布局，每一个静态布局对应一个分辨率范围，屏幕分辨率变化时，页面里面的元素的位置会变化而大小不会变，
+    可使用(@media媒体查询)给不同的尺寸和介质的设备切换不同的样式在优秀的响应范围设计下可以给配范围内的设备最好的体验，在同一个设备下实际还是固定的布局
+    缺点：如果需要不同页面那么还需要写多页的代码
+    优点：屏幕分辨率变化时，页面里面元素的位置变化而大小不会变化
+（7）响应式布局（ BootStrap）
+    为不同的屏幕分辨率定义布局，同时，在每个布局中，应用流式布局的理念，即页面元素宽度随着窗口调整而自动适配。
+    可以把响应式布局看作是流式布局和自适应布局设计理念的融合。即：创建多个流体式布局，分别对应一个屏幕分辨率范围。
+    响应式几乎已经成为优秀页面布局的标准，每个屏幕分辨率下面会有一个布局样式，即元素位置和大小都会变媒体查询+流式布局。
+    通常使用 @media 媒体查询 和网格系统 (Grid System) 配合相对布局单位进行布局，实际上就是综合响应式、流动等上述技术通过 CSS 给单一网页不同设备返回不同样式的技术统称。
+    缺点：媒体查询是有限的，也就是可以枚举出来的，只能 适应主流的宽高，要匹配足够的屏幕大小，工作量比较大，设计也需要多个版本
+    优点：适应pc和移动端，如果只够的耐心，效果会很完美。
+3.行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？
+    （1）行内元素：a、b、span、img、input、strong、select、label、em、button、textarea
+    （2）块级元素：div、ul、li、dl、dt、dd、p、h1-h6、blockquote
+    （3）空元素：即系没有内容的HTML元素，例如：br、meta、hr、link、input、img
+4.CSS实现垂直水平居中
+（1）margin: 0 auto
+    .元素{ width:100px; height:100px; line-height:100px;margin:0 auto;}
+（2）元素水平垂直居中
+    <div class="wrap">    <div class="example"></div>    </div>
+    .wrap {position: relative;background-color: orange;width: 300px;height: 300px; }
+    .example {  background-color:red;width: 100px;height: 100px;position: absolute;left: 50%;top: 50%;margin: -50px 0 0 -50px;  }
+（3）flex布局       .元素 {  
+                            background-color: #FF8C00;  width: 200px;
+                            height: 200px;  display: flex;
+                            justify-content: center; /*使子项目水平居中*/
+                            align-items: center; /*使子项目垂直居中*/
+                         }
+（4）绝对布局
+    <div class="warp">          <div class="example">居中显示</div>            </div>
+    .warp { position: relative;width: 200px;height: 200px;background-color: orange;}
+    .example {position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 100px;height: 100px;margin: auto;background-color: red; }
+（5）给子元素相对定位，在通过translaY（）得到垂直居中
+    .warp { position: relative;width: 200px;height: 200px;background-color: orange;}
+    .example { position: relative; top:50%; transform:translateY(-50%);background-color:red;width:100px;height: 100px;margin: 0 auto;}
+（6）利用inline-block的vertical-align: middle去对齐after伪元素
+    .warp {text-align: center;overflow: auto;width: 200px;height: 200px;background-color: orange;}
+    .example {display: inline-block;background-color: red;vertical-align: middle;width: 100px;height: 100px;}
+    .warp:after {content: '';display: inline-block;vertical-align: middle;height: 100%;margin-left: -0.25em;}
+（7）display: flex-box
+    .warp {
+        display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: -webkit-box;display: flex;
+        -webkit-box-align: center;-moz-box-align: center;-ms-flex-align: center;
+        -webkit-align-items: center;align-items: center;
+        -webkit-box-pack: center;-moz-box-pack: center;-ms-flex-pack: center;
+        -webkit-justify-content: center;justify-content: center;
+        width: 200px;height: 200px;background-color: orange;}
+    .example {width: 100px;height: 100px;background-color: red;}
