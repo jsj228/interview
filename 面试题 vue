@@ -71,11 +71,27 @@ Vue面试题
         destroyed：（销毁后） 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
     （6）第一次页面加载会触发哪几个钩子：会触发 下面这几个beforeCreate, created, beforeMount, mounted
     （7）DOM 渲染在 哪个周期中就已经完成：DOM 渲染在 mounted 中就已经完成了
+    （8）Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为以下 4 部分：
+        加载渲染过程
+        父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
+        子组件更新过程
+        父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated
+        父组件更新过程
+        父 beforeUpdate -> 父 updated
+        销毁过程
+        父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed
+    (9)在哪个生命周期内调用异步请求？
+        可以在钩子函数 created、beforeMount、mounted 中进行调用，因为在这三个钩子函数中，data 已经创建，可以将服务端端返回的数据进行赋值。
+        但是本人推荐在 created 钩子函数中调用异步请求，因为在 created 钩子函数中调用异步请求有以下优点：
+            能更快获取到服务端数据，减少页面 loading 时间；
+            ssr 不支持 beforeMount 、mounted 钩子函数，所以放在 created 中有助于一致性；
+    (10).在什么阶段才能访问操作DOM？
+        在钩子函数 mounted 被调用前，Vue 已经将编译好的模板挂载到页面上，所以在 mounted 中可以访问操作 DOM。 
 12. Vue的路由实现：hash模式 和 history模式
     （1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
         特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
-    （2）history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），
-        replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。history 模式下，
+    （2）history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），replaceState（）
+        可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。history 模式下，
         前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
 13.vue-router有哪几种路由守卫 （ 配置路由时设置）
     （1）全局守卫（在跳转之前执行 -> 有权限加载选择）： 
