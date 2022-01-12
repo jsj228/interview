@@ -166,7 +166,6 @@ git 是如何解决代码冲突的
             console.log($);         //$        jq对象
         })
 9. call  apply bind  
-    
     https://blog.csdn.net/foreverwy/article/details/78150563
 10.闭包问题
     特点： 让外部访问函数内部变量成为可能；   局部变量会常驻在内存中；     可以避免使用全局变量，防止全局变量污染；   会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
@@ -298,9 +297,12 @@ vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
     （2）history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），
         replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。history 模式下，
         前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
-13.vue-router有哪几种路由守卫
-    （1）全局守卫：beforeEach
-    （2）后置守卫：afterEach
+13.vue-router有哪几种路由守卫 （ 配置路由时设置）
+    （1）全局守卫（在跳转之前执行 -> 有权限加载选择）： 
+        router.beforeEach((to,from,next)=>{if(to.meta.isAuth){next()//调用该方法,才能进入下一个钩子 }else{}})
+        https://blog.csdn.net/heshuaicsdn/article/details/88020796    https://www.cnblogs.com/wuvkcyan/p/9311155.html
+    （2）后置守卫：（在跳转之后执行 ）：
+        router.afterEach((to,from)=>{if(to.meta.isAuth){}else{}}) 
     （3）全局解析守卫：beforeResolve
     （4）路由独享守卫：beforeEnter
 14.$route和 $router的区别是什么
