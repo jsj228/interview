@@ -44,8 +44,14 @@ Vue面试题
         attrs：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 ( class 和 style 除外 )。当一个组件没有声明任何 prop 时，
                这里会包含所有父作用域的绑定 ( class 和 style 除外 )，并且可以通过 v-bind="attrs" 传入内部组件。通常配合 inheritAttrs 选项一起使用。
         listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="listeners" 传入内部组件
-6. 组件中 data 为什么是函数
-    （1）因为组件是用来复用的，JS 里对象是引用关系，这样作用域没有隔离，而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题
+6.vueX 有哪几种属性
+    （1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
+        State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
+        Getter：getters 可以对State进行计算操作，它就是Store的计算属性
+        Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
+        Action：Action 提交的是 mutation，而不是直接变更状态。
+        Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
+        原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
 7. v-show 与 v-if 区别
     （1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
     （2）v-show和v-if的使用：频繁切换时用v-show，运行时较少改变时用v-if
@@ -117,14 +123,8 @@ Vue面试题
 16.$route和 $router的区别是什么
     （1）$router为VueRouter的实例，是一个全局路由对象，包含了路由跳转的方法、钩子函数等
     （2）$route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数
-17.vuex有哪几种属性
-    （1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
-        State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
-        Getter：getters 可以对State进行计算操作，它就是Store的计算属性
-        Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
-        Action：Action 提交的是 mutation，而不是直接变更状态。
-        Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
-        原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
+17. 组件中 data 为什么是函数
+    （1）因为组件是用来复用的，JS 里对象是引用关系，这样作用域没有隔离，而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题
 18.vue3和vue2的区别
     vue3新特性：
           1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
