@@ -1,0 +1,53 @@
+1浅拷贝，深拷贝
+    es6中的浅拷贝  var targetObj = Object.assign ({},obj1,obj2,obj3,...)
+    const v1={a:{b:1}}
+    const v2=Object.assign ({},v1)
+    v1.a.b = 2 ;
+    v2.a.b //2
+    https://blog.csdn.net/qs8lk88/article/details/79018481
+2.防抖和节流
+    （1）函数节流(throttle)：事件频繁触发的情况下，在指定时间内只执行一次任务
+    （2）函数防抖(debounce)：任务在事件触发后等待一段时间再执行，如果事件频繁触发，会重新计算等待时间   _.debounce(function, 500)
+        /*
+            @param fn执行的函数
+            @param Times时间间隔单位是毫秒级
+            @param isTtrue 为true debounce会在Times时间间隔开始的时候立即执行fn函数
+            @return function
+        */
+        function debounce(fn,Timed,isTrue){
+           var timeOut=null;
+           return function(){
+            var _this=this;      //获取函数所在的this作用域   
+            var args=arguments ; //获取参数
+            clearTimeout(timeOut)
+            if(isTrue && timeOut==null){
+               //立即执行fn函数
+               fn.apply(_this,args);
+               timeOut=0;
+               return;
+            }
+            timeOut = setTimeout(function(){
+               fn.apply(_this,args);
+               timeOut=null
+            },Timed)
+           }
+        }
+        var num=0;
+        document.getElementById('btn').addEventListener('click',
+            debounce(function(){
+                init++;
+                 document.getElementsByTagName("tagName").innerHtml(init)
+               // getElementsByClassName("className")                 getElementsByTagName("tagName")    querySelector(".className")(或者#id或者直接写tag)
+            },1000,true)
+        )
+3.for-each和map的区别
+      相同点：
+          都是循环遍历数组中的每一项
+          forEach和map方法里每次执行匿名函数都支持3个参数，参数分别是item（当前每一项）、index（索引值）、arr（原数组）
+          匿名函数中的this都是指向window
+          只能遍历数组
+          array.map(function (item,key,arr){},this)
+          array.forEach(function (item,key,arr){},this)
+      不同点：
+          返回值 ：  arr.forEach(fn)  没有返回值，arr.map(fn)      有新数组返回
+          map的遍历速度大于 forEach
