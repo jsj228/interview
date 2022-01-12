@@ -19,6 +19,12 @@ Vue面试题
         因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。
     （5）ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，
         因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
+2.v-model 的原理 
+    在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select 等元素上创建双向数据绑定，
+    v-model 本质上不过是语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
+        text 和 textarea 元素使用 value 属性和 input 事件；   
+        checkbox 和 radio 使用 checked 属性和 change 事件；  
+        checkbox 和 radio 使用 checked 属性和 change 事件；
 2. vue.js的两个核心是什么      数据驱动和组件化
 3.Vue实现双向数据绑定
     （1）Vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
@@ -87,6 +93,7 @@ Vue面试题
             ssr 不支持 beforeMount 、mounted 钩子函数，所以放在 created 中有助于一致性；
     (10).在什么阶段才能访问操作DOM？
         在钩子函数 mounted 被调用前，Vue 已经将编译好的模板挂载到页面上，所以在 mounted 中可以访问操作 DOM。 
+    (11).父组件可以@hook 来到子组件的生命周期； 
 12. Vue的路由实现：hash模式 和 history模式
     （1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
         特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
@@ -238,15 +245,10 @@ vue页面加载过慢解决
     }
 九、路由离开及时解绑事件:   vm.$off()
 十、vue中使用keep-alive
-    vue2.0提供了一个keep-alive组件，用来缓存组件,避免多次加载相应的组件,减少性能消耗，
-    但keep-alive是一把双刃剑，确实需要缓存组件的时候才使用。
-
-        <keep-alive>
-            <component>
-              <!-- 组件将被缓存 -->
-            </component>
-        </keep-alive>
-
+    vue2.0提供了一个keep-alive组件，用来缓存组件,避免多次加载相应的组件,减少性能消耗，  <keep-alive>    <component><!-- 组件将被缓存 --></component>    </keep-alive>
+    一般结合路由和动态组件一起使用，用于缓存组件；
+    提供 include 和 exclude 属性，两者都支持字符串或正则表达式， include 表示只有名称匹配的组件会被缓存，exclude 表示任何名称匹配的组件都不会被缓存 ，其中 exclude 的优先级比 include 高；
+    对应两个钩子函数 activated 和 deactivated ，当组件被激活时，触发钩子函数 activated，当组件被移除时，触发钩子函数 deactivated。  
 十一、代码层面的优化
     1、v-show，v-if 用哪个？
         （1）只要涉及到权限相关的展示无疑要用 v-if
