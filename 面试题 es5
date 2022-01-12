@@ -1,0 +1,95 @@
+1、数据类型
+    数据分为基本数据类型和引用数据类型（Object）。
+    1、基本数据类型的特点：数据直接存储在栈(stack);  (String, Number, Boolean, Null, Undefined，Symbol)；
+    基本数据类型的变量与变量之间是独立存在，修改其中一个变量，不会影响其他变量
+    2、引用数据类型的特点：存储的是该对象在栈中引用，真实的数据存放在堆内存里；(Object)
+    当copy数据时，copy到的是保存数据的内存地址而不是数据值本身。当两个变量保存的是同一个引用数据对象，则其中一个变量的属性发生改变，另一个变量也会随之变化。
+    引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。
+    当比较数据时：基本数据比较的是数据值的大小；而引用型数据比较的是保存数据的内存地址——若两个变量的数据一模一样，但内存地址不同，则会返回false。
+2.简述同步和异步的区别
+    （1）同步是阻塞模式，异步是非阻塞模式。
+    （2）同步就是指一个进程在执行某个请求的时候，若该请求需要一段时间才能返回信息，那么这个进程将会一直等待下去，直到收到返回信息才继续执行下去；
+    （3）异步是指进程不需要一直等下去，而是继续执行下面的操作，不管其他进程的状态。当有消息返回时系统会通知进程进行处理，这样可以提高执行的效率。
+3.一次完整的HTTP事务是怎样的一个过程,基本流程：
+    a. 域名解析
+    b. 发起TCP的3次握手
+    c. 建立TCP连接后发起http请求
+    d. 服务器端响应http请求，浏览器得到html代码
+    e. 浏览器解析html代码，并请求html代码中的资源
+    f. 浏览器对页面进行渲染呈现给用户
+4.TCP的三次握手
+    （1）第一次握手：客户端发送syn包(seq=x)到服务器，并进入SYN_SEND(网络请求)状态，等待服务器确认
+    （2）第二次握手：服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态
+    （3）第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手
+5.HTTP和HTTPS的区别
+    （1）http: 超文本传输协议，是互联网上广泛的一种网络协议，是一个用户客户端和服务端请求和应答的标准（TCP）,
+        用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少
+    （2）https： 一安全为目标的HTTP通道，在http下加入了SSL层。SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密
+    （3）https协议需要申请证书，一般免费证书比较少，所以需要一定的费用
+    http是超文本传输协议，信息是明文传输。https则是具有安全性的ssl加密传输协议
+    http和https使用的是完全不相同的两种连接方式，用的端口也不一样，http是80端口，https是443端口，所以一般安全级别比较高的服务都为采用https协议来进行信息加密避免敏感信息泄露
+6.浏览器是如何渲染页面的
+    （1）从浏览器地址栏的请求链接开始
+    （2）浏览器通过DNS解析查到域名映射的IP地址
+    （3）成功之后浏览器端向此IP地址取得连接
+    （4）成功连接之后，浏览器端将请求头信息 通过HTTP协议向此IP地址所在服务器发起请求
+    （5）服务器接受到请求之后等待处理，最后向浏览器端发回响应
+    （6）此时在HTTP协议下，浏览器从服务器接收到 text/html类型的代码
+    （7）浏览器开始显示此html，并获取其中内嵌资源地址
+    （8）然后浏览器再发起请求来获取这些资源，并在浏览器的html中显示
+6.浏览器存储方法及其优缺点
+（1） cookie    
+    h5之前，存储主要用cookies，缺点是在请求头上带着数据，导致流量增加。大小限制4k
+（2）localStorage 
+    以键值对(Key-Value)的方式存储，永久存储，永不失效，除非手动删除。IE8+支持，每个域名限制5M
+（3）sessionStorage
+    sessionStorage操作的方法与localStroage是一样的，区别在于 sessionStorage 在关闭页面后即被清空，而 localStorage 则会一直保存。
+    很多时候数据只需要在用户浏览一组页面期间使用，关闭窗口后数据就可以丢弃了，这种情况使用sessionStorage就比较方便
+（4）cookie、localStorage、sessionStorage之间的区别
+    ① 存储大小限制不同，cookie数据不能超过4k，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如会话标识。
+    sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大
+    ② 数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；
+    cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
+     ③作用域不同，sessionStorage不在不同的浏览器页面中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的
+    Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者
+7.跨域问题
+    （1）跨域问题是如何产生的：浏览器的同源安全的策略，使得   协议不同、域名、子域名、端口 有一种不相同时，会出现跨域
+    （2）怎吗结局跨域问题 
+        a.JSONP 解决get跨域问题
+        b.webpack   本地配置代理服务，解决跨域 https://www.cnblogs.com/zishang91/p/8909900.html，
+        c.生产后:后端服务（nginx）的反向代理接口跨域
+        d.后端开启CORS即可， 设置Access-Control-Allow-Origin=true
+10.this的指向问题
+    es5：谁调用的，指向谁， (fn)();this ->window
+            var x = 1;
+            var obj = {
+                x: 0,
+                f1: function () {  console.log(this.x);  }
+            }
+            var f1 = obj.f1;
+            obj.f1(); //0
+            f1(); //1   window.f1()
+    es6：指向是固定的,（ 只会从自己的作用域链的上一层继承this ，并始终指向fn 定义生效时所在的对象）
+        var x=2;
+        var obj={
+            x:1,
+            fn:()=>{console.log(this.x)}
+        }
+        window.obj.fn()
+    jq:指向的是jq对象
+        //$(document).ready(function(){
+        $(function(){  
+            console.log(this);       //this    document 文档 
+            console.log($(this));   //$(this)  document 节点
+            console.log($);         //$        jq对象
+        })
+9. call  apply bind  
+    https://blog.csdn.net/foreverwy/article/details/78150563
+10.闭包问题
+    特点： 让外部访问函数内部变量成为可能；   局部变量会常驻在内存中；     可以避免使用全局变量，防止全局变量污染；   会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
+    https://blog.csdn.net/weixin_43586120/article/details/89456183?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164177496016780264011266%2522%252C%252
+    2scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164177496016780264011266&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~to
+    p_positive~default-1-89456183.first_rank_v2_pc_rank_v29&utm_term=%E9%97%AD%E5%8C%85&spm=1018.2226.3001.4187
+    闭包问题及解决方法：
+11.获取元素的高度 
+  el.offsetHeight        el.clientHeight          window.getComputedStyle('#id').getPropertyValue('height') 
