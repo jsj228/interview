@@ -1,6 +1,6 @@
 git 是如何解决代码冲突的    https://www.cnblogs.com/gavincoder/p/9071959.html
 vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
-Vue面试题
+Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 说说你对 SPA 单页面的理解，它的优缺点分别是什么？
     SPA：仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，
     SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
