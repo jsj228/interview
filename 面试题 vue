@@ -105,15 +105,20 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
         但是本人推荐在 created 钩子函数中调用异步请求，因为在 created 钩子函数中调用异步请求有以下优点：
             能更快获取到服务端数据，减少页面 loading 时间；
             ssr 不支持 beforeMount 、mounted 钩子函数，所以放在 created 中有助于一致性；
-    (10).在什么阶段才能访问操作DOM？
+    (10).在什么阶段才能访问操作DOM？mounted 
         在钩子函数 mounted 被调用前，Vue 已经将编译好的模板挂载到页面上，所以在 mounted 中可以访问操作 DOM。 
     (11).父组件可以@hook 来到子组件的生命周期； 
+
 14. Vue的路由实现：hash模式 和 history模式
     （1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
         特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
-    （2）history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（）、 replaceState（）
-        可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。
-        history 模式：前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
+    （2）history模式：history采用HTML5的新特性；且提供了两个新API：pushState()、replaceState（)
+        window.history.pushState(null, null, path) 新增一个历史记录 ;
+        window.history.replaceState(null, null, path) 是直接替换当前的历史记录
+        对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。可以在不进行刷新的情况下，操作浏览器的历史纪录
+        history 路由模式的实现主要基于存在下面几个特性：
+        我们可以使用 popstate 事件来监听 url 的变化，从而对页面进行跳转（渲染）；history.pushState()或history.replaceState()不会触发 popstate 事件，这时我们需要手动触发页面跳转（渲染）。
+        注意：history 模式：前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
 15.vue-router有哪几种路由守卫 （ 配置路由时设置）
     （1）全局守卫（在跳转之前执行 -> 有权限加载选择）： 
         router.beforeEach((to,from,next)=>{if(to.meta.isAuth){next()//调用该方法,才能进入下一个钩子 }else{}})
@@ -148,6 +153,7 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
        优点：  可以检测到代理对象属性的动态新增和删除     可以见到测数组的下标和length属性的变化
        缺点：  es6的proxy不支持低版本浏览器 IE11        回针对IE11出一个特殊版本进行支持
 19.Vue之混入和混淆：https://blog.csdn.net/qq_38912284/article/details/103574048
+
 —————————————————————————————————————————————————————————————————————————————— vue页面加载过慢解决 ——————————————————————————————————————————————————
 vue页面加载过慢解决
 一、vue-router路由懒加载
