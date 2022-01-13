@@ -112,6 +112,10 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 14. Vue的路由实现：hash模式 和 history模式
     （1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
         特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
+        hash 路由模式的实现主要是基于下面几个特性：
+        URL 中 hash 值只是客户端的一种状态，也就是说当向服务器端发出请求时，hash 部分不会被发送；
+        hash 值的改变，都会在浏览器的访问历史中增加一个记录。因此我们能通过浏览器的回退、前进按钮控制hash 的切换；
+        可以通过 a 标签，并设置 href 属性，当用户点击这个标签后，URL 的 hash 值会发生改变；或者使用 JavaScript 来对 loaction.hash 进行赋值，改变 URL 的 hash 值；
     （2）history模式：history采用HTML5的新特性；且提供了两个新API：pushState()、replaceState（)
         window.history.pushState(null, null, path) 新增一个历史记录 ;
         window.history.replaceState(null, null, path) 是直接替换当前的历史记录
