@@ -1,3 +1,99 @@
+ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d
+1.基本类型增加了：Bigint、symbol
+    大整型（Bigint）：
+        let n = 521n; console.log(n, typeof n) // 521n 'bigint'
+        函数    let n = 123       console.log(BigInt(n)) // 123n  //不要使用浮点型，只能用int
+        大数值运算
+        let max = Number.MAX_SAFE_INTEGER // 9007199254740991
+        console.log(max + 1) // 9007199254740992
+        console.log(max + 2) // 9007199254740992 出问题了
+        console.log(BigInt(max) + BigInt(1)) //9007199254740992n
+        console.log(BigInt(max) + BigInt(2)) //9007199254740993n
+   原始数据类型（Symbol）：表示独一无二的值 ,  不能与其他数据进行运算
+        let s  = Symbol('aa');     let s2= Symbol('aa');           console.log(s===s2)   //false
+        let s3 = Symbol.for('bb'); let s4 = Symbol.for('bb');      comsole.log(s3===s4) ///true
+        let result = s + 100  //error  let result = s > 100 //error  let result = s + s  //error 
+        给对象添加方法方式一：
+            let game = {name: 'ran' }
+            let methods = {
+              up: Symbol(),
+              down: Symbol()
+            }
+            game[methods.up] = function () {     console.log('aaa')   }
+            game[methods.down] = function () {    console.log('bbb')     }
+            console.log(game) // name: 'ran',Symbol(),Symbol()
+        给对象添加方法方式二
+            let youxi = {
+                name: '狼人杀',
+                [Symbol('say')]: function () {
+                    console.log('阿萨德')
+                },
+            }
+            console.log(youxi) // {name:'狼人杀',Symbol(say):f()}
+2.let 命令 
+    变量不能重复申明     let star='罗志祥'; let star='小猪'    //error
+    let 有块级作用域    { let girl='周扬青' }  console.log(girl) //error
+    不存在变量提前       console.log(song) //error     let song='恋爱达人
+    不影响作用域链       let school='abc'        function fn(){ console.log(school) //abc  } 
+    在双层for循环中 , 及时计数器相同,也能互不影响  
+        for(let i = 0;i < arr.length; i++){ 
+            for(let i = 0;i < arr.length; i++){
+               console.log(i)//打印9 次 , 一次为012012012
+            }
+        }  
+3.const 一般用于申明常量
+    一定要赋初始值、  一般常量使用大写（潜规则）、  也具有块级作用域(与let一样)   、  
+    常量的值不能修改  const A = 1；  A = 2 //error
+    但是可以修改原有属性中的属性值：    
+    const obj = {
+          name: '张三',
+          car: { pace: '100W', name: '奥迪rs7', },
+     }
+    obj.name = '李四' 
+4.解构赋值 
+    数组的解构    
+        const F4 = ['小沈阳', '刘能', '赵四'];
+        let [a, b, c, d] = F4;      
+        console.log(a) //小沈阳    
+        console.log(b) //刘能     
+        console.log(c) //赵四
+    对象的解构
+        const F4 = {
+              name: '赵本山',
+              age: '不详',
+              xiaopin: function () {console.log('我可以演小品') }
+        }
+        let { name, age, xiaopin } = F4
+        console.log(name) //赵本山
+        console.log(age) //不详
+        console.log(xiaopin) //[Function: xiaopin]
+5.模板字符串  采用 `` 的形式定义字符串申明
+    内容中可以直接出现换行符
+    let lovest=`最帅的`;
+    let str = `<ul>
+        <li>冉海锋</li>
+        <li>${lovest}</li>
+    </ul>`;
+    console.log(str, typeof str) // //冉海锋最帅的  string
+6.对象的简化写法 : ES6允许在大括号里面，直接写入变量和函数，作为对象的属性和方法,这样的书写更加简洁 
+    let name = 'aaa'
+    let change = function () {     console.log('aaa')     }
+    const school = {
+      name,
+      change,
+      improve() {
+        console.log('bbb')
+      },
+    }
+    console.log(school)
+7.箭头函数    
+    ES6允许使用箭头（=>）定义函数
+    箭头函数中不会创建自己的this,始终指向上一层作用域             let A = () => { console.log(this.name)   }   name = '拉钩教育'; A() //拉钩教育 
+    不能作为构造实例化对象                                      let A = (name, age) => {  this.name = name;   this.age = age   }   let me = new A('xiao', 123) //error
+    不能使用arguments变量                                      let fn = () => {  console.log(arguments)    }   fn(1, 2, 3) //error
+    省略小括号，当形参有且只有一个的时候                         let add = n => {  return n + 1;  }  add(1)   
+    省略花括号，当代码体只有一条语句的时候，此时return也必须省略   let add = n => n+1;    add(1)   
+    函数参数默认值   let add =  (a,b,c=12)=>a+b+c;  console.log( add (1,2))   //15
 1浅拷贝，深拷贝
     es6中的浅拷贝  var targetObj = Object.assign ({},obj1,obj2,obj3,...)
     const v1={a:{b:1}}
@@ -51,3 +147,4 @@
       不同点：
           返回值 ：  arr.forEach(fn)  没有返回值，arr.map(fn)      有新数组返回
           map的遍历速度大于 forEach
+4.
