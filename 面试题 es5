@@ -99,3 +99,4 @@
     document：包含基于文档内容的属性，如title、backgroundcolor、links和form等。
     location：含有基于当前的URL的属性。 location.href       location.pathname 
     history：包含客户机先前已经请求过的URL。
+13.浏览器是如何实现定时器
