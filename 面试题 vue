@@ -12,6 +12,8 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
          SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
 1. 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
+     MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
+     
     （1）Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。
     （2）View 代表UI 组件，它负责将数据模型转化成UI 展现出来。
     （3）ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步View 和 Model的对象，连接Model和View。
