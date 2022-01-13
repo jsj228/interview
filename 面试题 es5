@@ -93,3 +93,9 @@
     闭包问题及解决方法：
 11.获取元素的高度 
   el.offsetHeight        el.clientHeight          window.getComputedStyle('#id').getPropertyValue('height') 
+12.js常用的浏览器对象BOM（Browser  Object Model）
+    navigator：含有正在使用的Navigator的名称、版本属性，客户端支持的MIME类型属性，客户端安装的"插件"类型。
+    window：最高等级的对象，拥有整个窗口的属性;在每一个Frame中的"子窗口"也有相应的window对象。开:window.open() 关:window.close()
+    document：包含基于文档内容的属性，如title、backgroundcolor、links和form等。
+    location：含有基于当前的URL的属性。 location.href       location.pathname 
+    history：包含客户机先前已经请求过的URL。
