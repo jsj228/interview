@@ -148,4 +148,16 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d
       不同点：
           返回值 ：  arr.forEach(fn)  没有返回值，arr.map(fn)      有新数组返回
           map的遍历速度大于 forEach
-4.
+4.ES6数组去重的三个简单办法   https://blog.csdn.net/weixin_44526618/article/details/92802192 
+    利用Map对象和数组的filter方法
+        fn(arr)=>{
+            const = new Map();
+            return arr.filter((a)=>!res.has(a)&&res.set(a,1))
+        }
+        console.log(fn(targetArr))
+    利用Set对象和数组的Array.from()方法 
+        let newArr = Array.from(new Set(targetArr))
+    利用Set+扩展运算符 …
+        let newArr = [...new Set(targetArr)]
+    
+    
