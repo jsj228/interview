@@ -146,17 +146,23 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
           6.Fragment，模板可以有多个根元素
     响应原理对比
           1.vue2使用Object.defineProperty方法实现响应式数据
-          2.缺点：
-            无法检测到对象属性的动态添加和删除
-            无法检测到数组的下标和length属性的变更
+          2.缺点： 无法直接检测到   对象属性的动态添加和删除; 无法检测到  数组的下标和length属性的变更    
           3.解决方案：
             vue2提供Vue.$set动态给对象添加属性
             Vue.$delete动态删除对象属性
-            重写数组的方法，检测数组变更
+            Vue 框架是通过遍历数组 和递归遍历对象，从而达到利用 Object.defineProperty() 也能对对象和数组（部分方法的操作）进行监听
 　　1.vue3使用proxy实现响应式数据
        优点：  可以检测到代理对象属性的动态新增和删除     可以见到测数组的下标和length属性的变化
        缺点：  es6的proxy不支持低版本浏览器 IE11        回针对IE11出一个特殊版本进行支持
-19.Vue之混入和混淆：https://blog.csdn.net/qq_38912284/article/details/103574048
+19.Vue 怎么用 vm.$set() 解决对象新增属性不能响应的问题 ？
+    受现代 JavaScript 的限制 ，Vue 无法检测到对象属性的添加或删除。由于 Vue 会在初始化实例时对属性执行 getter/setter 转化，所以属性必须在 data 对象上存在才能让 Vue 将它转换为响应式的。
+    但是 Vue 提供了 Vue.set (object, propertyName, value) / vm.$set (object, propertyName, value) 来实现为对象添加响应式属性，那框架本身是如何实现的呢？
+    我们查看对应的 Vue 源码：vue/src/core/instance/index.js
+    export function set (target: Array<any> | Object, key: any, val: any): any {
+    我们阅读以上源码可知，vm.$set 的实现原理是：
+    如果目标是数组，直接使用数组的 splice 方法触发相应式；
+    如果目标是对象，会先判读属性是否存在、对象是否是响应式，最终如果要对属性进行响应式处理，则是通过调用defineReactive 方法进行响应式处理
+    （ defineReactive 方法就是 Vue 在初始化对象时，给对象属性采用 Object.defineProperty 动态添加 getter 和 setter 的功能所调用的方法）
 20.服务端渲染 SSR 《Vue SSR 踩坑之旅》
     SSR：vue在客户端将标签渲染成的整个 html 片段的工作在服务端完成，服务端形成的html 片段直接返回给客户端这个过程就叫做服务端渲染。
     （1）服务端渲染的优点：
@@ -178,7 +184,11 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
     实现一个订阅者 Watcher：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。
     实现一个订阅器 Dep：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。
     以上四个步骤的流程图表示如下，如果有同学理解不大清晰的，可以查看作者专门介绍数据双向绑定的文章《0 到 1 掌握：Vue 核心之数据双向绑定》，有进行详细的讲解、以及代码 demo 示例。
-
+22.虚拟 DOM 的实现原理主要包括以下 3 部分：
+    用 JavaScript 对象模拟真实 DOM 树，对真实 DOM 进行抽象；
+    diff 算法 — 比较两棵虚拟 DOM 树的差异；
+    pach 算法 — 将两个虚拟 DOM 对象的差异应用到真正的 DOM 树。
+22.Vue之混入和混淆：https://blog.csdn.net/qq_38912284/article/details/103574048
 —————————————————————————————————————————————————————————————————————————————— vue页面加载过慢解决 ——————————————————————————————————————————————————
 vue页面加载过慢解决
 一、vue-router路由懒加载
