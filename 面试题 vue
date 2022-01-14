@@ -191,6 +191,32 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 22.Vue之混入和混淆：https://blog.csdn.net/qq_38912284/article/details/103574048
 —————————————————————————————————————————————————————————————————————————————— vue页面加载过慢解决 ——————————————————————————————————————————————————
 vue页面加载过慢解决
+（1）代码层面的优化
+    v-if 和 v-show 区分使用场景
+    computed 和 watch 区分使用场景
+    v-for 遍历必须为 item 添加 key，且避免同时使用 v-if
+    长列表性能优化 (懒加载)  https://www.cnblogs.com/mfyngu/p/13675004.html
+    事件的销毁  beforeDestroy(){  window.removeEventListener("scroll",this.handleFun)}
+    图片资源懒加载插件（vu-loazyload）
+    路由懒加载  component: resolve=>require(['@/components/HelloWorld'],resolve)
+    
+    第三方插件的按需引入
+    优化无限列表性能
+    服务端渲染 SSR or 预渲染
+（2）Webpack 层面的优化
+    Webpack 对图片进行压缩
+    减少 ES6 转为 ES5 的冗余代码
+    提取公共代码
+    模板预编译
+    提取组件的 CSS
+    优化 SourceMap
+    构建结果输出分析
+    Vue 项目的编译优化
+（3）基础的 Web 技术的优化
+    开启 gzip 压缩
+    浏览器缓存
+    CDN 的使用
+    使用 Chrome Performance 查找性能瓶颈
 一、vue-router路由懒加载
  1、方法一
     export default new Router({
