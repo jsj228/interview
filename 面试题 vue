@@ -195,14 +195,14 @@ vue页面加载过慢解决
     v-if 和 v-show 区分使用场景
     computed 和 watch 区分使用场景
     v-for 遍历必须为 item 添加 key，且避免同时使用 v-if
-    长列表性能优化 (懒加载)  https://www.cnblogs.com/mfyngu/p/13675004.html
-    事件的销毁  beforeDestroy(){  window.removeEventListener("scroll",this.handleFun)}
+    事件的销毁  beforeDestroy(){  window.removeEventListener("scroll",this.handleFun)}  //正确添加事件： window.addEventListener("scroll",this.handleFun)
     图片资源懒加载插件（vu-loazyload）
     路由懒加载  component: resolve=>require(['@/components/HelloWorld'],resolve)
     
     第三方插件的按需引入
-    优化无限列表性能
-    服务端渲染 SSR or 预渲染
+    优化无限（插件：vue-virtual-scroll-list  https://www.jianshu.com/p/42a51cd37a32）
+    长列表性能优化 (懒加载、分页、滚动节流减少服务器压力、Object.freeze冻结对象)  https://blog.csdn.net/weixin_46396187/article/details/107928838
+    服务端渲染 SSR or 预渲染 （beforCreate 和 created ajax中请求html片段）
 （2）Webpack 层面的优化
     Webpack 对图片进行压缩
     减少 ES6 转为 ES5 的冗余代码
