@@ -1,15 +1,20 @@
 git 是如何解决代码冲突的    https://www.cnblogs.com/gavincoder/p/9071959.html
 vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
 Vue面试题  https://www.jianshu.com/p/9f460e66ce01
-说说你对 SPA 单页面的理解，它的优缺点分别是什么？
-    SPA：仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，
-    SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
-    优点：用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
-         基于上面一点，SPA 相对对服务器压力小；
-         前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
-    缺点：初次加载耗时多：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
-         前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
-         SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
+    说说你对 SPA 单页面的理解，它的优缺点分别是什么？
+        SPA：仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，
+        SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
+        优点：用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
+             基于上面一点，SPA 相对对服务器压力小；
+             前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
+        缺点：初次加载耗时多：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
+             前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
+             SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
+ding  yi zhi ling
+ref 
+vue 调试
+vue.nextTick()
+
 1. 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
      MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
@@ -71,6 +76,8 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
     （1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     计算属性默认只有 getter，不过在需要时你也可以提供一个 setter   (注：computed有缓存，如果不需要缓存可以使用方法函数代替)
     （2）computed 和 watch有什么区别：只是需要动态值，那就用计算属性；需要知道值的改变后执行业务逻辑，才用 watch
     （3）watch 是一个对象时，它有哪些选项：handler，deep 是否深度，immeditate 是否立即执行
+
+  
 13.Vue的生命周期
     （1）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
     （2）Vue的生命周期： beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
