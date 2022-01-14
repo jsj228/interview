@@ -6,6 +6,14 @@
     当copy数据时，copy到的是保存数据的内存地址而不是数据值本身。当两个变量保存的是同一个引用数据对象，则其中一个变量的属性发生改变，另一个变量也会随之变化。
     引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。
     当比较数据时：基本数据比较的是数据值的大小；而引用型数据比较的是保存数据的内存地址——若两个变量的数据一模一样，但内存地址不同，则会返回false。
+2.判断数据类型
+    toString   -> Object.prototype.toString.call(123)
+    function gettype(obj) {
+      var type = typeof obj;
+      if (type !== 'object') return type;//如果不是object类型的数据，直接用typeof就能判断出来
+      //如果是object类型数据，准确判断类型必须使用Object.prototype.toString.call(obj)的方式才能判断
+      return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1');
+    }
 2.简述同步和异步的区别
     （1）同步是阻塞模式，异步是非阻塞模式。
     （2）同步就是指一个进程在执行某个请求的时候，若该请求需要一段时间才能返回信息，那么这个进程将会一直等待下去，直到收到返回信息才继续执行下去；
