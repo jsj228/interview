@@ -78,9 +78,9 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
     （4）vue生命周期总共有几个阶段：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后
     （5）生命周期详解：
         beforeCreate：（创建前） 在数据观测和初始化事件还未开始
-        created：（创建后） 完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来
-        beforeMount：（挂载前） 在挂载开始之前被调用，相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。
-        mounted：（挂载后） 在el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。
+        created：（创建后） 完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来  --> 发送ajax请求 (常用）
+        beforeMount：（数据绑定前，挂载前） 在挂载开始之前被调用，相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。
+        mounted：（数据绑定后，挂载后） 在el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。
             完成模板中的html渲染到html页面中。此过程中进行ajax交互。
         beforeUpdate：（更新前） 在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
         updated：（更新后） 在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。
@@ -200,7 +200,7 @@ vue页面加载过慢解决
     路由懒加载  component: resolve=>require(['@/components/HelloWorld'],resolve)
     
     第三方插件的按需引入
-    优化无限（插件：vue-virtual-scroll-list  https://www.jianshu.com/p/42a51cd37a32）
+    优化无限（插件：vue-virtual-scroll-list   https://github.com/jsj228/myself/blob/master/vue%E4%BC%98%E5%8C%96%E6%97%A0%E9%99%90%E5%88%97%E8%A1%A8%E6%80%A7%E8%83%BD）
     长列表性能优化 (懒加载、分页、滚动节流减少服务器压力、Object.freeze冻结对象)  https://blog.csdn.net/weixin_46396187/article/details/107928838
     服务端渲染 SSR or 预渲染 （beforCreate 和 created ajax中请求html片段）
 （2）Webpack 层面的优化
