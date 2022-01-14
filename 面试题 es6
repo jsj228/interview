@@ -35,6 +35,7 @@ promise:    https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
 2.let 命令 
     变量不能重复申明     let star='罗志祥'; let star='小猪'    //error
     let 有块级作用域    { let girl='周扬青' }  console.log(girl) //error
+    (函数有函数作用域：局部变量)
     不存在变量提前       console.log(song) //error     let song='恋爱达人
     不影响作用域链       let school='abc'        function fn(){ console.log(school) //abc  } 
     在双层for循环中 , 及时计数器相同,也能互不影响  
