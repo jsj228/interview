@@ -106,3 +106,10 @@
     代码解释：主线程的代码执行完后，在执行定时器的异步线程  ，最执行其他的线程；
     浏览器的多线程（JS引擎线程、界面渲染线程、事件触发线程、http请求线程）
 14.JSONP跨域实现：https://blog.csdn.net/badmoonc/article/details/82289252
+    var c=document.createElement('script');
+    c.src="http://....../接口名?参数1=''&参数2=''&callback=fn";
+    $('body').append(c);
+    function fn(res){console.log(res)}
+    
+    
+    
