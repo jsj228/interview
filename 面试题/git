@@ -1,1 +1,4 @@
 更新npm   npm i -g npm
+安装vue cli3  npm install -g @vue/cli
+创建一个项目vue create hello-world
+
