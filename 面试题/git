@@ -1,4 +1,6 @@
 更新npm   npm i -g npm
-安装vue cli3  npm install -g @vue/cli
+安装vue cli3  npm  install @vue/cli@3.0 -g     
+安装最新版本的vue cli   npm install -g @vue/cli 
 创建一个项目vue create hello-world
+使用浏览器插件vue-devtools  更好的开发 https://www.cnblogs.com/yuqing6/p/7440549.html
 
