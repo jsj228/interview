@@ -1,0 +1,44 @@
+import Vue from 'vue';//①引入vue核心模块
+import VueRouter from 'vue-router';//引入vue-router模块
+Vue.use(VueRouter);
+
+import HelloWorld from './components/HelloWorld';
+import Home from './components/Home';
+// 配置路由
+Vue.config.productionTip = false;
+export default new VueRouter({
+  // 修改默认激活的class
+  linkActiveClass: 'active',
+  mode: 'history',
+  routes: [
+    { path: '/', name: 'Home', component: Home },//默认加载的组件
+    { path: '/HelloWorld', name: 'HelloWorld', component: HelloWorld },
+  ]
+})
+
+
+
+
+
+
+import Vue from 'vue' //引入vue模块
+import App from './App' //引入App根组件
+
+Vue.config.productionTip = false
+import router from './newRouters'; //引入newRooters.js
+// import "./css/common.css" //引入公共css
+// import "./css/iconfont.css" //引入字体文件
+
+new Vue({
+  el: '#app',
+  router,
+  render: h => h(App)
+});
+// 设置路由中默认加载home
+// router.push('/Home');
+
+
+
+
+
+
