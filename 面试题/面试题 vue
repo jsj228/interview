@@ -12,7 +12,7 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
              SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
 自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html
 ref 
-vue 调试  https://www.jianshu.com/p/c091cef64fa5
+vue 调试   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 vue.nextTick()
 
 1. 对于MVVM的理解  
