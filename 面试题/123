@@ -40,7 +40,7 @@ export default {
 }
 </style>
 <template>
-  <div id="Home">
+  <div id="Apage">
     <h1>{{ msg }}</h1>
     <span  @click="goBack">返回</span>
     <!-- 使用组件 -->
@@ -53,7 +53,7 @@ export default {
 // 引入组件模板
 import A_page1 from './A_page1';
 export default {
-   name: 'Home',
+   name: 'Apage',
   data () {
     return {
       msg: '这里是A_page组件',
