@@ -312,18 +312,29 @@ vue页面加载过慢解决
     window.onbeforeunload = function (e){
         window.testDestroy.$destroy()
     }
-八、定时器销毁
+八、销毁 定时器、echarts、事件
     路由离开及时销毁定时器 
+    created(){
+        this.timer=setInterval(this.refresh,2000);
+        this.timerLine=setTimeout(this.refresh,2000);
+        addEventListener('touchmove',this.touchmove,false);
+        addEventListener("scroll",this.handleFun,false);
+    },
     berforeDestory(){
-        let _this=this;
-        //清空Timeout定时器
-        _this.timerLine && clearTimeout(_this.timerLine);
-        _this.timerPie && clearTimeout(_this.timerPie);
-        _this.timerBar && clearTimeout(_this.timerBar);
+            let _this=this;
+        //清空 定时器
+            _this.timer&& clearInterval(_this.timer);
+            
+            _this.timerLine && clearTimeout(_this.timerLine);
+            _this.timerPie && clearTimeout(_this.timerPie);
+            _this.timerBar && clearTimeout(_this.timerBar);
         //页面切换时清空echarts
-        myChartLine.clear();
-        myChartPie.clear();
-        myChartBar.clear();
+            myChartLine.clear();
+            myChartPie.clear();
+            myChartBar.clear();
+        //销毁事件 添加事件： //第三个参数false，为true则忽略事件内部的preventDefault()
+            removeEventListener("touchmove",this.touchmove,false)  
+            removeEventListener("scroll",this.handleFun,false)  
     }
 九、路由离开及时解绑事件:   vm.$off()
 十、vue中使用keep-alive
