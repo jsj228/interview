@@ -17,6 +17,10 @@
     强制缓存：不会向服务器发送请求，直接从缓存中读取资源，请求返回状态码为 200 ;
         服务端会在Response Headers 中的 cache-control 对缓存时间、缓存方式等进行定义
          Response Headers  ->  Cache-Control:no-cache,no-store,must-revalidate
-    协商缓存：
-        max-age=0, private, must-revalidate
-        
+    协商缓存：向服务器发送请求，服务器会根据这个请求的 Request Headers 的一些参数(etag 和 last-modified)来判断是否命中协商缓存，
+            如果命中，则返回 304 状态码, 并带上新的 Request Headers 通知浏览器从缓存中读取资源
+        Response Headers  ->  Cache-Control:max-age=0, private, must-revalidate
+        etag 即文件hash，每个文件唯一
+        last-modified 文件的修改时间，精确到秒
+        注意: Response Headers 中的 etag、last-modified 在客户端重新向服务端发起请求时，会在 Request Headers 中换个key名：if-none-matched 和 if-modified-since
+
