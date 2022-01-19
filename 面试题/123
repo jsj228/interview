@@ -2,8 +2,8 @@ import Vue from 'vue';//①引入vue核心模块
 import VueRouter from 'vue-router';//引入vue-router模块
 Vue.use(VueRouter);
 
-import A_page from './components/A_page';
-import B_page from './components/B_page';
+// import A_page from '@/components/A_page';
+// import B_page from '@/components/B_page';
 
 // 配置路由
 Vue.config.productionTip = false;
@@ -12,10 +12,39 @@ export default new VueRouter({
   linkActiveClass: 'active',
   mode: 'history',
   routes: [
-    { path: '/', name: 'A_page', component: A_page },//默认加载的组件
-    { path: '/B_page', name: 'B_page', component: B_page },
+    // { path: '/', name: 'A_page', component: A_page },//A_page 默认加载的组件
+    // { path: '/B_page', name: 'B_page', component:B_page},
+    {
+      path: '/',
+      component: resolve=>require(['@/components/A_page'],resolve),
+      meta: {
+        keepAlive:true
+      }
+    },//A_page 默认加载的组件
+    { 
+      path: '/B_page',
+      component:require('@/components/B_page').default,
+      meta: {
+        keepAlive:false
+      }
+    },
+
   ]
 })
+
+import Vue from 'vue' //引入vue模块
+import App from './App' //引入App根组件
+Vue.config.productionTip = false
+import router from './newRouters'; //引入newRooters.js
+// import "./css/common.css" //引入公共css
+// import "./css/iconfont.css" //引入字体文件
+new Vue({
+  el: '#app',
+  router,
+  render: h => h(App)
+});
+// 设置路由中默认加载home
+// router.push('/Home');
 
    
 <template>
@@ -24,11 +53,14 @@ export default new VueRouter({
     <router-link to="/">默认加载的组件-A_page</router-link> <br>
     <router-link to="/B_page">B_page</router-link> <br>
     --------------------------------------------------------------------
-    <router-view></router-view>
+     <keep-alive>
+       <router-view v-if="$route.meta.keepAlive" />
+     </keep-alive>
   </div>
 </template>
 
 <script>
+import func from 'vue-editor-bridge';
 export default {
   name: 'App'
 }
@@ -39,212 +71,5 @@ export default {
   color: red;
 }
 </style>
-<template>
-  <div id="Apage">
-    <h1>{{ msg }}</h1>
-    <span  @click="goBack">返回</span>
-    <!-- 使用组件 -->
-    <Apage1 :p_bum="parent_num" @change_p="change_p_num"></Apage1>
-    <div >父组件中:change_p{{parent_num}}</div>
-  </div>
-</template>
 
-<script>
-// 引入组件模板
-import A_page1 from './A_page1';
-export default {
-   name: 'Apage',
-  data () {
-    return {
-      msg: '这里是A_page组件',
-      parent_num:11,
-    }
-  },
-  // computed: {
-  //   username () {
-  //     // 我们很快就会看到 `params` 是什么
-  //     return this.$route.params.username
-  //   }
-  // },
-  methods: {
-    change_p_num(va){
-      console.log(this.parent_num,(va));
-      this.parent_num --;
-    },
-    goBack () {
-      console.log(this.$route);
-      console.log(this.$route.params);
-      // 通过注入路由器，我们可以在任何组件内通过 this.$router 访问路由器，也可以通过 this.$route 访问当前路由：
-      // console.log(this.$route.params.username);
-      window.history.length > 1? 
-        this.$router.go(-1)   //返回上一层
-        : this.$router.push('/')
-    }
-  },
- 
-  components:{//使用组件模板，注册局部组件
-    "Apage1":A_page1,
-  }
-}
-</script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
-   
-<template>
-  <div id="Users">
-    <h1>{{ msg }}</h1>
-    <div>父组件传的{{ $attrs }}</div>
-    <div>子组件接受父传的{{c_num }}</div> 
-    <button @click="this.reduce1">reduce1</button>
-    子组件显示的{{c_num2}}
-  </div>
-</template>
-
-<script>
-export default {
-  // name: 'Users',
-  data () {
-    return {
-      msg: '这里是A_page1组件',
-      c_num:this.$attrs.p_bum
-    }
-  },
-  computed:{
-    c_num2:function(){
-      // console.log(this.msg)
-      return this.c_num;
-    }
-  },
-  methods:{
-    reduce1(){
-      console.log(this);
-      this.$emit('change_p',2)
-    }
-  }
-}
-</script>
-<template>
-  <div id="B_page"> 
-    <h1 ref="h1">{{ msg }}</h1>
-    <Bpage1 ref="Bc"></Bpage1>
-    <ul>
-      <li v-for="(va,i) in list" :key="i" ref="list">{{va}}</li>
-    </ul>
-  </div>
-</template>
-
-<script>
-import Bpage1 from './B_page1';
-
-export default {
-  name: 'B_pages',
-  data () {
-    return {
-      msg: '这里是B_page组件',
-      list:[11,22,333,444]
-    }
-  },
-  created(){
-    this.$nextTick(function(){
-     this.$refs.h1.innerHTML="created修改了内容" 
-    })
-    console.log(document.readyState)
-  },
-  mounted(){
-    const ref_s= this.$refs;
-    console.log(ref_s.h1);
-    console.log(ref_s.h1.clientTop);
-    console.log(ref_s.h1.clientLeft);
-    console.log(ref_s.h1.clientHeight);
-    console.log(ref_s.h1.offsetHeight);
-    console.log(this.$refs.list)
-
-    console.log('==>',ref_s.Bc);
-    console.log(ref_s.Bc.$parent);//
-    console.log(ref_s.Bc.title);
-    ref_s.Bc.fn_alert()
-
-    // Vue.nextTick(callback) 使用原理：
-    // 原因是，Vue是异步执行dom更新的，一旦观察到数据变化，Vue就会开启一个队列，然后把在同一个事件循环 (event loop) 
-    // 当中观察到数据变化的 watcher 推送进这个队列。如果这个watcher被触发多次，只会被推送到队列一次。
-    // 这种缓冲行为可以有效的去掉重复数据造成的不必要的计算和DOm操作。而在下一个事件循环时，Vue会清空队列，并进行必要的DOM更新。
-    // 当你设置 vm.someData = 'new value'，DOM 并不会马上更新，而是在异步队列被清除，也就是下一个事件循环开始时执行更新时才会进行必要的DOM更新。
-    // 如果此时你想要根据更新的 DOM 状态去做某些事情，就会出现问题。
-    // 为了在数据变化之后等待 Vue 完成更新 DOM ，可以在数据变化之后立即使用 Vue.nextTick(callback) 。这样回调函数在 DOM 更新完成后就会调用。
-
-    // 在使用某个第三方插件时 ，希望在vue生成的某些dom动态发生变化时重新应用该插件，也会用到该方法，这时候就需要在 $nextTick 的回调函数中执行重新应用插件的方法。
-    this.msg="mounted修改后h1的值";
-    this.$nextTick(()=>{
-      if(ref_s.h1.innerHTML==="这里是B_page组件"){
-        console.log("DOM没有更新")
-      }else{
-        console.log("DOM更新了:",ref_s.h1.innerHTML);
-      }
-      
-
-    })
-
-  },
-  components:{
-    "Bpage1":Bpage1
-  }
-}
-</script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
-<template>
-  <div id="B_page1">
-    <h1>{{ msg }}</h1>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'B_page1',
-  data () {
-    return {
-      msg: '这里是B_page1组件',
-      title:"这里是B_page1组件的title"
-    }
-  },
-  methods:{
-    fn_alert(){
-      console.log('父组件可以访问的方法');
-    }
-  }
-}
-</script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
