@@ -28,3 +28,115 @@ function getQueryVariable(variable){
     }
     return(false);
 }
+
+ // 上传附件开始
+    $('#file1,#file2').change(upLoad);
+    // 上传附件
+    function upLoad() {
+        var formdata = new FormData(),
+            _this = $(this),
+            stage_i = _this.attr('id').indexOf('1') > 0 ? '1' : '2';
+        if(_this[0].files[0].size>(30*1024*1024)){
+            msg.warning('上传文件不能大于30M');
+            return;
+        }
+        formdata.append("form_file", _this[0].files[0]);
+        formdata.append("stage", stage_i);
+        if (_this[0].files[0]) {
+            $.ajax({
+                type: "post",headers: { "X-CSRFToken": getCookie("csrftoken") },
+                url: "/",
+                data: formdata,
+                contentType: false, // 不设置内容类型
+                processData: false, // 不处理数据
+                dataType: "json",
+                success: function (data) {
+                    // 请求成功后要执行的代码
+                    msg.success('上传成功！！！');
+                    ShowFiles();
+                    // $('#remove_input').empty();
+                    // $('#remove_input').append('<input type="file" name="fileField" class="file1" id="file" size="28" onchange="document.getElementById("textfield").value=this.value" />');
+                },
+                error: function (data) {// 请求失败后要执行的代码
+                    msg.error('上传失败请刷新重试！！！');
+                }
+            });
+        }
+    };
+    //导入文件fileinput 插件
+    var FileInput = function () {
+    var oFile = new Object();
+    //初始化fileinput控件（第一次初始化）
+    oFile.Init = function (ctrId, uploadUrl) {
+        var control = $('#' + ctrId);
+        //初始化上传控件的样式
+        control.fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: uploadUrl, //上传的地址
+            allowedFileExtensions: ['xlsx'],//接收的文件后缀
+            showPreview: true,
+            showUpload: true, //是否显示上传按钮
+            showCaption: false,//是否显示标题
+            showRemove: false,
+            removeFromPreviewOnError: true,
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: false,//是否显示拖拽区域
+            minFileCount: 0,
+            maxFileCount: 1, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<i class='glyphicon glyphicon-open-file'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+            overwriteInitial: false,
+            layoutTemplates:
+            {
+                actionDelete: '',
+                actionUpload: '',
+            }
+        });
+        //导入文件上传完成之后的事件
+        control.on("fileuploaded", function (event, data, previewId, index) {
+            $('#labelModal,#ivsModal').modal('hide');
+            $('#label,#ivs').fileinput('clear')
+
+            var _result = data.response._result;
+            if (_result == 'success') {
+                msg.success('导入成功');
+            } else {
+                msg.warning(data.response._info);
+            }
+        });
+    }
+    return oFile;
+};
+
+    // 导出
+    var isexport=false;
+    $("#export_filter").click(function () {
+        if(isexport)return;
+        isexport=true;
+        var params = new FormData();
+        params.append("type","filter");
+        params.append("filter",temp.filter);
+        params.append("search",temp.search);
+
+        loading=$('#exportLoading');
+        loading.show();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "", true);
+        xhr.setRequestHeader("X-CSRFToken",getCookie("csrftoken"))
+        xhr.responseType = "arraybuffer";
+        xhr.onload = function (res) {
+            loading.hide();
+            isexport=false;
+            if(xhr.status==403){ 
+                errMsg.innerHTML='您搜索的部门范围过大，导出的改进建议已经超出权限，请尝试缩小导出范围~ ';
+                $('#exportNot').modal();
+            }
+            if(xhr.status==200)checkDownload(this.response,'ExportIvs');
+            if(xhr.status>499) msg.warning('服务器开小差了，请稍后再试！');
+            if(xhr.status<199)msg.warning('正在加载中...');
+        };
+        xhr.send(params);
+    });
+    http://hwci.huawei.com/sankey/info/miniature_box/
