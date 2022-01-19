@@ -1,0 +1,20 @@
+ function getCookie(name) {
+      var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if (arr = document.cookie.match(reg))
+          return decodeURI(arr[2]);    //ECMAScript v3 已从标准中删除了 unescape() 函数，并反对使用它，
+      // 因此应该用 decodeURI() 和 decodeURIComponent() 取而代之。
+      else
+          return null;
+   }
+$.ajax({
+        url:'/',
+        type:'post',headers: { "X-CSRFToken": getCookie("csrftoken") },
+        data:{},
+        success:function(res){
+        },error:function(err){console.log(err)
+        },complete:function(res){
+            if(res.status>499)msg.warning('服务器出错！');
+            isTwo=false;
+        }
+    })
+}
