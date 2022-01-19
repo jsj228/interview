@@ -1,5 +1,7 @@
+https://www.cnblogs.com/woodk/p/5578448.html
 需要ajax跨域请求，用cors跨域方案
 服务端设置：
+
 function cors_options()
 {
     header('Access-Control-Allow-Origin: http://front.ls-la.me');//
