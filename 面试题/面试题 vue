@@ -76,8 +76,6 @@ vue.nextTick()
     （1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     计算属性默认只有 getter，不过在需要时你也可以提供一个 setter   (注：computed有缓存，如果不需要缓存可以使用方法函数代替)
     （2）computed 和 watch有什么区别：只是需要动态值，那就用计算属性；需要知道值的改变后执行业务逻辑，才用 watch
     （3）watch 是一个对象时，它有哪些选项：handler，deep 是否深度，immeditate 是否立即执行
-
-  
 13.Vue的生命周期
     （1）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
     （2）Vue的生命周期： beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
@@ -92,7 +90,7 @@ vue.nextTick()
         beforeUpdate：（更新前） 在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
         updated：（更新后） 在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。
             然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
-        activited	keep-alive 专属，组件被激活时调用
+        activited	keep-alive 专属，组件被激活时调用   <keep-alive>   <router-view></router-view>  </keep-alive>
         deactivated	keep-alive 专属，组件被销毁时调用
         beforeDestroy：（销毁前） 在实例销毁之前调用。实例仍然完全可用。
         destroyed：（销毁后） 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
