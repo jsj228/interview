@@ -1,0 +1,48 @@
+
+function ajax(options){
+  function formsParams(data){
+    var arr=[];
+    for(var prop in data){
+      arr.push(prop+'='+data[prop])
+    }
+    return arr.join('&');
+  }
+  var xhr = null;
+  var params = formsParams(options.data);
+  if(window.XMLHttpRequest){
+    xhr = new XMLHttpRequest();
+  }else{
+    xhr = new ActiveXObject("Microsoft.XMLHttp")
+  }
+  var ContentType="application/x-www-form-urlencoded";
+  if(options["Content-Type"])ContentType=options["Content-Type"];
+  if(options.type){
+    var types=options.type.toUpperCase();
+    if(types=="GET"){
+      xhr.open(options.type,options.url+"?"+params,options.async);
+      xhr.send(null);
+    }else if(types=="POST"){
+      xhr.open(options.type,options.url,options.async);
+      xhr.setRequestHeader("Content-Type",ContentType)
+      xhr.send(params);
+    }else if(types=="HEAD"){
+    }else if(types=="PUT"){
+    }else if(types=="DELETE"){
+    }
+  }else{
+    // 默认请求方式
+  }
+  xhr.onreadystatechange=function() {
+    if(xhr.readyState==4&&xhr.status == 200)options.success(xhr.responseText);
+    options.computed(xhr.responseText);
+  }
+}
+
+ajax({
+  url:'',
+  type:'',
+  data:{},
+  success:function(res){
+    console.log(res)
+  }
+})
