@@ -227,17 +227,17 @@ vue页面加载过慢解决
 一、vue-router路由懒加载
  1、方法一
     export default new Router({
-      routes: [{
-          path: '/index',
-          component: resolve=>require(['@/components/HelloWorld'],resolve)
-        }]
+      routes: [
+        { path: '/',component: resolve=>require(['@/components/HelloWorld'],resolve)},
+        { path: '/B_page',component:require('@/components/B_page').default}
+        ]
     })
  2、方法二
     export default new Router({
-      routes: [{
-          path: '/index',
-          component: ()=>import('@/components/HelloWorld')
-        }]
+      routes: [
+            { path: '/A_page',  component:()=>import('@/components/A_page') },//A_page 默认加载的组件
+            { path: '/B_page',component:require('@/components/B_page').default},
+        ]
     })
  3、webpack独有的require.ensure技术，也可以实现按需加载;    
     懒加载是当路由被访问的时候才加载对应组件，而不是在首页就全部加载，以此来提高首页反应速度。
