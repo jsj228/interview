@@ -67,6 +67,7 @@
         b.webpack   本地配置代理服务，解决跨域 https://www.cnblogs.com/zishang91/p/8909900.html，
         c.生产后:后端服务（nginx）的反向代理接口跨域
         d.后端开启CORS即可， 设置Access-Control-Allow-Origin=true
+        E.前端实现post跨域请求
 8.JSONP跨域实现：https://blog.csdn.net/badmoonc/article/details/82289252
     var c=document.createElement('script');
     c.src="http://....../接口名?参数1=''&参数2=''&callback=fn";
@@ -101,7 +102,9 @@
     b.call(a,1,2);
     b.apply(a,[10,1])
     c = b.bind(a)           //bind方法返回的是一个修改过后的函数 需要调用下c();
-10.闭包问题
+    
+10.继承的方式
+11.闭包问题
     特点： 让外部访问函数内部变量成为可能；   局部变量会常驻在内存中；     可以避免使用全局变量，防止全局变量污染；   会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
     https://blog.csdn.net/weixin_43586120/article/details/89456183?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164177496016780264011266%2522%252C%252
     2scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164177496016780264011266&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~to
