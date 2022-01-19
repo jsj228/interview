@@ -1,4 +1,16 @@
-
+需要ajax跨域请求，用cors跨域方案
+服务端设置：
+function cors_options()
+{
+    header('Access-Control-Allow-Origin: http://front.ls-la.me');//
+    header('Access-Control-Allow-Credentials: true');// 允许前端带cookie访问
+    if('OPTIONS' != $_SERVER['REQUEST_METHOD']) return;
+    header('Access-Control-Allow-Headers: X-Requested-With, Content-Type');// 如果你不怕扣工资可以这么设：header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE');// 告诉浏览器我支持这些方法(后端不支持的方法可以从这里移除，当然你也可以在后边加上OPTIONS方法。。。)
+    header('Access-Control-Max-Age: ' . 3600 * 24);// 告诉浏览器我已经记得你了，一天之内不要再发送OPTIONS请求了
+    exit;
+}
+前端ajax：
 function ajax(options){
   function formsParams(data){
     var arr=[];
@@ -14,8 +26,15 @@ function ajax(options){
   }else{
     xhr = new ActiveXObject("Microsoft.XMLHttp")
   }
-  var ContentType="application/x-www-form-urlencoded";
+  
+  var ContentType="application/x-www-form-urlencoded;charset=UTF-8";
   if(options["Content-Type"])ContentType=options["Content-Type"];
+  xhr.setRequestHeader("Content-Type",ContentType)
+  
+  //xhr.setRequestHeader("DeviceCode", "56");
+  //xhr.setRequestHeader("Source", "API");
+  //xhr.setRequestHeader("Authentication", "72b32a1f754ba1c09b3695e0cb6cde7f");
+
   if(options.type){
     var types=options.type.toUpperCase();
     if(types=="GET"){
@@ -23,7 +42,6 @@ function ajax(options){
       xhr.send(null);
     }else if(types=="POST"){
       xhr.open(options.type,options.url,options.async);
-      xhr.setRequestHeader("Content-Type",ContentType)
       xhr.send(params);
     }else if(types=="HEAD"){
     }else if(types=="PUT"){
@@ -34,7 +52,7 @@ function ajax(options){
   }
   xhr.onreadystatechange=function() {
     if(xhr.readyState==4&&xhr.status == 200)options.success(xhr.responseText);
-    options.computed(xhr.responseText);
+    options.computed(JSON.parse(xhr.responseText));
   }
 }
 
