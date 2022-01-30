@@ -12,20 +12,22 @@
         等主线程的代码执行完毕，然后再读取任务队列，返回主线程继续处理。如此循环这就是事件循环机制。
 
 js的循环机制、宏观任务与微观任务：https://blog.csdn.net/weixin_45658814/article/details/108101284
-        console.log('开始 1')
-        setTimeout(()=>console.log(222))
-        setTimeout(()=>console.log(333),0)
+    宏任务：script(整体代码)、setTimeout()、setInterval()、postMessage、I/O 、UI交互事件
+    微任务:new Promise()、new Promise().then(回调)、MutationObserver(html5 新特性)
+        console.log('1')
+        setTimeout(()=>console.log(2))
+        setTimeout(()=>console.log(3),0)
         new Promise(resolve=>{
-            console.log(444)
-            resolve(4.11);
+            console.log(4)
+            resolve(5);
             setTimeout(()=>{
-                console.log(55)
+                console.log(6)
             })
         }).then((res)=>{
-            console.log(res,'then:666')
+            console.log(res,':7')
         })
-        console.log('结束 1')
-    
+        console.log('结束8')
+        //1，4，8，5:7，2，3，6
 Js是单线程应用程序，但是在浏览器中是多线程运行的：浏览器的内核是多线程的，它们在内核制控下相互配合以保持同步，一个浏览器至少实现三个常驻线程：
         javascript引擎线程是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。
 
