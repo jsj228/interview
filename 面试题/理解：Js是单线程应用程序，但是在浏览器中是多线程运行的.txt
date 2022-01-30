@@ -13,7 +13,8 @@
 
 js的循环机制、宏观任务与微观任务：https://blog.csdn.net/weixin_45658814/article/details/108101284
     宏任务：script(整体代码)、setTimeout()、setInterval()、postMessage、I/O 、UI交互事件
-    微任务:new Promise()、new Promise().then(回调)、MutationObserver(html5 新特性)
+    微任务(先:微观任务和宏观任务放在一起时):new Promise()、new Promise().then(回调)、MutationObserver(html5 新特性)
+    
         console.log('1')
         setTimeout(()=>console.log(2))
         setTimeout(()=>console.log(3),0)
