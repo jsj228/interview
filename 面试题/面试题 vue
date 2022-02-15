@@ -32,6 +32,11 @@ vue.nextTick()
         text 和 textarea 元素使用 value 属性和 input 事件($event)；   
         checkbox 和 radio 使用 checked 属性和 change 事件($event)；  
         checkbox 和 radio 使用 checked 属性和 change 事件($event)；
+        // v-model相当于写两件事情
+        // 1.:value="user.username"
+        // 2.监听组件的事件,获取他的值@input="user.username $event.target.value"这是model等价写法
+        //   model默认input是一个元素，event是一个原生event。绑定value等于一个东西，然后@input让东西等于$event.target.value可以实现绑定一个变量，在变量变化的时候，ui变化。
+        //  用户改变ui的时候，数据也会变化
 3. vue.js的两个核心是什么      数据驱动和组件化
 4.Vue实现双向数据绑定
     （1）Vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
