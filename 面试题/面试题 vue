@@ -1,8 +1,6 @@
 git 是如何解决代码冲突的    https://www.cnblogs.com/gavincoder/p/9071959.html
 vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
 2021 Vue.js 面试题汇总及答案：https://jackniu81.github.io/2021/04/12/Vue-js-Interview-Questions-and-Answers-2021/
-vue2中挂载一个新的响应式属性 Vue.set(vm.someObject, 'b', 2)或 this.$set(this.someObject,'b',2)
-
 Vue面试题  https://www.jianshu.com/p/9f460e66ce01
     说说你对 SPA 单页面的理解，它的优缺点分别是什么？
         SPA：仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，
@@ -17,6 +15,11 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 ref 
 vue 调试   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 vue.nextTick()
+
+vue2中属性的添加分为，响应式属性
+    var vm = new Vue({ data:{ a:1} })  // 初始化的 vm.a  是响应式的
+    vm.b = 2   // 添加的  vm.b是非响应式的
+    Vue.set(vm.someObject, 'b', 2)// 或 this.$set(this.someObject,'b',2) //添加 响应式属性
 
 1. 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
