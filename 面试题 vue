@@ -177,6 +177,9 @@ vue2中属性的添加分为，响应式属性
 　　1.vue3使用proxy实现响应式数据
        优点：  可以检测到代理对象属性的动态新增和删除     可以见到测数组的下标和length属性的变化
        缺点：  es6的proxy不支持低版本浏览器 IE11        回针对IE11出一个特殊版本进行支持
+   2.vue3是如何实现对象代理proxy的，实现响应式数据（Observe、Complife、Watcher是如何工作的）
+        
+    
 19.Vue 怎么用 vm.$set() 解决对象新增属性不能响应的问题 ？
     受现代 JavaScript 的限制 ，Vue 无法检测到对象属性的添加或删除。由于 Vue 会在初始化实例时对属性执行 getter/setter 转化，所以属性必须在 data 对象上存在才能让 Vue 将它转换为响应式的。
     但是 Vue 提供了 Vue.set (object, propertyName, value) / vm.$set (object, propertyName, value) 来实现为对象添加响应式属性，那框架本身是如何实现的呢？
