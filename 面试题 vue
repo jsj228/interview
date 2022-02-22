@@ -14,11 +14,25 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
              前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
              SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
 
-ref的使用 https://blog.csdn.net/weixin_43233914/article/details/108776124
-    a.通过ref属性获取元素：
+vue中ref的使用 https://blog.csdn.net/weixin_43233914/article/details/108776124
+    a.使用ref属性获取元素：
+        vue2中：
         <div ref="attr"></div>
         this.$refs.attr.innerText="str"
-    b.通过ref获取组件的实例：
+        vue3中：
+    b.使用ref属性在外面的组件上
+        <div id="ref-outside-component" v-on:click="consoleRef">    <component-father ref="outsideComponentRef"></component-father>  </div>
+        var refoutsidecomponentTem={    template:"<div class='childComp'><h5>我是子组件</h5></div>"   };
+        var refoutsidecomponent=new Vue({
+            el:"#ref-outside-component",
+            components:{   "component-father":refoutsidecomponentTem  },
+            methods:{
+                consoleRef:function () {
+                    console.log(this); // #ref-outside-component    vue实例
+                    console.log(this.$refs.outsideComponentRef);  // div.childComp vue实例，组件实例
+                }
+            }
+        });
 18.vue3和vue2的底层区别
     vue3新特性：
           1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
