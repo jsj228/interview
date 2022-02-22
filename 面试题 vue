@@ -16,6 +16,9 @@ ref
 vue 调试   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 vue.nextTick()
 
+通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，
+达到数据变化 -> 视图更新；视图交互变化(input) -> 数据model变更的双向绑定效果
+
 vue2中属性的添加分为，响应式属性
     var vm = new Vue({ data:{ a:1} })  // 初始化的 vm.a  是响应式的
     vm.b = 2   // 添加的  vm.b是非响应式的
