@@ -1,7 +1,9 @@
 git 是如何解决代码冲突的    https://www.cnblogs.com/gavincoder/p/9071959.html
 vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
 2021 Vue.js 面试题汇总及答案：https://jackniu81.github.io/2021/04/12/Vue-js-Interview-Questions-and-Answers-2021/
+vue 调试   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 Vue面试题  https://www.jianshu.com/p/9f460e66ce01
+自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html
     说说你对 SPA 单页面的理解，它的优缺点分别是什么？
         SPA：仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，
         SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
@@ -11,10 +13,12 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
         缺点：初次加载耗时多：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
              前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
              SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
-自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html
-ref 
-vue 调试   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 
+ref的使用 https://blog.csdn.net/weixin_43233914/article/details/108776124
+    a.通过ref属性获取元素：
+        <div ref="attr"></div>
+        this.$refs.attr.innerText="str"
+    b.通过ref属性获取元素：
 18.vue3和vue2的底层区别
     vue3新特性：
           1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
@@ -175,8 +179,30 @@ vue 调试   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdc
     （2）$route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数
 17. 组件中 data 为什么是函数
     （1）因为组件是用来复用的，JS 里对象是引用关系，这样作用域没有隔离，而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题
-18.vue 的 nextTick 方法的实现原理
-    vue 用异步队列的方式来控制 DOM 更新和 vue.nextTick() 回调先后执行
+18.vue 使用 nextTick 的方法
+    this.$nextTick()将回调延迟到下次 DOM 更新循环之后执行。
+    在修改数据之后立即使用它，然后等待 DOM 更新。
+    它跟全局方法 Vue.nextTick 一样，不同的是回调的 this 自动绑定到调用它的实例上；
+    vue用异步队列的方式来控制 DOM 更新和 vue.nextTick(callBack) 回调先后执行
+    案例1
+    mounted() {
+      console.log(333,this.$refs['hello']);
+      this.$nextTick(() => {       console.log(444,this.$refs['hello']);    });
+    },
+    created() {
+      console.log(111，this.$refs['hello']);
+      this.$nextTick(() => { console.log(222,this.$refs['hello']);});
+    }
+    案例2
+    <div>{{value}}</div>
+    data:{  return {  value: 'Hello World ~'   }   },
+    methods: {
+        get() {
+            this.value = '你好啊';
+            console.log(this.$refs['hello'].innerText);
+            this.$nextTick(() => {   console.log(this.$refs['hello'].innerText); });
+        }
+     }
     microtask 因为其高优先级特性，能确保队列中的微任务在一次事件循环前被执行完毕
 19.Vue2 怎么用 vm.$set() 解决对象新增属性不能响应的问题 ？
     //vue2中属性的添加分为，响应式属性
