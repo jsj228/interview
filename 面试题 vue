@@ -18,7 +18,7 @@ ref的使用 https://blog.csdn.net/weixin_43233914/article/details/108776124
     a.通过ref属性获取元素：
         <div ref="attr"></div>
         this.$refs.attr.innerText="str"
-    b.通过ref属性获取元素：
+    b.通过ref获取组件的实例：
 18.vue3和vue2的底层区别
     vue3新特性：
           1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
