@@ -20,9 +20,10 @@
     ③ array.reverse() 反转数组项的顺序。
     ③ array.concat(9,[1,2],...) 将参数添加到原数组中。
     ③ array.indexOf('要查找的项',（可选的）表示查找起点位置的索引) 
+    ③ array.includes('要查找的项') 判断一个数组是否包含一个指定的值
     ③ array.lastIndexOf('要查找的项',（可选的）从数组的末尾开始向前查找)
+    ③ array.map(fn(item){return item}) 循环数组（ 指“映射”，对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组）
     ③ array.forEach(fn(item,i){console.log(item,i)}) 循环数组
-    ③ array.map(fn(item){return item}) 指“映射”，对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组
     ③ array.filter(fn(item,i){return item%3 })过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组
     ③ array.every(fn(item,i){return item<3 })判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true
     ③ array.some(fn(item,i){return item<3 }) 判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true
