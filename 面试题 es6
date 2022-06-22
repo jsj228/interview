@@ -68,13 +68,14 @@ promise:    https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
         console.log(age) //不详
         console.log(xiaopin) //[Function: xiaopin]
 5.模板字符串  采用 `` 的形式定义字符串申明
+  5.1·结构赋值的规则
     内容中可以直接出现换行符
     let lovest=`最帅的`;
     let str = `<ul>
         <li>冉海锋</li>
         <li>${lovest}</li>
     </ul>`;
-    console.log(str, typeof str) // //冉海锋最帅的  string
+ console.log(str, typeof str) // //冉海锋最帅的  string
 6.对象的简化写法 : ES6允许在大括号里面，直接写入变量和函数，作为对象的属性和方法,这样的书写更加简洁 
     let name = 'aaa'
     let change = function () {     console.log('aaa')     }
