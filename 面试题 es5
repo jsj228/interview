@@ -14,6 +14,7 @@
     ② array.pop('i')从头添加数据; 
     ③ array.push('i')从尾部添加数据 
     ③ array.join('分割符') 将数组的元素组起一个字符串 
+    ③ array.toLocaleString()、array.toString()：将数组转换为字符串
     ③ array.shift() 删除原数组第一项 并返回删除元素的值；如果数组为空则返回undefined 。
     ③ array.unshift() 将参数添加到原数组开头，并返回数组的长度 
     ③ array.sort() 按升序排列数组项——即最小的值位于最前面，最大的值排在最后面。
