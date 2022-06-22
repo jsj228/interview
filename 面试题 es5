@@ -6,8 +6,20 @@
     当copy数据时，copy到的是保存数据的内存地址而不是数据值本身。当两个变量保存的是同一个引用数据对象，则其中一个变量的属性发生改变，另一个变量也会随之变化。
     引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。
     当比较数据时：基本数据比较的是数据值的大小；而引用型数据比较的是保存数据的内存地址——若两个变量的数据一模一样，但内存地址不同，则会返回false。
-2.判断数据类型
-    toString   -> Object.prototype.toString.call(123)
+    
+2.1.获取对象的原型
+   ①.Object.getPrototypeOf({a:1})
+   ②.let obj={a:1}; obj.__proto__
+   ③.对象.prototype
+2.2.判断数据类型
+   ①、 typeof 
+   ②、constructor
+   ③、ininstanceof (A,B) = {
+       var L = A.__proto__;
+       var R = B.prototype;
+       return L === R;  // A的内部属性 __proto__ 指向 B 的原型对象
+       }
+   Object.prototype.toString.call(123)
     function gettype(obj) {
       var type = typeof obj;
       if (type !== 'object') return type;//如果不是object类型的数据，直接用typeof就能判断出来
@@ -121,6 +133,7 @@
     c = b.bind(a)           //bind方法返回的是一个修改过后的函数 需要调用下c();
     
 10.继承的方式
+
 11.闭包问题
     特点： 让外部访问函数内部变量成为可能；   局部变量会常驻在内存中；     可以避免使用全局变量，防止全局变量污染；   会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
     https://blog.csdn.net/weixin_43586120/article/details/89456183?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164177496016780264011266%2522%252C%252
@@ -141,8 +154,6 @@
     代码解释：主线程的代码执行完后，在执行定时器的异步线程  ，最执行其他的线程；
     浏览器的多线程（JS引擎线程、界面渲染线程、事件触发线程、http请求线程）
     
-14.获取对象的原型
-   ①.Object.getPrototypeOf({a:1})
-   ②.let obj={a:1}; obj.__proto__
+
   
     
