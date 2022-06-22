@@ -140,6 +140,9 @@
     setTimeout("alert('定时器!')",0);  alert("测试")
     代码解释：主线程的代码执行完后，在执行定时器的异步线程  ，最执行其他的线程；
     浏览器的多线程（JS引擎线程、界面渲染线程、事件触发线程、http请求线程）
-
     
+14.获取对象的原型
+   ①.Object.getPrototypeOf({a:1})
+   ②.let obj={a:1}; obj.__proto__
+  
     
