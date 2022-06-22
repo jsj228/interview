@@ -1,5 +1,5 @@
 ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   https://www.jianshu.com/p/eb05ae43354d
-promise:    https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
+ (promise三个状态：resolve(成功)、reject(失败)、pending（进行中）)   https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
             https://www.jianshu.com/p/7e60fc1be1b2
 1.基本类型增加了：Bigint、symbol
     大整型（Bigint）：
