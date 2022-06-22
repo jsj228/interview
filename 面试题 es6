@@ -55,11 +55,8 @@ promise:    https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
     obj.name = '李四' 
 4.解构赋值   https://www.runoob.com/w3cnote/deconstruction-assignment.html
     数组的解构    
-        const F4 = ['小沈阳', '刘能', '赵四'];
-        let [a, b, c, d] = F4;      
-        console.log(a) //小沈阳    
-        console.log(b) //刘能     
-        console.log(c) //赵四
+        let [a, b, c, d] = ['小沈阳', '刘能', '赵四'];      
+        console.log(a, b, c, d) //a = '小沈阳' b= '刘能'  c = '赵四'  d = undefined 
     对象的解构
         const F4 = {
               name: '赵本山',
