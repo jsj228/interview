@@ -12,13 +12,12 @@
    ②.let obj={a:1}; obj.__proto__
    ③.对象.prototype
 2.2.判断数据类型
-   ①、 typeof 
-   ②、constructor
-   ③、ininstanceof (A,B) = {
+   ①、 typeof    ②、constructor      ③、ininstanceof    ④.Object.prototype.toString.call(123)
+   ininstanceof(A,B) = {
        var L = A.__proto__;
        var R = B.prototype;
        return L === R;  // A的内部属性 __proto__ 指向 B 的原型对象
-       }
+    }
    Object.prototype.toString.call(123)
     function gettype(obj) {
       var type = typeof obj;
