@@ -1,0 +1,31 @@
+1.vue3中没有this？
+  解决方法1: getCurrentInstance 方法获取当前组件的实例，然后通过 ctx 或 proxy 属性获得当前上下文，这样我们就能在setup中使用router和vuex了
+    import { getCurrentInstance } from "vue"
+    export default {
+      setup(){
+        let { proxy }=getCurrentInstance();
+      }
+    }
+    注意：getCurrentInstance 方法去获取组件实例来完成一些主要功能，在项目打包后，会报错（不推荐使用）
+  解决方法2:(推荐)
+    import { useStore } from "vuex"
+    import { useRoute,useRouter } from "vue-router"
+    export default{
+      setup(){
+        const store =useStore()   
+        const route =useRoute()   
+        const router =useRouter()   
+        return {
+         //访问state 数据
+          count:computed(()=>store.state.count)
+          //访问 getters 函数
+          fn:computed(()=>store.getters.fn)
+          //mutation
+          fn:()=>store.commit('fn')
+          //action
+          fn:()=>store.dispatch('fn')
+        }
+      }
+     }
+        
+    
