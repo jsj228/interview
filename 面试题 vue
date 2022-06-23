@@ -104,8 +104,8 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
         State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
         Getter：getters 可以对State进行计算操作，它就是Store的计算属性
         Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
-        Action：Action 提交的是 mutation，而不是直接变更状态。
-        Module：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
+        Action：Action 提交的是 mutation，而不是直接变更状态。 (可有异步操作)
+        Module：由于使用单一状态树，应用的所有状态会集中到一个比较的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
         原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
 7. v-show 与 v-if 区别
     （1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
