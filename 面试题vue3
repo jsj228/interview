@@ -5,6 +5,8 @@ https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD
     export default {
       setup(){
         let { proxy }=getCurrentInstance();
+        proxy.$axios(...)
+        proxy.$router(...)
       }
     }
     注意：getCurrentInstance 方法去获取组件实例来完成一些主要功能，在项目打包后，会报错（不推荐使用）
