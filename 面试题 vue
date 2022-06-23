@@ -97,7 +97,9 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
                这里会包含所有父作用域的绑定 ( class 和 style 除外 )，并且可以通过 v-bind="attrs" 传入内部组件。通常配合 inheritAttrs 选项一起使用。
         listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="listeners" 传入内部组件
 6.vueX 有哪几种属性
-     https://blog.csdn.net/Andydahua/article/details/123878278?ops_request_misc=&request_id=&biz_id=102&utm_term=vuex%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B1%9E%E6%80%A7&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-123878278.142^v20^control,157^v15^new_3&spm=1018.2226.3001.4187
+     https://blog.csdn.net/Andydahua/article/details/123878278?ops_request_misc=&request_id=&biz_id=102&utm_term=
+     vuex%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B1%9E%E6%80%A7&utm_medium=distribute.pc_search_result.none-task-b
+     log-2~all~sobaiduweb~default-1-123878278.142^v20^control,157^v15^new_3&spm=1018.2226.3001.4187
     （1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
         State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
         Getter：getters 可以对State进行计算操作，它就是Store的计算属性
