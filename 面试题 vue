@@ -146,7 +146,9 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
     （1）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
     （2）生命周期
         Vue2：beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
-        Vue3：创建组件时（beforeCreate，created），挂载组件时（beforeMount，mounted），数据改变时（beforeUpdate，updated），卸载组件时（beforeUnmount，Unmount）
+        Vue3：
+            setup (Composition Api)https://vuejs.org/guide/essentials/watchers.html 
+            创建组件时（beforeCreate，created），挂载组件时（beforeMount，mounted），数据改变时（beforeUpdate，updated），卸载组件时（beforeUnmount，Unmount）
     （3）vue生命周期的作用是什么：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑
     （4）vue2生命周期总共有几个阶段：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后
     （5）生命周期详解：
