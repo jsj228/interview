@@ -111,9 +111,11 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
            用法：getters:{a：state=> state.a+'1', }
            调用：this.$store.getters[a]  
         Mutation：提交更新数据的方法，必须是同步的(如果需要异步使用action)。每个 mutation 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)。
-           用法：mutation:{a：(state,newVa)=> state.a=, }
-           调用：this.$store.commit('Mutation方法名'，值)
+           用法：mutation:{a：(state,newVa)=> state.a=newVa, }
+           调用：this.$store.commit(a，值)
         Action：Action 提交的是 mutation，而不是直接变更状态。 (可有异步操作)
+           用法：action:{a：(state,newVa)=> state.a=newVa, } action:{a(state,newVa)=> state.a=newVa, }
+           调用:this.$store.dispatch(a,值)
         Module：由于使用单一状态树，应用的所有状态会集中到一个比较的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
         原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
 7. v-show 与 v-if 区别
