@@ -152,10 +152,10 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
           map的遍历速度大于 forEach
 4.ES6数组去重的三个简单办法   https://blog.csdn.net/weixin_44526618/article/details/92802192 
     利用Map对象和数组的filter方法
-        fn(arr)=>{
-            const = new Map();
-            return arr.filter((a)=>!res.has(a)&&res.set(a,1))
-        }
+       let Arr=[{key:'aa',name:'AA'},{key:'bb',name:'BB'},{key:'bb',name:'BB'}];
+       Arr.filter((va,index,arr)=>{
+            return arr.findIndex(item=>item.key===va.key&&item.name===va.name)===index;
+        })
         console.log(fn(targetArr))
     利用Set对象和数组的Array.from()方法 
         let newArr = Array.from(new Set(targetArr))
