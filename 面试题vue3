@@ -1,5 +1,8 @@
 https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
-1.vue3中没有this？
+1. v-if 与 v-for 的优先级对比
+  2.x 版本中在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用
+  3.x 版本中 v-if 总是优先于 v-for 生效
+2.vue3中没有this？
   解决方法1: getCurrentInstance 方法获取当前组件的实例，然后通过 ctx 或 proxy 属性获得当前上下文，这样我们就能在setup中使用router和vuex了
     import { getCurrentInstance } from "vue"
     export default {
