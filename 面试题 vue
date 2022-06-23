@@ -96,12 +96,15 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
         attrs：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 ( class 和 style 除外 )。当一个组件没有声明任何 prop 时，
                这里会包含所有父作用域的绑定 ( class 和 style 除外 )，并且可以通过 v-bind="attrs" 传入内部组件。通常配合 inheritAttrs 选项一起使用。
         listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="listeners" 传入内部组件
-6.vueX 有哪几种属性
+6.vueX 的五种属性，分别是 State、 Getter、Mutation 、Action、 Module。
      https://blog.csdn.net/Andydahua/article/details/123878278?ops_request_misc=&request_id=&biz_id=102&utm_term=
      vuex%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B1%9E%E6%80%A7&utm_medium=distribute.pc_search_result.none-task-b
      log-2~all~sobaiduweb~default-1-123878278.142^v20^control,157^v15^new_3&spm=1018.2226.3001.4187
-    （1）有五种，分别是 State、 Getter、Mutation 、Action、 Module。
-        State：state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
+        vuex 的 store 是什么？
+        vuex 就是一个仓库，仓库里放了很多对象。
+        State：就是数据源存放地，对应于一般 vue 对象里面的 datastate 里面存放的数据是响应式的，vue 组件从 store 读取数据，若是 store 中的数据发生改变，
+            依赖这相数据的组件也会发生更新它通过 mapState 把全局的 state 和 getters 映射到当前组件的 computed 计算属性。
+            获取：this.$store.state[属性]
         Getter：getters 可以对State进行计算操作，它就是Store的计算属性
         Mutation：有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
         Action：Action 提交的是 mutation，而不是直接变更状态。 (可有异步操作)
