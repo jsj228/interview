@@ -34,6 +34,7 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
         });
     c.如何利用 v-for 和 ref 获取一组数组或者dom 节点
 18.vue3和vue2的底层区别
+        
     vue3新特性：
           1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
           2.源码使用ts重写，更好的类型推导
