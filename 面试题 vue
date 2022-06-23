@@ -195,7 +195,7 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
     （2）$route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数
 17. 组件中 data 为什么是函数
     （1）因为组件是用来复用的，JS 里对象是引用关系，这样作用域没有隔离，而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题
-18.vue 使用 nextTick 的方法
+18.vue 使用 nextTick 的方法  （可以用在生命周期created中操作dom）
     this.$nextTick()将回调延迟到下次 DOM 更新循环之后执行。
     在修改数据之后立即使用它，然后等待 DOM 更新。
     它跟全局方法 Vue.nextTick 一样，不同的是回调的 this 自动绑定到调用它的实例上；
