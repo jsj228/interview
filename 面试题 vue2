@@ -42,7 +42,11 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
           beforeUpdate() {  this.itemRefs = []},
           updated() {console.log(this.itemRefs) }
         }
-* 18.vue3和vue2的底层区别
+        
+ * 【重点】数据更更新，页面没有更新的几种情况 https://www.cnblogs.com/ypSharing/p/updataHandler.html
+    1、
+    2、循环嵌套层级太深，视图不更新，可以调用 this.$forceUpdate() 强制重新渲染组件，从而达到更新目的。
+* 【重点】vue3和vue2的底层区别
     vue3新特性：
           1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
           2.源码使用ts重写，更好的类型推导
@@ -144,8 +148,7 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
     （1）使用key来给每个节点做一个唯一标识
     （2）key的主要作用：因为vue采用diff算法，为了高效的更新虚拟DOM。
         另外相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果。
-10. 如何进行vue中的二次渲染
-    如果要在组件内部中进行强制刷新，则可以调用 this.$forceUpdate() 强制重新渲染组件，从而达到更新目的。
+
 11.绑定 class 的数组用法
     （1）对象方法 v-bind:class="{‘orange’: isRipe, ‘green’: isNotRipe}"
     （2）数组方法v-bind:class="[class1, class2]"
