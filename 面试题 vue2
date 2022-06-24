@@ -147,8 +147,10 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
     （1）对象方法 v-bind:class="{‘orange’: isRipe, ‘green’: isNotRipe}"
     （2）数组方法v-bind:class="[class1, class2]"
     （3）行内 v-bind:style="{color: color, fontSize: fontSize+‘px’ }"
-12.计算属性computed和 监听watch 的区别
-    （1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     计算属性默认只有 getter，不过在需要时你也可以提供一个 setter   (注：computed有缓存，如果不需要缓存可以使用方法函数代替)
+*12.计算属性computed和 监听watch 的区别
+    （1）computed 是一个对象时，它有哪些选项：有get和set两个选项;     
+        计算属性默认只有 getter，不过在需要时你也可以提供一个 setter   
+        (注：computed有缓存，如果不需要缓存可以使用方法函数代替)
     （2）computed 和 watch有什么区别：只是需要动态值，那就用计算属性；需要知道值的改变后执行业务逻辑，才用 watch
     （3）watch 是一个对象时，它有哪些选项：handler，deep 是否深度，immeditate 是否立即执行
     watch: {
@@ -162,7 +164,7 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
     }
 13.Vue的生命周期
     （1）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
-    （2）生命周期
+   *（2）Vue2和Vue3生命周期的变化
         Vue2：beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
         Vue3：
             setup (Composition Api)https://vuejs.org/guide/essentials/watchers.html 
