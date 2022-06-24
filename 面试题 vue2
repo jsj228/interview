@@ -3,19 +3,8 @@ vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
 2021 Vue.js 面试题汇总及答案：https://jackniu81.github.io/2021/04/12/Vue-js-Interview-Questions-and-Answers-2021/
 vue 调试工具   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 Vue面试题  https://www.jianshu.com/p/9f460e66ce01
-自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html
-    说说你对 SPA 单页面的理解，它的优缺点分别是什么？
-        SPA：仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，
-        SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
-        优点：用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
-             基于上面一点，SPA 相对对服务器压力小；
-             前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
-        缺点：初次加载耗时多：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
-             前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
-             SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
-
-
- *【重点】 对于MVVM的理解  
+自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html     
+*【重点】 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
      MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
     （1）Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。
@@ -80,7 +69,15 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
            调用:this.$store.dispatch(a,值)
         Module：由于使用单一状态树，应用的所有状态会集中到一个比较的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
         原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
-
+1.说说你对 SPA 单页面的理解，它的优缺点分别是什么？
+    SPA：仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，
+    SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
+    优点：用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
+         基于上面一点，SPA 相对对服务器压力小；
+         前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
+    缺点：初次加载耗时多：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
+         前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
+         SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
 2.v-model 的原理 
     在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select 等元素上创建双向数据绑定，
     v-model 本质上不过是v-bind:value和v-on:$event 的语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
