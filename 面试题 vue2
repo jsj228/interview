@@ -14,7 +14,99 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
              前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
              SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
 
-vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs.com/goloving/p/9404099.html
+
+ *【重点】 对于MVVM的理解  
+     MVVM 是 Model-View-ViewModel 的缩写。
+     MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
+    （1）Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。
+    （2）View 代表UI 组件，它负责将数据模型转化成UI 展现出来。
+    （3）ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步View 和 Model的对象，连接Model和View。
+    （4）在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 
+        因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。
+    （5）ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，
+        因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
+*【重点】Vue实现双向数据绑定
+    vue2中： 实现数据双向绑定主要是：采用数据劫持结合页面的模式方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
+            在数据变动时:             date--（通过Object.defineProperty（）来劫持各个属性的setter和getter，来触发相应监听回调）-->view
+            当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 
+            将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
+            
+    vue3中：ES6的proxy 作为其观察者机制
+    （2）vue的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
+        最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
+*【重点】数据更更新，页面没有更新的几种情况 https://www.cnblogs.com/ypSharing/p/updataHandler.html
+    1、
+    2、循环嵌套层级太深，视图不更新，可以调用 this.$forceUpdate() 强制重新渲染组件，从而达到更新目的。
+*【重点】vue3和vue2的底层区别
+    vue3新特性：
+          1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
+          2.源码使用ts重写，更好的类型推导
+          3.虚拟DOM新算法（更快，更小）
+          4.提供了composition api，为更好的逻辑复用与代码组织
+          5.自定义渲染器（app、小程序、游戏开发）
+          6.Fragment，模板可以有多个根元素
+    响应原理对比
+          1.vue2使用Object.defineProperty方法实现响应式数据
+          2.缺点： 无法直接检测到   对象属性的动态添加和删除; 无法检测到  数组的下标和length属性的变更    
+          3.解决方案：
+            vue2提供vue.$set(this.属性，propertyName/index,value) 动态给对象添加属性
+            vue.$delete动态删除对象属性
+            vue2中通过遍历数组 和递归遍历对象，从而达到利用 Object.defineProperty() 进行监听对象和数组（部分方法的操作）
+     1.vue3使用proxy实现响应式数据
+           优点：  可以检测到代理对象属性的动态新增和删除     可以见到测数组的下标和length属性的变化
+           缺点：  es6的proxy不支持低版本浏览器 IE11        回针对IE11出一个特殊版本进行支持
+     2.vue3是如何实现对象代理proxy的，实现响应式数据（Observe、Complife、Watcher是如何工作的）
+        通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，
+        达到数据变化 -> 视图更新；视图交互变化(input) -> 数据model变更的双向绑定效果
+*【重点】vueX 的五种属性，分别是 State、 Getter、Mutation 、Action、 Module。
+     https://blog.csdn.net/Andydahua/article/details/123878278?ops_request_misc=&request_id=&biz_id=102&utm_term=
+     vuex%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B1%9E%E6%80%A7&utm_medium=distribute.pc_search_result.none-task-b
+     log-2~all~sobaiduweb~default-1-123878278.142^v20^control,157^v15^new_3&spm=1018.2226.3001.4187
+        vuex 的 store 是什么？
+        vuex 就是一个仓库，仓库里放了很多对象。
+        State：就是数据源存放地，对应于一般 vue 对象里面的 datastate 里面存放的数据是响应式的，vue 组件从 store 读取数据，若是 store 中的数据发生改变，
+            依赖这相数据的组件也会发生更新它通过 mapState 把全局的 state 和 getters 映射到当前组件的 computed 计算属性。
+            调用：this.$store.state[属性]  
+            调用：import {mapGetters} form "vuex";
+                computed:{...mapGetters(['a'])} this.a
+        Getter： 可以对State进行计算操作，它就是Store的计算属性
+           用法：getters:{a：state=> state.a+'1', }
+           调用：this.$store.getters[a]  
+        Mutation：提交更新数据的方法，必须是同步的(如果需要异步使用action)。每个 mutation 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)。
+           用法：mutation:{a：(state,newVa)=> state.a=newVa, }
+           调用：this.$store.commit(a，值)
+        Action：Action 提交的是 mutation，而不是直接变更状态。 (可有异步操作)
+           用法：action:{a：(state,newVa)=> state.a=newVa, } action:{a(state,newVa)=> state.a=newVa, }
+           调用:this.$store.dispatch(a,值)
+        Module：由于使用单一状态树，应用的所有状态会集中到一个比较的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
+        原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
+
+2.v-model 的原理 
+    在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select 等元素上创建双向数据绑定，
+    v-model 本质上不过是v-bind:value和v-on:$event 的语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
+        text 和 textarea 元素使用 value 属性和 input 事件($event)；   
+        checkbox 和 radio 使用 checked 属性和 change 事件($event)；  
+        checkbox 和 radio 使用 checked 属性和 change 事件($event)；
+        // v-model相当于写两件事情
+        // 1.:value="user.username"
+        // 2.监听组件的事件,获取他的值@input="user.username $event.target.value"这是model等价写法
+        //   model默认input是一个元素，event是一个原生event。绑定value等于一个东西，然后@input让东西等于$event.target.value可以实现绑定一个变量，在变量变化的时候，ui变化。
+        //  用户改变ui的时候，数据也会变化
+3. vue.js的两个核心是什么      数据驱动和组件化
+
+5. Vue组件间的通信 （微信收藏）
+    （1）父组件向子组件传值：子组件通过props方法接受数据
+    （2）子组件向父组件传值：子组件通过  emit() 方法传递参数 ， 父组件通过 emit() 方法传递参数，父组件通过emit()方法传递参数，父组件通过on()监听
+    （3）适用于 父子、隔代、兄弟组件通信：EventBus、vueX 
+        EventBus：
+            就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。        
+            https://blog.csdn.net/zhongzk69/article/details/80928170    https://blog.csdn.net/weixin_39944375/article/details/113323828
+    （4）适用于 隔代组件通信 ：provide/inject  
+    （5）attrs/listeners 适用于 隔代组件通信
+        attrs：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 ( class 和 style 除外 )。当一个组件没有声明任何 prop 时，
+               这里会包含所有父作用域的绑定 ( class 和 style 除外 )，并且可以通过 v-bind="attrs" 传入内部组件。通常配合 inheritAttrs 选项一起使用。
+        listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="listeners" 传入内部组件
+6.vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs.com/goloving/p/9404099.html
     a.使用ref属性获取元素：
         vue2中：
         <div ref="attr"></div>
@@ -42,96 +134,6 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
           beforeUpdate() {  this.itemRefs = []},
           updated() {console.log(this.itemRefs) }
         }
-        
- * 【重点】数据更更新，页面没有更新的几种情况 https://www.cnblogs.com/ypSharing/p/updataHandler.html
-    1、
-    2、循环嵌套层级太深，视图不更新，可以调用 this.$forceUpdate() 强制重新渲染组件，从而达到更新目的。
-* 【重点】vue3和vue2的底层区别
-    vue3新特性：
-          1.数据响应重新实现（ES6的proxy代替Es5的Object.defineProperty）
-          2.源码使用ts重写，更好的类型推导
-          3.虚拟DOM新算法（更快，更小）
-          4.提供了composition api，为更好的逻辑复用与代码组织
-          5.自定义渲染器（app、小程序、游戏开发）
-          6.Fragment，模板可以有多个根元素
-    响应原理对比
-          1.vue2使用Object.defineProperty方法实现响应式数据
-          2.缺点： 无法直接检测到   对象属性的动态添加和删除; 无法检测到  数组的下标和length属性的变更    
-          3.解决方案：
-            vue2提供vue.$set(this.属性，propertyName/index,value) 动态给对象添加属性
-            vue.$delete动态删除对象属性
-            vue2中通过遍历数组 和递归遍历对象，从而达到利用 Object.defineProperty() 进行监听对象和数组（部分方法的操作）
-            
-　　1.vue3使用proxy实现响应式数据
-       优点：  可以检测到代理对象属性的动态新增和删除     可以见到测数组的下标和length属性的变化
-       缺点：  es6的proxy不支持低版本浏览器 IE11        回针对IE11出一个特殊版本进行支持
-   2.vue3是如何实现对象代理proxy的，实现响应式数据（Observe、Complife、Watcher是如何工作的）
-    通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，
-    达到数据变化 -> 视图更新；视图交互变化(input) -> 数据model变更的双向绑定效果
-
-1. 对于MVVM的理解  
-     MVVM 是 Model-View-ViewModel 的缩写。
-     MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
-     
-    （1）Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。
-    （2）View 代表UI 组件，它负责将数据模型转化成UI 展现出来。
-    （3）ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步View 和 Model的对象，连接Model和View。
-    （4）在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 
-        因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。
-    （5）ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，
-        因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
-2.v-model 的原理 
-    在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select 等元素上创建双向数据绑定，
-    v-model 本质上不过是v-bind:value和v-on:$event 的语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
-        text 和 textarea 元素使用 value 属性和 input 事件($event)；   
-        checkbox 和 radio 使用 checked 属性和 change 事件($event)；  
-        checkbox 和 radio 使用 checked 属性和 change 事件($event)；
-        // v-model相当于写两件事情
-        // 1.:value="user.username"
-        // 2.监听组件的事件,获取他的值@input="user.username $event.target.value"这是model等价写法
-        //   model默认input是一个元素，event是一个原生event。绑定value等于一个东西，然后@input让东西等于$event.target.value可以实现绑定一个变量，在变量变化的时候，ui变化。
-        //  用户改变ui的时候，数据也会变化
-3. vue.js的两个核心是什么      数据驱动和组件化
-4.Vue实现双向数据绑定
-    （1）Vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
-        在数据变动时发布消息给订阅者，触发相应监听回调。当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 
-        将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
-    （2）vue的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
-        最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
-5. Vue组件间的通信 （微信收藏）
-    （1）父组件向子组件传值：子组件通过props方法接受数据
-    （2）子组件向父组件传值：子组件通过  emit() 方法传递参数 ， 父组件通过 emit() 方法传递参数，父组件通过emit()方法传递参数，父组件通过on()监听
-    （3）适用于 父子、隔代、兄弟组件通信：EventBus、vueX 
-        EventBus：
-            就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。        
-            https://blog.csdn.net/zhongzk69/article/details/80928170    https://blog.csdn.net/weixin_39944375/article/details/113323828
-    （4）适用于 隔代组件通信 ：provide/inject  
-    （5）attrs/listeners 适用于 隔代组件通信
-        attrs：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 ( class 和 style 除外 )。当一个组件没有声明任何 prop 时，
-               这里会包含所有父作用域的绑定 ( class 和 style 除外 )，并且可以通过 v-bind="attrs" 传入内部组件。通常配合 inheritAttrs 选项一起使用。
-        listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="listeners" 传入内部组件
-6.vueX 的五种属性，分别是 State、 Getter、Mutation 、Action、 Module。
-     https://blog.csdn.net/Andydahua/article/details/123878278?ops_request_misc=&request_id=&biz_id=102&utm_term=
-     vuex%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B1%9E%E6%80%A7&utm_medium=distribute.pc_search_result.none-task-b
-     log-2~all~sobaiduweb~default-1-123878278.142^v20^control,157^v15^new_3&spm=1018.2226.3001.4187
-        vuex 的 store 是什么？
-        vuex 就是一个仓库，仓库里放了很多对象。
-        State：就是数据源存放地，对应于一般 vue 对象里面的 datastate 里面存放的数据是响应式的，vue 组件从 store 读取数据，若是 store 中的数据发生改变，
-            依赖这相数据的组件也会发生更新它通过 mapState 把全局的 state 和 getters 映射到当前组件的 computed 计算属性。
-            调用：this.$store.state[属性]  
-            调用：import {mapGetters} form "vuex";
-                computed:{...mapGetters(['a'])} this.a
-        Getter： 可以对State进行计算操作，它就是Store的计算属性
-           用法：getters:{a：state=> state.a+'1', }
-           调用：this.$store.getters[a]  
-        Mutation：提交更新数据的方法，必须是同步的(如果需要异步使用action)。每个 mutation 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)。
-           用法：mutation:{a：(state,newVa)=> state.a=newVa, }
-           调用：this.$store.commit(a，值)
-        Action：Action 提交的是 mutation，而不是直接变更状态。 (可有异步操作)
-           用法：action:{a：(state,newVa)=> state.a=newVa, } action:{a(state,newVa)=> state.a=newVa, }
-           调用:this.$store.dispatch(a,值)
-        Module：由于使用单一状态树，应用的所有状态会集中到一个比较的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
-        原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
 7. v-show 与 v-if 区别
     （1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
     （2）v-show和v-if的使用：频繁切换时用v-show，运行时较少改变时用v-if
