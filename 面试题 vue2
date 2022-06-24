@@ -130,7 +130,9 @@ vue2中ref的使用https://www.jianshu.com/p/899b684174a5    https://www.cnblogs
 7. v-show 与 v-if 区别
     （1）v-show和v-if的区别：v-show是css切换，v-if是完整的销毁和重新创建。
     （2）v-show和v-if的使用：频繁切换时用v-show，运行时较少改变时用v-if
-8.v-for 与 v-if 的优先级            v-for的优先级比v-if高
+8.v-for 与 v-if 的优先级  
+    vue2中 v-for的优先级比v-if高
+    vue3中 v-if高于v-for
 9. 虚拟DOM，diff算法
 （1）让我们不用直接操作DOM元素，只操作数据便可以重新渲染页面
 （2）虚拟dom是为了解决浏览器性能问题而被设计出来的;当操作数据时，将改变的dom元素缓存起来，都计算完后再通过比较映射到真实的dom树上
