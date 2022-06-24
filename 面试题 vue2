@@ -4,7 +4,7 @@ vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
 vue 调试工具   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html     
-*【重点】 对于MVVM的理解  
+【重点】 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
      MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
     （1）Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。
@@ -71,7 +71,7 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
     4、Vue 不能监测直接修改数组长度的变化
     5、在异步更新执行之前操作 DOM 数据不会变化
     6、循环嵌套层级太深，视图不更新，可以调用 this.$forceUpdate() 强制重新渲染组件，从而达到更新目的。
-    7、路由参数变化时，页面不更新（数据不更新）
+    7、路由参数变化时，页面不更新（数据不更新）watch: { '$route': function() {   this.message = this.$route.params.name }  } <router-view :key="message"></router-view>
   **8、使用keep-alive之后数据无法实时更新问题
 【重点】vue3和vue2的底层区别
     vue3新特性：
