@@ -16,14 +16,15 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
         因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
 【重点】Vue实现双向数据绑定
     vue2中： https://blog.csdn.net/weixin_55869781/article/details/116430618 
-            实现数据双向绑定主要是：采用数据劫持结合订阅者的模式方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
+            实现数据双向绑定主要是：采用数据劫持结合Watcher(订阅者)的模式方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
             在数据变动时:   date--（通过Object.defineProperty（）来劫持各个属性的set:fn(写入)和get:fn(读取)，来触发相应监听回调）-->view
             当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 
             将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
             
             vue2的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
             最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
-    vue3中：ES6的proxy 作为其观察者机制？？   const p = new Proxy({}, {  get(target, propKey) { return '哈哈，你被我拦截了'; } })  console.log(p.name);//哈哈，你被我拦截了
+    vue3中：https://www.cnblogs.com/microsoft-zyl/p/15937490.html
+          ES6的proxy 作为代理机制？？   const p = new Proxy({}, {  get(target, propKey) { return '哈哈，你被我拦截了'; } })  console.log(p.name);//哈哈，你被我拦截了
     
 【重点】.Vue的生命周期
     （1）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
