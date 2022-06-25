@@ -20,9 +20,10 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
             当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 
             将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
             
+            vue2的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
+            最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
     vue3中：ES6的proxy 作为其观察者机制？？   const p = new Proxy({}, {  get(target, propKey) { return '哈哈，你被我拦截了'; } })  console.log(p.name);//哈哈，你被我拦截了
-     （2）vue的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
-        最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
+    
 【重点】.Vue的生命周期
     （1）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
    *（2）Vue2和Vue3生命周期的变化
