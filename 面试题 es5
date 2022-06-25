@@ -78,24 +78,29 @@
     （7）浏览器开始显示此html，并获取其中内嵌资源地址
     （8）然后浏览器再发起请求来获取这些资源，并在浏览器的html中显示
 6.浏览器存储方法及其优缺点
-（1） cookie    
-    h5之前，存储主要用cookies，缺点是在请求头上带着数据，导致流量增加。大小限制4k
-（2）localStorage 
-    以键值对(Key-Value)的方式存储，永久存储，永不失效，除非手动删除。IE8+支持，每个域名限制5M
-（3）sessionStorage
-    sessionStorage操作的方法与localStroage是一样的，区别在于 sessionStorage 在关闭页面后即被清空，而 localStorage 则会一直保存。
-    很多时候数据只需要在用户浏览一组页面期间使用，关闭窗口后数据就可以丢弃了，这种情况使用sessionStorage就比较方便
-（4）cookie、localStorage、sessionStorage之间的区别
-    ① 存储大小限制不同，cookie数据不能超过4k，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如会话标识。
-    sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大
-    ② 数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；
-    cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
-     ③作用域不同，sessionStorage不在不同的浏览器页面中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的
-    Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者
-7.跨域问题
-    （1）跨域问题是如何产生的：浏览器的同源安全的策略，使得   协议不同、域名、子域名、端口 有一种不相同时，会出现跨域
-    （2）怎吗结局跨域问题 
+    （1） cookie    
+        h5之前，存储主要用cookies，缺点是在请求头上带着数据，导致流量增加。大小限制4k
+    （2）localStorage 
+        以键值对(Key-Value)的方式存储，永久存储，永不失效，除非手动删除。IE8+支持，每个域名限制5M
+    （3）sessionStorage
+        sessionStorage操作的方法与localStroage是一样的，区别在于 sessionStorage 在关闭页面后即被清空，而 localStorage 则会一直保存。
+        很多时候数据只需要在用户浏览一组页面期间使用，关闭窗口后数据就可以丢弃了，这种情况使用sessionStorage就比较方便
+    （4）cookie、localStorage、sessionStorage之间的区别
+        ① 存储大小限制不同，cookie数据不能超过4k，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如会话标识。
+        sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大
+        ② 数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；
+        cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
+         ③作用域不同，sessionStorage不在不同的浏览器页面中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的
+        Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者
+【重点】.跨域问题
+      （1）跨域问题是如何产生的：浏览器的同源安全的策略，使得   协议不同、域名、子域名、端口 有一种不相同时，会出现跨域
+      （2）怎吗结局跨域问题 
         a.JSONP 解决get跨域问题
+            JSONP跨域实现：https://blog.csdn.net/badmoonc/article/details/82289252
+            var c=document.createElement('script');
+            c.src="http://....../接口名?参数1=''&参数2=''&callback=fn";
+            $('body').append(c);
+            function fn(res){console.log(res)}
         b.webpack   本地配置代理服务，解决跨域 https://www.cnblogs.com/zishang91/p/8909900.html，
         c.生产后:后端服务（nginx）的反向代理接口跨域
         d.后端开启Cross-Origin Resource Sharing（CORS）即可 ， 设置Access-Control-Allow-Origin=true
@@ -116,11 +121,6 @@
             res.send(data)    
             res.end()
         })  
-8.JSONP跨域实现：https://blog.csdn.net/badmoonc/article/details/82289252
-    var c=document.createElement('script');
-    c.src="http://....../接口名?参数1=''&参数2=''&callback=fn";
-    $('body').append(c);
-    function fn(res){console.log(res)}
     
 10.this的指向问题
     es5：谁调用的，指向谁， (fn)();this ->window
