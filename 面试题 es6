@@ -1,7 +1,37 @@
 ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   https://www.jianshu.com/p/eb05ae43354d
  (promise三个状态：resolve(成功)、reject(失败)、pending（进行中）)   https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
             https://www.jianshu.com/p/7e60fc1be1b2
-1.1 es6中map和set的区别
+【重点】 es6中map和set的区别
+【重点】解构赋值   https://www.runoob.com/w3cnote/deconstruction-assignment.html
+       数组的解构    
+           let [a, b, c, d] = ['小沈阳', '刘能', '赵四'];      
+           console.log(a, b, c, d) //a = '小沈阳' b= '刘能'  c = '赵四'  d = undefined 
+       对象的解构
+           const F4 = {
+                 name: '赵本山',
+                 age: '不详',
+                 xiaopin: function () {console.log('我可以演小品') }
+           }
+           let { name, age, xiaopin } = F4
+           console.log(name) //赵本山
+           console.log(age) //不详
+           console.log(xiaopin) //[Function: xiaopin]
+【重点】箭头函数    
+      ES6允许使用箭头（=>）定义函数
+      箭头函数中不会创建自己的this,始终指向上一层作用域             let A = () => { console.log(this.name)   }   name = '拉钩教育'; A() //拉钩教育 
+      不能作为构造实例化对象                                      let A = (name, age) => {  this.name = name;   this.age = age   }  let me = new A('xiao', 123) //error
+      不能使用arguments变量                                      let fn = () => {  console.log(arguments)    }   fn(1, 2, 3) //error
+      省略小括号，当形参有且只有一个的时候                         let add = n => {  return n + 1;  }  add(1)   
+      省略花括号，当代码体只有一条语句的时候，此时return也必须省略   let add = n => n+1;    add(1)   
+      函数参数默认值   let add =  (a,b,c=12)=>a+b+c;  console.log( add (1,2))   //15
+【重点】es6中的浅拷贝、深拷贝  https://segmentfault.com/a/1190000009693516
+     浅拷贝（即栈中的内存地址和堆中的值都要拷贝） var targetObj = Object.assign ({},obj1,obj2,obj3,...)
+         const v1={a:{b:1}};  const v2=Object.assign ({},v1)
+         v1.a.b = 2 ;   v2.a.b //2
+     深拷贝:（即只拷贝堆中的值）
+         var newObj = JSON.parse(JSON.stringify(targetObj))是最简单粗暴的深拷贝，能够处理JSON格式的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深拷贝.
+         lodash中的_.clone(obj, true)等价于_.cloneDeep(obj) 两个方法，lodash花了大量的代码来实现 ES6 引入的大量新的标准对象. 
+         var newObj = _.cloneDeep(targetObj);   var newObj = _.clone(targetObj,true);
 1.基本类型增加了：Bigint、symbol
     大整型（Bigint）：
         let n = 521n; console.log(n, typeof n) // 521n 'bigint'
@@ -54,20 +84,7 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
           car: { pace: '100W', name: '奥迪rs7', },
      }
     obj.name = '李四' 
-4.解构赋值   https://www.runoob.com/w3cnote/deconstruction-assignment.html
-    数组的解构    
-        let [a, b, c, d] = ['小沈阳', '刘能', '赵四'];      
-        console.log(a, b, c, d) //a = '小沈阳' b= '刘能'  c = '赵四'  d = undefined 
-    对象的解构
-        const F4 = {
-              name: '赵本山',
-              age: '不详',
-              xiaopin: function () {console.log('我可以演小品') }
-        }
-        let { name, age, xiaopin } = F4
-        console.log(name) //赵本山
-        console.log(age) //不详
-        console.log(xiaopin) //[Function: xiaopin]
+
 5.模板字符串  采用 `` 的形式定义字符串申明
   5.1·结构赋值的规则
     内容中可以直接出现换行符
@@ -88,22 +105,7 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
       },
     }
     console.log(school)
-7.箭头函数    
-    ES6允许使用箭头（=>）定义函数
-    箭头函数中不会创建自己的this,始终指向上一层作用域             let A = () => { console.log(this.name)   }   name = '拉钩教育'; A() //拉钩教育 
-    不能作为构造实例化对象                                      let A = (name, age) => {  this.name = name;   this.age = age   }   let me = new A('xiao', 123) //error
-    不能使用arguments变量                                      let fn = () => {  console.log(arguments)    }   fn(1, 2, 3) //error
-    省略小括号，当形参有且只有一个的时候                         let add = n => {  return n + 1;  }  add(1)   
-    省略花括号，当代码体只有一条语句的时候，此时return也必须省略   let add = n => n+1;    add(1)   
-    函数参数默认值   let add =  (a,b,c=12)=>a+b+c;  console.log( add (1,2))   //15
-1.es6中的浅拷贝、深拷贝  https://segmentfault.com/a/1190000009693516
-    浅拷贝（即栈中的内存地址和堆中的值都要拷贝） var targetObj = Object.assign ({},obj1,obj2,obj3,...)
-        const v1={a:{b:1}};  const v2=Object.assign ({},v1)
-        v1.a.b = 2 ;   v2.a.b //2
-    深拷贝:（即只拷贝堆中的值）
-        var newObj = JSON.parse(JSON.stringify(targetObj))是最简单粗暴的深拷贝，能够处理JSON格式的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深拷贝.
-        lodash中的_.clone(obj, true)等价于_.cloneDeep(obj) 两个方法，lodash花了大量的代码来实现 ES6 引入的大量新的标准对象. 
-        var newObj = _.cloneDeep(targetObj);   var newObj = _.clone(targetObj,true);
+
 2.防抖和节流
     （1）函数节流(throttle)：事件频繁触发的情况下，在指定时间内只执行一次任务
     （2）函数防抖(debounce)：任务在事件触发后等待一段时间再执行，如果事件频繁触发，会重新计算等待时间   _.debounce(function, 500)
