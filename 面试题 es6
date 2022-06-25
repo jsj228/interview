@@ -32,6 +32,17 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
          var newObj = JSON.parse(JSON.stringify(targetObj))是最简单粗暴的深拷贝，能够处理JSON格式的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深拷贝.
          lodash中的_.clone(obj, true)等价于_.cloneDeep(obj) 两个方法，lodash花了大量的代码来实现 ES6 引入的大量新的标准对象. 
          var newObj = _.cloneDeep(targetObj);   var newObj = _.clone(targetObj,true);
+【重点】.ES6数组去重的三个简单办法   https://blog.csdn.net/weixin_44526618/article/details/92802192 
+       利用Map对象和数组的filter方法
+          let Arr=[{key:'aa',name:'AA'},{key:'bb',name:'BB'},{key:'bb',name:'BB'}];
+          Arr.filter((va,index,arr)=>{
+               return arr.findIndex(item=>item.key===va.key&&item.name===va.name)===index;
+           })
+           console.log(fn(targetArr))
+       利用Set对象和数组的Array.from()方法 
+           let newArr = Array.from(new Set(targetArr))
+       利用Set+扩展运算符 …
+           let newArr = [...new Set(targetArr)]
 1.基本类型增加了：Bigint、symbol
     大整型（Bigint）：
         let n = 521n; console.log(n, typeof n) // 521n 'bigint'
@@ -152,16 +163,6 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
       不同点：
           返回值 ：  arr.forEach(fn)  没有返回值，arr.map(fn)      有新数组返回
           map的遍历速度大于 forEach
-4.ES6数组去重的三个简单办法   https://blog.csdn.net/weixin_44526618/article/details/92802192 
-    利用Map对象和数组的filter方法
-       let Arr=[{key:'aa',name:'AA'},{key:'bb',name:'BB'},{key:'bb',name:'BB'}];
-       Arr.filter((va,index,arr)=>{
-            return arr.findIndex(item=>item.key===va.key&&item.name===va.name)===index;
-        })
-        console.log(fn(targetArr))
-    利用Set对象和数组的Array.from()方法 
-        let newArr = Array.from(new Set(targetArr))
-    利用Set+扩展运算符 …
-        let newArr = [...new Set(targetArr)]
+
     
     
