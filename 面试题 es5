@@ -1,19 +1,13 @@
-【微观和宏观任务】
-    微观任务：new Promise()
-    宏观任务：异步请求、setTimeout、setInterval等
-    
-    const promise = new Promise((resolve, reject) => {
-      console.log(1);
-      resolve(5);
-      console.log(2);
-    }).then(val => {
-      console.log(val);
-    });
-    promise.then(() => {console.log(3);});
-    console.log(4);
-    setTimeout(function() {console.log(6);},100);
-
-
+【重点】微观和宏观任务
+    微观任务：new Promise(fn) --->fn中遇到resolve()就启动了宏观任务promise.then()
+    宏观任务：异步请求、setTimeout、setInterval,promise.then()等；
+    练习：
+        const promise = new Promise((resolve, reject) => {
+          console.log(1);  resolve(5);console.log(2);
+        }).then(val => { console.log(val);});
+        promise.then(() => {console.log(3);});
+        console.log(4);
+        setTimeout(function() {console.log(6);},100);
 【重点】浏览器的事件循环机制
 
     
