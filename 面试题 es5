@@ -8,7 +8,7 @@
         promise.then(() => {console.log(3);});
         console.log(4);
         setTimeout(function() {console.log(6);},100);
-【重点】浏览器的事件循环机制
+【重点】浏览器的事件循环机制  http://lynnelv.github.io/js-event-loop-browser
       微观先执行-->再执行宏观任务-->宏观任务中有微观任务
                         ↓               ↓
                      无微任务        执行微观任务 
