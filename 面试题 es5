@@ -1,3 +1,10 @@
+【微观和宏观任务】
+    微观任务：new Promise()
+    宏观任务：异步请求、setTimeout、setInterval等
+【重点】浏览器的事件循环机制
+
+    
+
 1.1、数据类型
     数据分为基本数据类型和引用数据类型（Object、数组、fn、日期等）。
     1、基本数据类型的特点：数据直接存储在栈(stack);  (String, Number, Boolean, Null, Undefined，Symbol)；
