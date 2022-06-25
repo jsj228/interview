@@ -15,7 +15,8 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
     （5）ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，
         因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
 【重点】Vue实现双向数据绑定
-    vue2中： 实现数据双向绑定主要是：采用数据劫持结合订阅者的模式方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
+    vue2中： https://blog.csdn.net/weixin_55869781/article/details/116430618 
+            实现数据双向绑定主要是：采用数据劫持结合订阅者的模式方式，通过Object.defineProperty（）来劫持各个属性的setter，getter，
             在数据变动时:   date--（通过Object.defineProperty（）来劫持各个属性的setter和getter，来触发相应监听回调）-->view
             当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 
             将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
