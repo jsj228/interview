@@ -45,9 +45,11 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
             
             vue2的数据双向绑定 将MVVM作为数据绑定的入口，整合Observer，Compile和Watcher三者，通过Observer来监听自己的model的数据变化，通过Compile来解析编译模板指令，
             最终利用watcher搭起observer和Compile之间的通信桥梁，达到数据变化 —>视图更新；视图交互变化（input）—>数据model变更双向绑定效果。
-    vue3中：https://www.cnblogs.com/microsoft-zyl/p/15937490.html
-          ES6的proxy 作为代理机制？？   const p = new Proxy({}, {  get(target, propKey) { return '哈哈，你被我拦截了'; } })  console.log(p.name);//哈哈，你被我拦截了
-    
+    vue3中：ES6的proxy 作为代理机制？？
+          const p = new Proxy({}, {  get(target, propKey) { return '哈哈，你被我拦截了'; } })  console.log(p.name);//哈哈，你被我拦截了
+          
+          https://www.cnblogs.com/microsoft-zyl/p/15937490.html   
+          https://segmentfault.com/a/1190000016208088
 【重点】.Vue的生命周期
     （1）什么是vue生命周期：Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期
    *（2）Vue2和Vue3生命周期的变化
