@@ -2,7 +2,7 @@ vue页面加载过慢解决
 （1）代码层面的优化
     v-if 和 v-show 区分使用场景
     computed 和 watch 区分使用场景
-    v-for 遍历必须为 item 添加 key，且避免同时使用 v-if
+    vue2中 v-for 遍历必须为 item 添加 key，且避免同时使用 v-if
     事件的销毁  beforeDestroy(){  window.removeEventListener("scroll",this.handleFun)}  //正确添加事件： window.addEventListener("scroll",this.handleFun)
     图片资源懒加载插件（vu-loazyload）
     路由懒加载  component: resolve=>require(['@/components/HelloWorld'],resolve)
