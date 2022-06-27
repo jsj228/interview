@@ -24,5 +24,12 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
             vue3中：    <router-view v-slot="{Component}"> <component is="Component"/> </keep-alive> <router-view />   
     2、在main.js中初始化 app.use(router).use(I18n).use(ElementPlus).use(Vuex).mount('#app')     
     3、在router.js中处理路由
-    
+      import { createRouter, createWebHashHistory } from 'vue-router'
+      import A from '../views/A.vue'
+      import B from '../views/B.vue'
+      const routes = [
+        {path: '/',name: 'A',component: A},{path: '/B',name: 'B',component: '../views/B.vue'}]
+      const router = createRouter({history: createWebHashHistory(),routes })
+      export default router
+
 
