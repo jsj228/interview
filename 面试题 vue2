@@ -63,7 +63,7 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
     （4）vue2生命周期总共有几个阶段：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后
     （5）生命周期详解：
         beforeCreate：（创建前） 在数据观测和初始化事件还未开始
-        created：（创建后） 完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来  --> 发送ajax请求 (常用）
+        created：（创建后） 完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来  --> 发送ajax请求 (常用获取数据） 获取操作DOM  this.$next
         beforeMount：（数据绑定前，挂载前） 在挂载开始之前被调用，相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。
         mounted：（数据绑定后，挂载后） 在el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。
             完成模板中的html渲染到html页面中。此过程中进行ajax交互。
@@ -108,6 +108,7 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
      vuex%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B1%9E%E6%80%A7&utm_medium=distribute.pc_search_result.none-task-b
      log-2~all~sobaiduweb~default-1-123878278.142^v20^control,157^v15^new_3&spm=1018.2226.3001.4187
         vuex 的 store 是什么？
+        store（仓库）包含了：State、Getter、Mutation、Action，可以把Module进行分区，ModuleA、ModuleB...
         vuex 就是一个仓库，仓库里放了很多对象。
         State：就是数据源存放地，对应于一般 vue 对象里面的 datastate 里面存放的数据是响应式的，vue 组件从 store 读取数据，若是 store 中的数据发生改变，
             依赖这相数据的组件也会发生更新它通过 mapState 把全局的 state 和 getters 映射到当前组件的 computed 计算属性。
