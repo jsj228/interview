@@ -3,7 +3,21 @@ vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
 2021 Vue.js 面试题汇总及答案：https://jackniu81.github.io/2021/04/12/Vue-js-Interview-Questions-and-Answers-2021/
 vue 调试工具   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 Vue面试题  https://www.jianshu.com/p/9f460e66ce01
-自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html     
+自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html 
+     全局注册：
+          Vue.directive('focus', {
+            inserted: function (el) { // 当被绑定的元素插入到 DOM 中时……
+              el.focus() // 聚焦元素
+            }
+          })
+     局部注册：
+          directives: {
+            focus: {
+              inserted: function (el) {// 指令的定义
+                el.focus()
+              }
+            }
+          }
 vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
 
 【重点】 对于MVVM的理解  
@@ -127,8 +141,9 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
         Module：由于使用单一状态树，应用的所有状态会集中到一个比较的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决这个问题，Vuex 允许我们将 store 分割成模块
         原文链接：https://blog.csdn.net/qq_44291585/article/details/118338182
         
+【重点】vue 中子组件筛选父组件传的值
 【重点】Vue组件间的通信 （微信收藏）
-    （1）父组件向子组件传值：子组件通过props方法接受数据
+    （1）父组件向子组件传值：子组件通过props方法接受数据   
     （2）子组件向父组件传值：子组件通过  emit() 方法传递参数 ， 父组件通过 emit() 方法传递参数，父组件通过emit()方法传递参数，父组件通过on()监听
     （3）适用于 父子、隔代、兄弟组件通信：EventBus、vueX 
         EventBus：
