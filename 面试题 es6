@@ -1,6 +1,19 @@
 ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   https://www.jianshu.com/p/eb05ae43354d
- (promise三个状态：resolve(成功)、reject(失败)、pending（进行中）)   https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
+ promise(三个状态：resolve(成功)、reject(失败)、pending（进行中）)   https://www.cnblogs.com/lvdabao/p/es6-promise-1.html
             https://www.jianshu.com/p/7e60fc1be1b2
+      //极简的实现
+       class Promise {
+           callbacks = [];
+           constructor(fn) {
+               fn(this._resolve.bind(this));
+           }
+           then(onFulfilled) {
+               this.callbacks.push(onFulfilled);
+           }
+           _resolve(value) {
+               this.callbacks.forEach(fn => fn(value));
+           }
+       }
 【重点】 es6中map和set的区别
 【重点】解构赋值   https://www.runoob.com/w3cnote/deconstruction-assignment.html
        数组的解构    
