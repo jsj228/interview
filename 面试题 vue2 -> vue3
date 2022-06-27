@@ -1,3 +1,4 @@
+vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
 一、路由的使用：<keep-alive>
       <router-view />
     </keep-alive>
