@@ -1,7 +1,5 @@
 vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
-一、路由的使用：<keep-alive>
-      <router-view />
-    </keep-alive>
+一、main.js中注册插件
       import * as Vue3 from 'vue'
       import App from './App.vue'
       import I18n from './i18n'
@@ -9,7 +7,7 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
       //项目中没有用到
       import store from './store/index.js'
       import Vuex from 'vuex'
-      
+
       import ElementPlus from 'element-plus'
       import 'element-plus/dist/index.css'
       import axios from 'axios'
@@ -19,3 +17,10 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
       app.config.globalProperties.GLOBAL = {}
       //挂载前需要分别注册 路由、I18n、ElementPlus、Vuex等
       app.use(router).use(I18n).use(ElementPlus).use(Vuex).mount('#app')
+      
+二、vue3 路由的使用：    https://blog.csdn.net/weixin_42063951/article/details/117357542
+     <keep-alive>
+      <router-view />
+    </keep-alive>
+
+
