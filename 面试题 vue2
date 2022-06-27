@@ -77,7 +77,7 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
         destroyed：（销毁后） 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
     （6）第一次页面加载会触发哪几个钩子：会触发 下面这几个beforeCreate, created, beforeMount, mounted
     （7）DOM 渲染在 哪个周期中就已经完成：DOM 渲染在 mounted 中就已经完成了
-    （8）Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为以下 4 部分：
+    【重点】Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为以下 4 部分：
         加载渲染过程
         父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
         子组件更新过程
