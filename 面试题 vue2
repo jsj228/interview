@@ -4,9 +4,6 @@ vue 插件大全：https://www.cnblogs.com/jdsm/p/10016793.html
 vue 调试工具   https://www.jianshu.com/p/c091cef64fa5    https://blog.csdn.net/xdcx950288/article/details/80640918
 Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 
-vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
-
-
 【重点】 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
      MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
