@@ -8,6 +8,8 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
           deep: true
         },
       }
+      
+https://router.vuejs.org/zh/introduction.html
 
 一、main.js中初始化
       import {createApp} from 'vue'
