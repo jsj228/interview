@@ -58,7 +58,7 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
         Vue2：beforeCreate，created，beforeMount，mounted，beforeUpdate，updated，beforeDestroy，destroyed
         Vue3：
             setup (Composition Api)https://vuejs.org/guide/essentials/watchers.html 
-            创建组件时（beforeCreate，created），挂载组件时（beforeMount，mounted），数据改变时（beforeUpdate，updated），卸载组件时（beforeUnmount，Unmount）
+            创建组件时（beforeCreate，created），挂载组件时（beforeMount，mounted），数据改变时（beforeUpdate，updated），卸载组件时（beforeUnmount，Unmounted）
     （3）vue生命周期的作用是什么：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑
     （4）vue2生命周期总共有几个阶段：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后
     （5）生命周期详解：
