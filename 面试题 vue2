@@ -6,21 +6,6 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 
 vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
 
-自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html 
-     全局注册：
-          Vue.directive('focus', {
-            inserted: function (el) { // 当被绑定的元素插入到 DOM 中时……
-              el.focus() // 聚焦元素
-            }
-          })
-     局部注册：
-          directives: {
-            focus: {
-              inserted: function (el) {// 指令的定义
-                el.focus()
-              }
-            }
-          }
 
 【重点】 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
@@ -336,4 +321,19 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
     pach 算法 — 将两个虚拟 DOM 对象的差异应用到真正的 DOM 树。
 15.Vue之混入和混淆：https://blog.csdn.net/qq_38912284/article/details/103574048
 16.vue-i18n中的$t用法:https://blog.csdn.net/weixin_38761920/article/details/116308619
+17.自定义指令 http://r-beta.hw3static.com/s/publicsaas/uibuilder/docs/lst/vue/v2/guide/custom-directive.html 
+     全局注册：
+          Vue.directive('focus', {
+            inserted: function (el) { // 当被绑定的元素插入到 DOM 中时……
+              el.focus() // 聚焦元素
+            }
+          })
+     局部注册：
+          directives: {
+            focus: {
+              inserted: function (el) {// 指令的定义
+                el.focus()
+              }
+            }
+          }
 
