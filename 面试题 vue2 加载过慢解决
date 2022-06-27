@@ -25,7 +25,8 @@ vue页面加载过慢解决
     浏览器缓存
     CDN 的使用
     使用 Chrome Performance 查找性能瓶颈
-一、vue-router路由懒加载
+一、路由离开及时解绑事件:   vm.$off()
+二、vue-router路由懒加载 component 
  1、方法一
     export default new Router({
       routes: [
@@ -137,7 +138,7 @@ vue页面加载过慢解决
             removeEventListener("touchmove",this.touchmove,false)  
             removeEventListener("scroll",this.handleFun,false)  
     }
-九、路由离开及时解绑事件:   vm.$off()
+
 十、vue中使用keep-alive
     vue2.0提供了一个keep-alive组件，用来缓存组件,避免多次加载相应的组件,减少性能消耗，  <keep-alive>    <component><!-- 组件将被缓存 --></component>    </keep-alive>
     一般结合路由和动态组件一起使用，用于缓存组件；
