@@ -1,6 +1,6 @@
 vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
 一、main.js中注册插件
-      import * as Vue3 from 'vue'
+      import {createApp} from 'vue'
       import App from './App.vue'
       import I18n from './i18n'
       import router from './router'
@@ -15,12 +15,14 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
       const app = Vue3.createApp(App)
       app.config.globalProperties.$axios = axios
       app.config.globalProperties.GLOBAL = {}
-      //挂载前需要分别注册 路由、I18n、ElementPlus、Vuex等
+      //挂载前需要分别初始化 路由、I18n、ElementPlus、Vuex等
       app.use(router).use(I18n).use(ElementPlus).use(Vuex).mount('#app')
       
 二、vue3 路由的使用：    https://blog.csdn.net/weixin_42063951/article/details/117357542
-     <keep-alive>
-      <router-view />
-    </keep-alive>
-
+    1、在app.vue中 
+            vue2中：    <keep-alive>      <router-view />    </keep-alive>
+            vue3中：    <router-view v-slot="{Component}"> <component is="Component"/> </keep-alive> <router-view />   
+    2、在main.js中初始化 app.use(router).use(I18n).use(ElementPlus).use(Vuex).mount('#app')     
+    3、在router.js中处理路由
+    
 
