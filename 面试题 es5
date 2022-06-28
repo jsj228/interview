@@ -22,7 +22,7 @@
              ↓                跟新视图  ←------------------- 无微任务
         在堆添加一个个宏观任务                          
         详情：https://www.cnblogs.com/HouJiao/p/14385461.html                 
-、数据类型
+【重点】、数据类型
     数据分为基本数据类型和引用数据类型（Object、数组、fn、日期等）。
     1、基本数据类型的特点：数据直接存储在栈(stack);  (String, Number, Boolean, Null, Undefined，Symbol)；
     基本数据类型的变量与变量之间是独立存在，修改其中一个变量，不会影响其他变量
