@@ -52,26 +52,25 @@ https://router.vuejs.org/zh/introduction.html
                     this.$router.push({ path: '/user', params: { username } }) // -> /user
                     或者：
                     this.$router.push({ path: '/register', query: { plan: 'private' } })
-   5、路由守卫:在router.js中处理  https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%8F%AF%E9%80%89%E7%9A%84%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8F%82%E6%95%B0-next
+   5、路由守卫:https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%8F%AF%E9%80%89%E7%9A%84%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8F%82%E6%95%B0-next
       改变路由beforeEach beforeResolve
       afterEach不改变路由、不会接受 next 函数 
-         ①前置守卫 to:要去那个页面,from：要离开的页面，netx()至少执行一次
+         ①前置守卫(在router.js中处理)    to:要去那个页面,from：要离开的页面，netx()至少执行一次
                   appRrouter.beforeEach((to, from, next) => {   //
                     if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' }) // 如果用户未能验证身份，则 `next` 会被调用两次
                     next()
                   })
-         ②全局解析守卫：appRrouter.beforeResolve(async to => {
+         ②全局解析守卫(在router.js中处理) ：appRrouter.beforeResolve(async to => {
                           if (to.meta.requiresCamera) {
                             try {await askForCameraPermission()} 
-                            catch (error) {
-                            // ... 处理错误，然后取消导航
-                            if (error instanceof NotAllowedError) {return false } 
-                            else { throw error} // 意料之外的错误，取消导航并把错误传给全局处理器
+                            catch (error) { // ... 处理错误，然后取消导航
+                               if (error instanceof NotAllowedError) {return false } 
+                               else { throw error} // 意料之外的错误，取消导航并把错误传给全局处理器
                             }
-                          }
-                        })
-     
-       ③在router.js中处理：
+                          }    
+                      })
+       ③后置守卫
+          在router.js中处理
             failure 用来检测导航故障  https://router.vuejs.org/zh/guide/advanced/navigation-failures.html#%E6%A3%80%E6%B5%8B%E5%AF%BC%E8%88%AA%E6%95%85%E9%9A%9C
             appRrouter.afterEach((to, from, failure) => {if (!failure) sendToAnalytics(to.fullPath) })
           页面中使用：
@@ -82,10 +81,14 @@ https://router.vuejs.org/zh/introduction.html
               // 给用户显示一个小通知
               showToast('You have unsaved changes, discard and leave anyway?')
             }
-      ④ 独享路由守卫：beforeEnter
-            const routes = [{path: '/users/:id',component: UserDetails,beforeEnter: (to, from) => {return false },// reject the navigation
-              }]
-     
+      ④ 独享路由守卫(在router.js中处理)
+            const routes = [{path: '/users/:id',component: UserDetails,beforeEnter: (to, from) => {return false }  }]
+            function removeQueryParams(to) {    if (Object.keys(to.query).length)return { path: to.path, query: {}, hash: to.hash }   }
+            function removeHash(to) {if (to.hash) return { path: to.path, query: to.query, hash: '' }}
+            const routes = [
+              { path: '/users/:id',component: UserDetails,beforeEnter: [removeQueryParams, removeHash], },
+              {path: '/about',component: UserDetails, beforeEnter: [removeQueryParams],},
+            ]
            
       
 
