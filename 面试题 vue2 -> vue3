@@ -35,8 +35,7 @@ https://router.vuejs.org/zh/introduction.html
     2、在main.js中初始化 app.use(router).use(I18n).use(ElementPlus).use(Vuex).mount('#app')     
     3、在router.js中处理路由
       import { createRouter, createWebHashHistory } from 'vue-router'
-      import A from '../views/A.vue'
-      const routes = [{path: '/',name: 'A',component: A},{path: '/B',name: 'B',component: '../views/B.vue'}]
+      const routes = [{path: '/',name: 'A',component: '../views/A.vue'},{path: '/B',name: 'B',component: '../views/B.vue'}]
       const router = createRouter({history: createWebHashHistory(),routes })
       export default router
     4、this.$router.replace('/profitDashboard');
