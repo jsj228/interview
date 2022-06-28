@@ -51,8 +51,14 @@ https://router.vuejs.org/zh/introduction.html
                     this.$router.push({ path: '/user', params: { username } }) // -> /user
                     或者：
                     this.$router.push({ path: '/register', query: { plan: 'private' } })
-                    
-                    
+   5、路由守卫:
+         前置守卫 to:
+                  router.beforeEach((to, from, next) => {   //
+                    if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+                    // 如果用户未能验证身份，则 `next` 会被调用两次
+                    next()
+                  })
+
 
       
 
