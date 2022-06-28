@@ -3,8 +3,6 @@ vue2->vue3的迁移策略：https://v3.cn.vuejs.org/guide/migration/array-refs.h
       watch: {
         bookList: {
           handler(val, oldVal) {    console.log('book list changed')},
-            
-          
           deep: true
         },
       }
