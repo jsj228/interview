@@ -36,8 +36,8 @@ https://router.vuejs.org/zh/introduction.html
     3、在router.js中处理路由
       import { createRouter, createWebHashHistory } from 'vue-router'
       const routes = [{path: '/',name: 'A',component: '../views/A.vue'},{path: '/B',name: 'B',component: '../views/B.vue'}]
-      const router = createRouter({history: createWebHashHistory(),routes })
-      export default router
+      const appRrouter = createRouter({history: createWebHashHistory(),routes })
+      export default appRrouter
     4、this.$router.replace('/profitDashboard');
        this.$router.go(n) 前进：向前（n>0）移动n条记录;if n===1 与 this.$router.forward() 相同
                     后退:向后（<0）移动n条记录   if n===-1 与 this.$router.back() 相同  
@@ -51,9 +51,9 @@ https://router.vuejs.org/zh/introduction.html
                     this.$router.push({ path: '/user', params: { username } }) // -> /user
                     或者：
                     this.$router.push({ path: '/register', query: { plan: 'private' } })
-   5、路由守卫:
-         前置守卫 to:
-                  router.beforeEach((to, from, next) => {   //
+   5、路由守卫:在router.js中处理
+         前置守卫 to:要去那个页面,from：要离开的页面，netx()至少执行一次
+                  appRrouter.beforeEach((to, from, next) => {   //
                     if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
                     // 如果用户未能验证身份，则 `next` 会被调用两次
                     next()
