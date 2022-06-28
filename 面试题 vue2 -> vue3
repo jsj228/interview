@@ -38,23 +38,23 @@ https://router.vuejs.org/zh/introduction.html
     3、在router.js中处理路由
       import { createRouter, createWebHashHistory } from 'vue-router'
       import A from '../views/A.vue'
-      import B from '../views/B.vue'
-      const routes = [
-        {path: '/',name: 'A',component: A},{path: '/B',name: 'B',component: '../views/B.vue'}]
+      const routes = [{path: '/',name: 'A',component: A},{path: '/B',name: 'B',component: '../views/B.vue'}]
       const router = createRouter({history: createWebHashHistory(),routes })
       export default router
-    4、router.go(n) 前进：向前（n>0）移动n条记录;if n===1 与 router.forward() 相同
-                    后退:向后（<0）移动n条记录   if n===-1 与 router.back() 相同  
-       router.push  替换 router.push({ path: '/home', replace: true })  相当于router.replace({ path: '/home' })
+    4、this.$router.replace('/profitDashboard');
+       this.$router.go(n) 前进：向前（n>0）移动n条记录;if n===1 与 this.$router.forward() 相同
+                    后退:向后（<0）移动n条记录   if n===-1 与 this.$router.back() 相同  
+       this.$router.push  替换 router.push({ path: '/home', replace: true })  相当于this.$router.replace({ path: '/home' })
                     const username = 'eduardo'  // 我们可以手动建立 url，但我们必须自己处理编码
-                    router.push(`/user/${username}`) // -> /user/eduardo
-                    router.push({ path: `/user/${username}` }) // -> /user/eduardo
+                    this.$router.push(`/user/${username}`) // -> /user/eduardo
+                    this.$router.push({ path: `/user/${username}` }) // -> /user/eduardo
                     // 如果可能的话，使用 `name` 和 `params` 从自动 URL 编码中获益
-                    router.push({ name: 'user', params: { username } }) // -> /user/eduardo
+                    this.$router.push({ name: 'user', params: { username } }) // -> /user/eduardo
                     // `params` 不能与 `path` 一起使用
-                    router.push({ path: '/user', params: { username } }) // -> /user
+                    this.$router.push({ path: '/user', params: { username } }) // -> /user
                     或者：
-                    router.push({ path: '/register', query: { plan: 'private' } })
+                    this.$router.push({ path: '/register', query: { plan: 'private' } })
+                    
                     
 
       
