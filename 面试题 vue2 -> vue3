@@ -29,6 +29,7 @@ https://router.vuejs.org/zh/introduction.html
       app.use(router).use(I18n).use(ElementPlus).use(Vuex).mount('#app')
       
 二、vue3 路由的使用：    https://blog.csdn.net/weixin_42063951/article/details/117357542
+    案例操作：https://codesandbox.io/s/nested-named-views-vue-router-4-examples-re9yl?initialpath=/settings/emails&file=/src/main.js
     1、在app.vue中 
             vue2中：    <keep-alive>      <router-view />    </keep-alive>
             vue3中：    <router-view v-slot="{Component}"> <component is="Component"/> </keep-alive> <router-view />   
