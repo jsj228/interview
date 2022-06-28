@@ -55,13 +55,12 @@
        
         
 【重点】获取对象的原型  ①.Object.getPrototypeOf({a:1})    ②.let obj={a:1}; obj.__proto__     ③.对象.prototype
-【重点】判断数据类型 ①、 typeof    ②、constructor      ③、ininstanceof    ④.Object.prototype.toString.call(123)
-   ininstanceof(A,B) = {
-       var L = A.__proto__;
-       var R = B.prototype;
-       return L === R;  // A的内部属性 __proto__ 指向 B 的原型对象
-    }
-   Object.prototype.toString.call(123)
+【重点】判断数据类型  ①、 typeof    ②、constructor      ③、ininstanceof    ④.Object.prototype.toString.call(123)
+    ②、constructor  
+    ③、ininstanceof 该方法适合一些条件选择或分支
+        [1,21] instanceof Array     // true
+        new Date() instanceof Date  // true
+    ④.Object.prototype.toString.call(123)  Object.prototype.toString.call(new Date()) //'[object Date]'
     function gettype(obj) {
       var type = typeof obj;
       if (type !== 'object') return type;//如果不是object类型的数据，直接用typeof就能判断出来
@@ -174,7 +173,8 @@
     b.apply(a,[10,1])
     c = b.bind(a)           //bind方法返回的是一个修改过后的函数 需要调用下c();
     
-10.继承的方式
+10.继承的方式 https://blog.csdn.net/weixin_45601248/article/details/120003780?utm_medium=distribute.wap_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-120003780-blog-120496411.wap_relevant_multi_platform_whitelistv1&spm=1001.2101.3001.4242.1&utm_relevant_index=1
+
 11.闭包问题
     特点： 让外部访问函数内部变量成为可能；   局部变量会常驻在内存中；     可以避免使用全局变量，防止全局变量污染；   会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
     https://blog.csdn.net/weixin_43586120/article/details/89456183?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164177496016780264011266%2522%252C%252
