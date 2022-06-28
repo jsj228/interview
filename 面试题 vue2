@@ -7,8 +7,8 @@ Vue面试题  https://www.jianshu.com/p/9f460e66ce01
 Vue中监听事件的使用 <div @click="fn"></div>
 
 【重点】事件委托（事件代理） 
-     事件代理：<div  @click="handleClick"><span v-for="(item,index) of 100000"  :key="index" > {{item}}</span></div>
-     不用事件代理：<div ><span v-for="(item,index) of 100000"  :key="index"  @click="handleClick（index）"> {{item}}</span></div>
+     事件代理：<div @click="handleClick"><span v-for="(item,index) of 100000"  :key="index" > {{item}}</span></div>
+     不用事件代理：<div><span v-for="(item,index) of 100000"  :key="index"  @click="handleClick（index）"> {{item}}</span></div>
 【重点】 对于MVVM的理解  
      MVVM 是 Model-View-ViewModel 的缩写。
      MVVM原理：通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时，触发相应监听的回调。
