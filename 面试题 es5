@@ -51,7 +51,7 @@
     ③ array.some(fn(item,i){return item<3 }) 判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true、不会对空数组检索
     ③ array.every(fn(item,i){return item<3 })判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true
     
-   ③ array.forEach(fn(item,i){console.log(item,i)}) 循环数组 操作数组中的每一项的数据或元素
+    ③ array.forEach(fn(item,i){console.log(item,i)}) 循环数组 操作数组中的每一项的数据或元素
     ③ array.map(fn(item){return item}) 循环数组（ 指“映射”，对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组）可以返回数组中的单项
     ③ array.filter(fn(item,i){return item%3 })过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组
         
