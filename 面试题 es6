@@ -38,13 +38,19 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
       省略花括号，当代码体只有一条语句的时候，此时return也必须省略   let add = n => n+1;    add(1)   
       函数参数默认值   let add =  (a,b,c=12)=>a+b+c;  console.log( add (1,2))   //15
 【重点】es6中的浅拷贝、深拷贝  https://segmentfault.com/a/1190000009693516
-     浅拷贝（即栈中的内存地址和堆中的值都要拷贝） var targetObj = Object.assign ({},obj1,obj2,obj3,...)
-         const v1={a:{b:1}};  const v2=Object.assign ({},v1)
-         v1.a.b = 2 ;   v2.a.b //2
+     浅拷贝（即栈中的内存地址和堆中的值都要拷贝）
+        实现:
+          1、lodash中的_.clone(obj, true) 
+          2、Object.assign ({},obj1,obj2,obj3,...);
+             Object.assign ->当object只有一层的时候，是深拷贝
+             var targetObj = Object.assign ({},obj1,obj2,obj3,...)
+             const v1={a:{b:1}};  const v2=Object.assign ({},v1)
+             v1.a.b = 2 ;   v2.a.b //2
      深拷贝:（即只拷贝堆中的值）
-         var newObj = JSON.parse(JSON.stringify(targetObj))是最简单粗暴的深拷贝，能够处理JSON格式的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深拷贝.
-         lodash中的_.clone(obj, true)等价于_.cloneDeep(obj) 两个方法，lodash花了大量的代码来实现 ES6 引入的大量新的标准对象. 
-         var newObj = _.cloneDeep(targetObj);   var newObj = _.clone(targetObj,true);
+         实现:
+           1、var newObj = JSON.parse(JSON.stringify(targetObj))是最简单粗暴的深拷贝，能够处理JSON格式的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深拷贝。
+           2、函数库lodash var newObj = _.cloneDeep(targetObj);  var newObj = _.clone(targetObj,true);
+           3、for(var i in targetObj){} 遍历回调;
 【重点】.ES6数组去重的三个简单办法   https://blog.csdn.net/weixin_44526618/article/details/92802192 
        利用Map对象和数组的filter方法
           let Arr=[{key:'aa',name:'AA'},{key:'bb',name:'BB'},{key:'bb',name:'BB'}];
