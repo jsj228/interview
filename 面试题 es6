@@ -46,6 +46,7 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
              var targetObj = Object.assign ({},obj1,obj2,obj3,...)
              const v1={a:{b:1}};  const v2=Object.assign ({},v1)
              v1.a.b = 2 ;   v2.a.b //2
+          3、newObj={...targetObj} newArr=[...targetArr]
      深拷贝:（即只拷贝堆中的值）
          实现:
            1、var newObj = JSON.parse(JSON.stringify(targetObj))是最简单粗暴的深拷贝，能够处理JSON格式的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深拷贝。
