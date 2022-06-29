@@ -69,6 +69,11 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
                 return arr.findIndex(item=>item.key===va.key&&item.name===va.name)===index;
             })
            console.log(fn(targetArr))
+      二维数组，扁平化，去重，排序
+      二维数组：Arr=[[111,222,333,44],[5555,55,66],[4555,555,555,55]]
+      扁平化： newArr = [].concat(...Arr)
+      去重：newArr = [...new Set(newarr)]
+      排序 newArr = newArr .sort(function(a,b){return a-b})
 1.基本类型增加了：Bigint、symbol
     大整型（Bigint）：
         let n = 521n; console.log(n, typeof n) // 521n 'bigint'
