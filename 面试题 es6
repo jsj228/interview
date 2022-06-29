@@ -54,7 +54,7 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
            3、for(var i in targetObj){} 遍历回调;  
            4、Object.keys()，Object.values()
 【重点】.ES6数组去重的三个简单办法   https://blog.csdn.net/weixin_44526618/article/details/92802192 
-       利用Map对象和数组的filter方法
+       数组的filter方法
           let Arr=[{key:'aa',name:'AA'},{key:'bb',name:'BB'},{key:'bb',name:'BB'}];
           Arr.filter((va,index,arr)=>{
                return arr.findIndex(item=>item.key===va.key&&item.name===va.name)===index;
