@@ -173,6 +173,13 @@
             console.log($);         //$        jq对象
         })
 9. call  apply bind  https://www.cnblogs.com/pssp/p/5215621.html
+    var a = {
+        user:"追梦子",
+        fn:function(e,ee){
+            console.log(this.user); //追梦子
+            console.log(e+ee); //3
+        }
+    }
     b.call(a,1,2);
     b.apply(a,[10,1])
     c = b.bind(a)           //bind方法返回的是一个修改过后的函数 需要调用下c();
