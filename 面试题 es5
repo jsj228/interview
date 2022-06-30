@@ -3,6 +3,7 @@ vue mixin 混入  https://www.runoob.com/vue2/vue-mixins.html
 js的混淆 -> 相当于加密      解混淆 -> 相当于解密
 柯里化函数
 
+CSS完美的0.5px直线/四周border解决方案 ：https://zhuanlan.zhihu.com/p/163444644
 
 【重点】微观和宏观任务
     微观任务：new Promise(fn) --->fn中遇到resolve()就启动了宏观任务promise.then()
@@ -61,8 +62,8 @@ js的混淆 -> 相当于加密      解混淆 -> 相当于解密
     ③ array.every(fn(item,i){return item<3 })判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true
     
     ③ array.forEach(fn(item,i){console.log(item,i)}) 循环数组 操作数组中的每一项的数据或元素
-    ③ array.map(fn(item, [index], [array]){return item}),,[执行fn函数时值被用作this]) 循环数组（ 指“映射”，对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组）可以返回数组中的单项
-    ③ array.filter(fn(item,i){return item%3 })过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组
+    ③ array.map(fn(item, [index], [array]){return item})[执行fn函数时值被用作this]) 循环数组（ 指“映射”，对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组）可以返回数组中的单项
+    ③ array.filter(fn(item,i){return item%3 })过滤功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组
         
 【重点】获取对象的原型  ①.Object.getPrototypeOf({a:1})    ②.let obj={a:1}; obj.__proto__     ③.对象.prototype
 【重点】判断数据类型  ①、 typeof    ②、constructor      ③、ininstanceof    ④.Object.prototype.toString.call(123)
