@@ -214,4 +214,5 @@
     1、for(var i in obj){console.log(obj[i])}
     2、将对象的下表转成数组，然后进行循环；
         方法一：Object.getOwnPropertyNames(Obj).forEach(fn) 
-        方法二：Reflect.ownKeys(Obj).forEach(fn)     
+        方法二：Reflect.ownKeys(Obj).forEach(fn)
+        方法三：Object.keys(Obj).forEach(fn)
