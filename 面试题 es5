@@ -1,6 +1,6 @@
 常见面试问题 ：https://segmentfault.com/a/1190000021966814
 vue mixin 混入  https://www.runoob.com/vue2/vue-mixins.html
-js的混淆
+js的混淆 -> 相当于加密      解混淆 -> 相当于解密
 柯里化函数
 
 
