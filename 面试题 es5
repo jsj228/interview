@@ -203,4 +203,8 @@
     不管是哪种情况，实际的延迟时间可能会比期待的 (time 毫秒数) 值长，因为实际延时比设定值更久的原因：最小延迟时间 >=4ms
    推荐：setTimeout(fn,[time],[参数])
    不推荐：window.setTimeout("alert(\"Hello World!\");", 500);
-
+15.遍历对象
+    1、for(var i in obj){console.log(obj[i])}
+    2、将对象的下表转成数组，然后进行循环；
+        方法一：Object.getOwnPropertyNames(Obj).forEach(fn) 
+        方法二：Reflect.ownKeys(Obj).forEach(fn)     
