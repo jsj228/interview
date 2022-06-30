@@ -177,7 +177,7 @@ ES6 + 语法新特性(超详细)：https://www.jianshu.com/p/eb05ae43354d   http
                // getElementsByClassName("className")                 getElementsByTagName("tagName")    querySelector(".className")(或者#id或者直接写tag)
             },1000,true)
         )
-3.for-each和map的区别
+3.forEach和map的区别
       相同点：
           都是循环遍历数组中的每一项
           forEach和map方法里每次执行匿名函数都支持3个参数，参数分别是item（当前每一项）、index（索引值）、arr（原数组）
