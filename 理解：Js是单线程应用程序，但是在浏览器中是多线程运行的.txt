@@ -12,8 +12,8 @@
         等主线程的代码执行完毕，然后再读取任务队列，返回主线程继续处理。如此循环这就是事件循环机制。
 
 js的循环机制、宏观任务与微观任务：https://blog.csdn.net/weixin_45658814/article/details/108101284
-    宏任务：script(整体代码)、setTimeout()、setInterval()、postMessage、I/O 、UI交互事件
-    微任务(先:微观任务和宏观任务放在一起时):new Promise()、new Promise().then(回调)、MutationObserver(html5 新特性)
+    宏任务：script(整体代码)、setTimeout()、setInterval()、postMessage、I/O 、UI交互事件、new Promise().then(回调)
+    微任务(先:微观任务和宏观任务放在一起时):new Promise()、MutationObserver(html5 新特性)
     
         console.log('1')
         setTimeout(()=>console.log(2))
