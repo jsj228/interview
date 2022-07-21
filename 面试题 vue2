@@ -186,7 +186,7 @@ Vue中监听事件的使用 <div @click="fn"></div>
         history 路由模式的实现主要基于存在下面几个特性：
         我们可以使用 popstate 事件来监听 url 的变化，从而对页面进行跳转（渲染）；history.pushState()或history.replaceState()不会触发 popstate 事件，这时我们需要手动触发页面跳转（渲染）。
         注意：history 模式：前端的 URL 必须和实际向后端发起请求的 URL 一致，如http://www.xxx.com/items/id。后端如果缺少对 /items/id 的路由处理，将返回 404 错误
-【重点】.vue-router有哪几种路由守卫 （ 配置路由时设置）
+   3、vue-router有哪几种路由守卫 （ 配置路由时设置）
     （1）全局守卫（在跳转之前执行 -> 有权限加载选择）： 
         router.beforeEach((to,from,next)=>{if(to.meta.isAuth){next()//调用该方法,才能进入下一个钩子 }else{}})
         https://blog.csdn.net/heshuaicsdn/article/details/88020796    https://www.cnblogs.com/wuvkcyan/p/9311155.html
