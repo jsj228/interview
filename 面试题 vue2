@@ -168,8 +168,10 @@ Vue中监听事件的使用 <div @click="fn"></div>
          {path:"/b",name:"b",component:"../A.vue",meta:{isKeepAlive:false}
        ]
       })
-      
-
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
     2、hash模式 和 history模式
     （1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
         特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
