@@ -2,6 +2,7 @@
   2.x 版本中在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用
   3.x 版本中 v-if 总是优先于 v-for 生效
 2.vue3中没有this？
+  https://blog.csdn.net/qq_45369827/article/details/116036665
   解决方法1: getCurrentInstance 方法获取当前组件的实例，然后通过 ctx 或 proxy 属性获得当前上下文，这样我们就能在setup中使用router和vuex了
     import { getCurrentInstance } from "vue"
     export default {
