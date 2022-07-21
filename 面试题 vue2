@@ -160,7 +160,17 @@ Vue中监听事件的使用 <div @click="fn"></div>
              },
            }
          }
-【重点】Vue的路由实现：hash模式 和 history模式
+【重点】Vue的路由实现:
+    1、选择性的缓存路由页面
+      export default new VueRouter({
+       routes:[
+         {path:"/A",name:"a",component:"../A.vue",meta:{isKeepAlive:true},
+         {path:"/b",name:"b",component:"../A.vue",meta:{isKeepAlive:false}
+       ]
+      })
+      
+
+    2、hash模式 和 history模式
     （1）hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
         特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面
         hash 路由模式的实现主要是基于下面几个特性：
